@@ -8,10 +8,8 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 class indexController extends AController  //Контроллер для основных страниц
 {
 
-  function __construct($request,$response)
+  function __construct()
   {
-    $this->request=$request;
-    $this->response=$response;
     $this->view = new \Libraries\View();
   }
 
@@ -27,19 +25,19 @@ class indexController extends AController  //Контроллер для осн�
     if (isset($data)) {
         $this->view->rendering("index",$data);
         //рендеринг странички
-        return $this->response;
+        return;
     }
-    $this->view->rendering("404",$data);
+    $this->view->rendering("404");
     //Вывод страницы 404
-    return $this->response;
+    return;
   }
 
-  function Product($value='') //Страница товара
+  function Product() //Страница товара
   {
     if (!isset($this->args["id"])) {
-      $this->view->rendering("404",$data);
+      $this->view->rendering("404");
       //Вывод страницы 404
-      return $this->response;
+      return;
     }
     $model = new \Model\ListGoods;
     $AllCategory = $model->getAllCategory();
@@ -48,11 +46,11 @@ class indexController extends AController  //Контроллер для осн�
     if (isset($data)) {
         //$this->view->rendering("product",$data);
         //рендеринг странички
-        return $this->response;
+        return;
     }
-    $this->view->rendering("404",$data);
+    $this->view->rendering("404");
     //Вывод страницы 404
-    return $this->response;
+    return;
   }
 
 }

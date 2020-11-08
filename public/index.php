@@ -6,7 +6,6 @@ use Slim\Factory\AppFactory;
 
 require __DIR__ . '/../vendor/autoload.php';
 session_start();
-
 function autoload ($class) { //Загрузка файлов
     $namespase = '';
     $dir = __DIR__.'/../';
@@ -36,26 +35,43 @@ $errorMiddleware->setDefaultErrorHandler(function () use ($app) {
 });
 
 $app->group('/', function (RouteCollectorProxy $group) {
+
   $group->get('', function ($request, $response, array $args) {
+    //Главаня страница
+    //Значение category(Выбраная категория) и page(номер страницы)
       $Controller = new \Controller\AController;
-      $Controller->set("index","index",$request,$response,$args);
-      $response = $Controller->run();
+      $Controller->set("index","index",$args);
+      $Controller->run();
       return $response
           ->withHeader('Content-Type', 'text/html')
           ->withStatus(200);
         });
-    $group->get('product/{id}', function ($request, $response, array $args) {
+
+        //   !!!УДАЛИТЬ    //////
+    $group->get('/product/{id}', function ($request, $response, array $args) {
+      //Информация о товаре
         $Controller = new \Controller\AController;
-        $Controller->set("index","index",$request,$response,$args);
-        $response = $Controller->run();
+        $Controller->set("index","index",$args);
+        $Controller->run();
         return $response
             ->withHeader('Content-Type', 'text/html')
             ->withStatus(200);
           });
+          /////       /////
 });
 
 $app->group('/api', function (RouteCollectorProxy $group) {
 
+    $group->get('/productAdd', function ($request, $response, array $args) {
+      //Добавдения товара в корзину
+      //Значения productID(id товара, ОБЯЗАТЕЛЬНО) и url(страница возврата, ОБЯЗАТЕЛЬНО)
+        $Controller = new \Controller\AController;
+        $Controller->set("api","AddСart",$args);
+        $Controller->run();
+        return $response
+            ->withHeader('Content-Type', 'text/html')
+            ->withStatus(200);
+          });
 });
 
 $app->group('/admin', function (RouteCollectorProxy $group) {
@@ -70,3 +86,4 @@ $app->group('/admin', function (RouteCollectorProxy $group) {
 //});
 
 $app->run();
+var_dump($_COOKIE["cart"]);

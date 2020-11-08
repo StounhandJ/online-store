@@ -11,7 +11,7 @@ class AController
 
   }
 
-  function set($controll,$method,$request, $response,$array=NULL) //Устанавливает нужный контроллер и метод для контроллера
+  function set($controll,$method,$array=NULL) //Устанавливает нужный контроллер и метод для контроллера
   {
     $path = '\Controller\\'.$controll . 'Controller'; //Название файла и класса
     $this->controller = new $path($request,$response);

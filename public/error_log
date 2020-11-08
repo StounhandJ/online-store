@@ -185,3 +185,83 @@ Stack trace:
 [08-Nov-2020 13:08:59 UTC] PHP Fatal error:  require(): Failed opening required 'C:\Users\79096\Desktop\github\online-store\Templateheader.php' (include_path='.;C:\php\pear') in C:\Users\79096\Desktop\github\online-store\Template\index.php on line 2
 [08-Nov-2020 13:09:16 UTC] PHP Warning:  require(C:\Users\79096\Desktop\github\online-store\Templateheader.php): failed to open stream: No such file or directory in C:\Users\79096\Desktop\github\online-store\Template\index.php on line 3
 [08-Nov-2020 13:09:16 UTC] PHP Fatal error:  require(): Failed opening required 'C:\Users\79096\Desktop\github\online-store\Templateheader.php' (include_path='.;C:\php\pear') in C:\Users\79096\Desktop\github\online-store\Template\index.php on line 3
+[08-Nov-2020 16:17:57 UTC] PHP Warning:  session_start(): Cannot start session when headers already sent in C:\Users\79096\Desktop\github\online-store\public\index.php on line 8
+[08-Nov-2020 16:22:43 UTC] PHP Parse error:  syntax error, unexpected 'function' (T_FUNCTION), expecting ';' or ',' in C:\Users\79096\Desktop\github\online-store\public\index.php on line 10
+[08-Nov-2020 17:06:05 UTC] PHP Fatal error:  Uncaught Slim\Exception\HttpNotFoundException: Not found. in C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\Middleware\RoutingMiddleware.php:93
+Stack trace:
+#0 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\Routing\RouteRunner.php(72): Slim\Middleware\RoutingMiddleware->performRouting(Object(Slim\Psr7\Request))
+#1 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\MiddlewareDispatcher.php(81): Slim\Routing\RouteRunner->handle(Object(Slim\Psr7\Request))
+#2 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\App.php(215): Slim\MiddlewareDispatcher->handle(Object(Slim\Psr7\Request))
+#3 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\App.php(199): Slim\App->handle(Object(Slim\Psr7\Request))
+#4 C:\Users\79096\Desktop\github\online-store\public\index.php(80): Slim\App->run()
+#5 {main}
+  thrown in C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\Middleware\RoutingMiddleware.php on line 93
+[08-Nov-2020 17:06:22 UTC] PHP Fatal error:  Uncaught Slim\Exception\HttpNotFoundException: Not found. in C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\Middleware\RoutingMiddleware.php:93
+Stack trace:
+#0 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\Routing\RouteRunner.php(72): Slim\Middleware\RoutingMiddleware->performRouting(Object(Slim\Psr7\Request))
+#1 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\MiddlewareDispatcher.php(81): Slim\Routing\RouteRunner->handle(Object(Slim\Psr7\Request))
+#2 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\App.php(215): Slim\MiddlewareDispatcher->handle(Object(Slim\Psr7\Request))
+#3 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\App.php(199): Slim\App->handle(Object(Slim\Psr7\Request))
+#4 C:\Users\79096\Desktop\github\online-store\public\index.php(80): Slim\App->run()
+#5 {main}
+  thrown in C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\Middleware\RoutingMiddleware.php on line 93
+[08-Nov-2020 17:06:33 UTC] PHP Fatal error:  Uncaught Slim\Exception\HttpNotFoundException: Not found. in C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\Middleware\RoutingMiddleware.php:93
+Stack trace:
+#0 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\Routing\RouteRunner.php(72): Slim\Middleware\RoutingMiddleware->performRouting(Object(Slim\Psr7\Request))
+#1 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\MiddlewareDispatcher.php(81): Slim\Routing\RouteRunner->handle(Object(Slim\Psr7\Request))
+#2 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\App.php(215): Slim\MiddlewareDispatcher->handle(Object(Slim\Psr7\Request))
+#3 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\App.php(199): Slim\App->handle(Object(Slim\Psr7\Request))
+#4 C:\Users\79096\Desktop\github\online-store\public\index.php(80): Slim\App->run()
+#5 {main}
+  thrown in C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\Middleware\RoutingMiddleware.php on line 93
+[08-Nov-2020 17:07:02 UTC] PHP Fatal error:  Uncaught Slim\Exception\HttpNotFoundException: Not found. in C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\Middleware\RoutingMiddleware.php:93
+Stack trace:
+#0 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\Routing\RouteRunner.php(72): Slim\Middleware\RoutingMiddleware->performRouting(Object(Slim\Psr7\Request))
+#1 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\MiddlewareDispatcher.php(81): Slim\Routing\RouteRunner->handle(Object(Slim\Psr7\Request))
+#2 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\App.php(215): Slim\MiddlewareDispatcher->handle(Object(Slim\Psr7\Request))
+#3 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\App.php(199): Slim\App->handle(Object(Slim\Psr7\Request))
+#4 C:\Users\79096\Desktop\github\online-store\public\index.php(80): Slim\App->run()
+#5 {main}
+  thrown in C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\Middleware\RoutingMiddleware.php on line 93
+[08-Nov-2020 17:07:40 UTC] PHP Fatal error:  Uncaught Slim\Exception\HttpNotFoundException: Not found. in C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\Middleware\RoutingMiddleware.php:93
+Stack trace:
+#0 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\Routing\RouteRunner.php(72): Slim\Middleware\RoutingMiddleware->performRouting(Object(Slim\Psr7\Request))
+#1 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\MiddlewareDispatcher.php(81): Slim\Routing\RouteRunner->handle(Object(Slim\Psr7\Request))
+#2 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\App.php(215): Slim\MiddlewareDispatcher->handle(Object(Slim\Psr7\Request))
+#3 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\App.php(199): Slim\App->handle(Object(Slim\Psr7\Request))
+#4 C:\Users\79096\Desktop\github\online-store\public\index.php(80): Slim\App->run()
+#5 {main}
+  thrown in C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\Middleware\RoutingMiddleware.php on line 93
+[08-Nov-2020 17:07:47 UTC] PHP Fatal error:  Uncaught Slim\Exception\HttpNotFoundException: Not found. in C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\Middleware\RoutingMiddleware.php:93
+Stack trace:
+#0 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\Routing\RouteRunner.php(72): Slim\Middleware\RoutingMiddleware->performRouting(Object(Slim\Psr7\Request))
+#1 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\MiddlewareDispatcher.php(81): Slim\Routing\RouteRunner->handle(Object(Slim\Psr7\Request))
+#2 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\App.php(215): Slim\MiddlewareDispatcher->handle(Object(Slim\Psr7\Request))
+#3 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\App.php(199): Slim\App->handle(Object(Slim\Psr7\Request))
+#4 C:\Users\79096\Desktop\github\online-store\public\index.php(80): Slim\App->run()
+#5 {main}
+  thrown in C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\Middleware\RoutingMiddleware.php on line 93
+[08-Nov-2020 17:08:02 UTC] PHP Fatal error:  Uncaught Slim\Exception\HttpNotFoundException: Not found. in C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\Middleware\RoutingMiddleware.php:93
+Stack trace:
+#0 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\Routing\RouteRunner.php(72): Slim\Middleware\RoutingMiddleware->performRouting(Object(Slim\Psr7\Request))
+#1 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\MiddlewareDispatcher.php(81): Slim\Routing\RouteRunner->handle(Object(Slim\Psr7\Request))
+#2 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\App.php(215): Slim\MiddlewareDispatcher->handle(Object(Slim\Psr7\Request))
+#3 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\App.php(199): Slim\App->handle(Object(Slim\Psr7\Request))
+#4 C:\Users\79096\Desktop\github\online-store\public\index.php(80): Slim\App->run()
+#5 {main}
+  thrown in C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\Middleware\RoutingMiddleware.php on line 93
+[08-Nov-2020 17:08:15 UTC] PHP Fatal error:  Uncaught Slim\Exception\HttpNotFoundException: Not found. in C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\Middleware\RoutingMiddleware.php:93
+Stack trace:
+#0 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\Routing\RouteRunner.php(72): Slim\Middleware\RoutingMiddleware->performRouting(Object(Slim\Psr7\Request))
+#1 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\MiddlewareDispatcher.php(81): Slim\Routing\RouteRunner->handle(Object(Slim\Psr7\Request))
+#2 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\App.php(215): Slim\MiddlewareDispatcher->handle(Object(Slim\Psr7\Request))
+#3 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\App.php(199): Slim\App->handle(Object(Slim\Psr7\Request))
+#4 C:\Users\79096\Desktop\github\online-store\public\index.php(80): Slim\App->run()
+#5 {main}
+  thrown in C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\Middleware\RoutingMiddleware.php on line 93
+[08-Nov-2020 17:09:03 UTC] PHP Warning:  setcookie() expects parameter 2 to be string, array given in C:\Users\79096\Desktop\github\online-store\Controller\apiController.php on line 20
+[08-Nov-2020 17:26:11 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\Users\79096\Desktop\github\online-store\public\index.php:9) in C:\Users\79096\Desktop\github\online-store\Controller\apiController.php on line 20
+[08-Nov-2020 17:42:40 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\Users\79096\Desktop\github\online-store\Controller\apiController.php:22) in C:\Users\79096\Desktop\github\online-store\Controller\apiController.php on line 23
+[08-Nov-2020 17:46:15 UTC] PHP Warning:  in_array() expects parameter 2 to be array, null given in C:\Users\79096\Desktop\github\online-store\Controller\apiController.php on line 19
+[08-Nov-2020 17:46:15 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\Users\79096\Desktop\github\online-store\Controller\apiController.php:19) in C:\Users\79096\Desktop\github\online-store\Controller\apiController.php on line 21
+[08-Nov-2020 17:46:15 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\Users\79096\Desktop\github\online-store\Controller\apiController.php:19) in C:\Users\79096\Desktop\github\online-store\Controller\apiController.php on line 24

@@ -1,19 +1,29 @@
 <?php
 namespace Controller;
 
-use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
 
 
 class apiController extends AController
 {
 
-  function __construct($request,$response)
+  function __construct()
   {
-    $this->request=$request;
-    $this->response=$response;
   }
 
+  function AddСart()  //Добавляет товар в корзину по id
+  {
+    if (!isset($_GET["productID"]) || !isset($_GET['url'])) {
+      return;
+    }
+    $cart = json_decode($_COOKIE["cart"]) ?? [];
+    if (!in_array($_GET["productID"],$cart)) {
+      $cart[] = $_GET["productID"];
+      setcookie("cart", json_encode($cart),time()+60*60*24*7,'/');
+    }
+    $url = $_GET['url'];
+    header("Location: {$url}");
+    echo "err";
+  }
 
 }
 
