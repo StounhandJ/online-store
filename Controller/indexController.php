@@ -5,7 +5,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
 
-class apiController extends AController
+class indexController extends AController
 {
 
   function __construct($request,$response)

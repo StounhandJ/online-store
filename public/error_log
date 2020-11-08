@@ -1,0 +1,39 @@
+[05-Nov-2020 15:18:44 UTC] PHP Fatal error:  Uncaught Error: Call to a member function withHeader() on null in C:\Users\79096\Desktop\github\Working-in-PHP\TimetableMPT\public\index.php:41
+Stack trace:
+#0 C:\Users\79096\Desktop\github\Working-in-PHP\TimetableMPT\vendor\slim\slim\Slim\Handlers\Strategies\RequestResponse.php(43): {closure}(Object(Slim\Psr7\Request), NULL, Array)
+#1 C:\Users\79096\Desktop\github\Working-in-PHP\TimetableMPT\vendor\slim\slim\Slim\Routing\Route.php(381): Slim\Handlers\Strategies\RequestResponse->__invoke(Object(Closure), Object(Slim\Psr7\Request), Object(Slim\Psr7\Response), Array)
+#2 C:\Users\79096\Desktop\github\Working-in-PHP\TimetableMPT\vendor\slim\slim\Slim\MiddlewareDispatcher.php(81): Slim\Routing\Route->handle(Object(Slim\Psr7\Request))
+#3 C:\Users\79096\Desktop\github\Working-in-PHP\TimetableMPT\vendor\slim\slim\Slim\MiddlewareDispatcher.php(81): Slim\MiddlewareDispatcher->handle(Object(Slim\Psr7\Request))
+#4 C:\Users\79096\Desktop\github\Working-in-PHP\TimetableMPT\vendor\slim\slim\Slim\Routing\Route.php(341): Slim in C:\Users\79096\Desktop\github\Working-in-PHP\TimetableMPT\public\index.php on line 41
+[05-Nov-2020 15:18:53 UTC] PHP Fatal error:  Uncaught Error: Call to a member function withHeader() on null in C:\Users\79096\Desktop\github\Working-in-PHP\TimetableMPT\public\index.php:41
+Stack trace:
+#0 C:\Users\79096\Desktop\github\Working-in-PHP\TimetableMPT\vendor\slim\slim\Slim\Handlers\Strategies\RequestResponse.php(43): {closure}(Object(Slim\Psr7\Request), NULL, Array)
+#1 C:\Users\79096\Desktop\github\Working-in-PHP\TimetableMPT\vendor\slim\slim\Slim\Routing\Route.php(381): Slim\Handlers\Strategies\RequestResponse->__invoke(Object(Closure), Object(Slim\Psr7\Request), Object(Slim\Psr7\Response), Array)
+#2 C:\Users\79096\Desktop\github\Working-in-PHP\TimetableMPT\vendor\slim\slim\Slim\MiddlewareDispatcher.php(81): Slim\Routing\Route->handle(Object(Slim\Psr7\Request))
+#3 C:\Users\79096\Desktop\github\Working-in-PHP\TimetableMPT\vendor\slim\slim\Slim\MiddlewareDispatcher.php(81): Slim\MiddlewareDispatcher->handle(Object(Slim\Psr7\Request))
+#4 C:\Users\79096\Desktop\github\Working-in-PHP\TimetableMPT\vendor\slim\slim\Slim\Routing\Route.php(341): Slim in C:\Users\79096\Desktop\github\Working-in-PHP\TimetableMPT\public\index.php on line 41
+[05-Nov-2020 15:45:11 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function Controller\AppFactory() in C:\Users\79096\Desktop\github\Working-in-PHP\TimetableMPT\Controller\apiController.php:19
+Stack trace:
+#0 C:\Users\79096\Desktop\github\Working-in-PHP\TimetableMPT\Controller\AController.php(23): Controller\apiController->test()
+#1 C:\Users\79096\Desktop\github\Working-in-PHP\TimetableMPT\public\index.php(38): Controller\AController->run()
+#2 C:\Users\79096\Desktop\github\Working-in-PHP\TimetableMPT\vendor\slim\slim\Slim\Handlers\Strategies\RequestResponse.php(43): {closure}(Object(Slim\Psr7\Request), Object(Slim\Psr7\Response), Array)
+#3 C:\Users\79096\Desktop\github\Working-in-PHP\TimetableMPT\vendor\slim\slim\Slim\Routing\Route.php(381): Slim\Handlers\Strategies\RequestResponse->__invoke(Object(Closure), Object(Slim\Psr7\Request), Object(Slim\Psr7\Response), Array)
+#4 C:\Users\79096\Desktop\github\Working-in-PHP\TimetableMPT\vendor\slim\slim\Slim\MiddlewareDispatcher.php(81): Slim\Routing\Route->handle(Object(Slim\Psr7\Request))
+#5 C:\Us in C:\Users\79096\Desktop\github\Working-in-PHP\TimetableMPT\Controller\apiController.php on line 19
+[05-Nov-2020 15:57:57 UTC] PHP Warning:  session_start(): open(/var/cpanel/php/sessions/ea-php72\sess_ae6425f6fac056c91b97129fd097ee73, O_RDWR) failed: No such file or directory (2) in C:\Users\79096\Desktop\github\online-store\public\index.php on line 7
+[05-Nov-2020 15:57:57 UTC] PHP Warning:  session_start(): Failed to read session data: files (path: /var/cpanel/php/sessions/ea-php72) in C:\Users\79096\Desktop\github\online-store\public\index.php on line 7
+[05-Nov-2020 15:59:12 UTC] PHP Fatal error:  Uncaught TypeError: Argument 2 passed to {closure}() must be an instance of Psr\Http\Message\ResponseInterface, instance of Slim\Routing\RouteRunner given, called in C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\MiddlewareDispatcher.php on line 283 and defined in C:\Users\79096\Desktop\github\online-store\public\index.php:35
+Stack trace:
+#0 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\MiddlewareDispatcher.php(283): {closure}(Object(Slim\Psr7\Request), Object(Slim\Routing\RouteRunner))
+#1 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\MiddlewareDispatcher.php(81): class@anonymous->handle(Object(Slim\Psr7\Request))
+#2 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\App.php(215): Slim\MiddlewareDispatcher->handle(Object(Slim\Psr7\Request))
+#3 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\App.php(199): Slim\App->handle(Object(Slim\Psr7\Request))
+#4 C:\Users\79096\Desktop\github\online-store\public\index.php(62): Slim\App- in C:\Users\79096\Desktop\github\online-store\public\index.php on line 35
+[05-Nov-2020 16:03:01 UTC] PHP Warning:  session_start(): open(/var/cpanel/php/sessions/ea-php72\sess_ae6425f6fac056c91b97129fd097ee73, O_RDWR) failed: No such file or directory (2) in C:\Users\79096\Desktop\github\online-store\public\index.php on line 7
+[05-Nov-2020 16:03:01 UTC] PHP Warning:  session_start(): Failed to read session data: files (path: /var/cpanel/php/sessions/ea-php72) in C:\Users\79096\Desktop\github\online-store\public\index.php on line 7
+[05-Nov-2020 16:06:36 UTC] PHP Warning:  session_start(): open(/var/cpanel/php/sessions/ea-php72\sess_ae6425f6fac056c91b97129fd097ee73, O_RDWR) failed: No such file or directory (2) in C:\Users\79096\Desktop\github\online-store\public\index.php on line 7
+[05-Nov-2020 16:06:36 UTC] PHP Warning:  session_start(): Failed to read session data: files (path: /var/cpanel/php/sessions/ea-php72) in C:\Users\79096\Desktop\github\online-store\public\index.php on line 7
+[05-Nov-2020 16:07:03 UTC] PHP Warning:  session_start(): open(/var/cpanel/php/sessions/ea-php72\sess_ae6425f6fac056c91b97129fd097ee73, O_RDWR) failed: No such file or directory (2) in C:\Users\79096\Desktop\github\online-store\public\index.php on line 7
+[05-Nov-2020 16:07:03 UTC] PHP Warning:  session_start(): Failed to read session data: files (path: /var/cpanel/php/sessions/ea-php72) in C:\Users\79096\Desktop\github\online-store\public\index.php on line 7
+[05-Nov-2020 16:10:14 UTC] PHP Warning:  session_start(): open(/var/cpanel/php/sessions/ea-php72\sess_ae6425f6fac056c91b97129fd097ee73, O_RDWR) failed: No such file or directory (2) in C:\Users\79096\Desktop\github\online-store\public\index.php on line 7
+[05-Nov-2020 16:10:15 UTC] PHP Warning:  session_start(): Failed to read session data: files (path: /var/cpanel/php/sessions/ea-php72) in C:\Users\79096\Desktop\github\online-store\public\index.php on line 7
