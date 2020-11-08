@@ -14,14 +14,13 @@ class ListGoods extends AModel //Работа с продуктами
   {
 		$min = ((($page ?? 1) - 1) * $max);
     $data=[':min'=>$min,':max'=>$max,':category'=>$category];
-		$query = $this->db->request('SELECT `id`,`name`,`price`,`category` FROM `goods` WHERE `category`=:category LIMIT :min,:max',$data);
+		$query = $this->db->request('SELECT `id`,`name`,`price`,`description`,`category` FROM `goods` WHERE `category`=:category LIMIT :min,:max',$data);
     if($query["code"] != 200)
 		{
 			return NULL;
 		}
 		return $query["data"];
   }
-
 
   function getInfoProduct($id) //Возвращает всю информацию о определенном продукте
   {

@@ -88,7 +88,7 @@
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
 								<li><a href="index.html" class="active">Главная</a></li>
-								<li><a href="#">Материалы</a></li>
+								<li><a href="/materials">Материалы</a></li>
 								<li><a href="#">Монтаж</a></li>
 								<li><a href="#">Отзывы</a></li>
 								<li><a href="#">Контакты</a></li>

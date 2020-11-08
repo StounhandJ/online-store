@@ -1,7 +1,7 @@
 <?php
 return [
 	'host' => 'localhost',
-	'base' => 'cn61693_shope',
-	'user' => 'cn61693_shope',
-	'password' => '7157725',
+	'base' => 'online-store',
+	'user' => 'mysql',
+	'password' => 'mysql',
 ];
