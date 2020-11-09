@@ -86,4 +86,3 @@ $app->group('/admin', function (RouteCollectorProxy $group) {
 //});
 
 $app->run();
-var_dump($_COOKIE["cart"]);

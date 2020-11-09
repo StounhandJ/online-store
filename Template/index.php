@@ -42,7 +42,7 @@ require(__DIR__ . DIRECTORY_SEPARATOR."header.php");
 												<h2><?=$val["description"]?></h2>
 												<h2><?=$val["price"]?></h2>
 												<p><?=$val["name"]?></p>
-												<a href="api/productAdd?productID=<?=$val['id']?>&url=<?=$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']?>" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Добавить в корзину</a>
+												<a href="api/productAdd?productID=<?=$val['id']?>&url=<?=((!empty($_SERVER['HTTPS'])) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']?>" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Добавить в корзину</a>
 											</div>
 										</div>
 								</div>

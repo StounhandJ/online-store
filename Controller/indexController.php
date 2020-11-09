@@ -22,7 +22,7 @@ class indexController extends AController  //Контроллер для осн�
     $data["goods"] = $model->getGoods($category,$page);
     $data["category"] = $AllCategory;
     $data["page"] = $page;
-    if (isset($data)) {
+    if (isset($data["goods"])) {
         $this->view->rendering("index",$data);
         //рендеринг странички
         return;
