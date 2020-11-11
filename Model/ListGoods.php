@@ -22,7 +22,7 @@ class ListGoods extends AModel //Работа с продуктами
 		return $query["data"];
   }
 
-  function getInfoProduct($id) //Возвращает всю информацию о определенном продукте
+  function getInfoProductID($id) //Возвращает всю информацию о определенном продукте
   {
     $query = $this->db->request('SELECT * FROM `goods` WHERE `id`=:id',[':id'=>$id]);
     if($query["code"] != 200)
@@ -30,6 +30,30 @@ class ListGoods extends AModel //Работа с продуктами
       return NULL;
     }
     return $query["data"][0];
+  }
+
+  function getInfoProductName($name) //Возвращает всю информацию о определенном продукте
+  {
+    $query = $this->db->request('SELECT * FROM `goods` WHERE `name`=:name',[':name'=>$name]);
+    if($query["code"] != 200)
+    {
+      return NULL;
+    }
+    return $query["data"][0];
+  }
+
+  function setInfoProduct($OriginName,$name,$price,$description,$category,$img)
+  {
+    $data=[
+      ':OriginName'=>$OriginName,
+      ':name'=>$name,
+      ':price'=>$price,
+      ':description'=>$description,
+      ':category'=>$category,
+      ':img'=>$img,
+
+    ];
+    $this->db->request('UPDATE `goods` SET `name`=:name,`price`=:price,`description`=:description,`category`=:category,`img`=:img WHERE `name`=:OriginName',$data);
   }
 
   function getAllCategory() //Возвращает все категории

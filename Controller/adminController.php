@@ -1,9 +1,6 @@
 <?php
 namespace Controller;
-
-use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
-
+use Slim\Factory\AppFactory;
 
 class adminController extends AController
 {
@@ -22,7 +19,7 @@ class adminController extends AController
     }
     elseif ($_COOKIE["AuthAdmin"]==hash('ripemd320',$this->login."|".$_SERVER["HTTP_USER_AGENT"])) {
       $_SESSION['type']="admin";
-      $_SESSION['HTTP_USER_AGENT']=$_SERVER["HTTP_USER_AGENT"]
+      $_SESSION['HTTP_USER_AGENT']=$_SERVER["HTTP_USER_AGENT"];
       return True;
     }
     unset($_COOKIE['AuthAdmin']);
@@ -37,7 +34,7 @@ class adminController extends AController
   {
     if ($_POST["login"]==$this->login && $_POST["password"]==$this->password) {
       $_SESSION['type']="admin";
-      $_SESSION['HTTP_USER_AGENT']=$_SERVER["HTTP_USER_AGENT"]
+      $_SESSION['HTTP_USER_AGENT']=$_SERVER["HTTP_USER_AGENT"];
       setcookie("AuthAdmin", hash('ripemd320',$this->login."|".$_SERVER["HTTP_USER_AGENT"]),time()+60*60*24*7);
     }
   }
@@ -53,11 +50,19 @@ class adminController extends AController
 
   function RedProductAPI() //Редактировать продукт
   {
-      if (!$this->checkAdmin()) {
+      $OriginName = $_POST["OriginName"];
+      if (!$this->checkAdmin() || !isset($OriginName)) {
         $this->view->rendering("404");
         return;
       }
-
+      $model = new \Model\ListGoods;
+      $data = $model->getInfoProductName($OriginName);
+      $name = $_GET["name"] ?? $data["name"];
+      $price = $_GET["price"] ?? $data["price"];
+      $description = $_GET["description"] ?? $data["description"];
+      $categor = $_GET["categor"] ?? $data["categor"];
+      $img = "test";
+      $model->setInfoProduct($OriginName,$name,$price,$description,$category,$img);
   }
 
   function DelProductAPI() //Удалить продукт

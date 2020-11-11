@@ -3,9 +3,11 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Routing\RouteCollectorProxy;
 use Slim\Factory\AppFactory;
-
 require __DIR__ . '/../vendor/autoload.php';
+
 session_start();
+$app = AppFactory::create();
+        //---------Подключение классов---------//
 function autoload ($class) { //Загрузка файлов
     $namespase = '';
     $dir = __DIR__.'/../';
@@ -20,19 +22,27 @@ function autoload ($class) { //Загрузка файлов
       require $filename;
     }
 };
-
 spl_autoload_register('autoload');
-$app = AppFactory::create();
-$app->addRoutingMiddleware();
-$errorMiddleware= $app->addErrorMiddleware(true, true, true);
-$errorMiddleware->setDefaultErrorHandler(function () use ($app) {
-        $response = $app->getResponseFactory()->createResponse();
-        $view = new \Libraries\View();
-        $view->rendering("404");
-        return $response
-            ->withStatus(404)
-            ->withHeader('Content-Type', 'text/html');
-});
+
+        //-------------------------------//
+
+
+          //Ошибка при остувие страницы//
+// $app->addRoutingMiddleware();
+// $errorMiddleware= $app->addErrorMiddleware(true, true, true);
+// $errorMiddleware->setDefaultErrorHandler(function () use ($app) {
+//         $response = $app->getResponseFactory()->createResponse();
+//         $view = new \Libraries\View();
+//         $view->rendering("404");
+//         return $response
+//             ->withStatus(404)
+//             ->withHeader('Content-Type', 'text/html');
+// });
+
+        //-------------------------------//
+
+
+          //---------Главная---------//
 
 $app->group('/', function (RouteCollectorProxy $group) {
 
@@ -48,7 +58,7 @@ $app->group('/', function (RouteCollectorProxy $group) {
         });
 
         //   !!!УДАЛИТЬ    //////
-    $group->get('/product/{id}', function ($request, $response, array $args) {
+    $group->get('product', function ($request, $response, array $args) {
       //Информация о товаре
         $Controller = new \Controller\AController;
         $Controller->set("index","index",$args);
@@ -59,6 +69,11 @@ $app->group('/', function (RouteCollectorProxy $group) {
           });
           /////       /////
 });
+
+            //-------------------------//
+
+
+            //---------API---------//
 
 $app->group('/api', function (RouteCollectorProxy $group) {
 
@@ -74,15 +89,27 @@ $app->group('/api', function (RouteCollectorProxy $group) {
           });
 });
 
+            //-------------------------//
+
+
+            //---------Админ панель---------//
+
 $app->group('/admin', function (RouteCollectorProxy $group) {
 
+  $group->get('/login', function ($request, $response, array $args) use ($app) {
+    $routeParser = $app->getRouteCollector()->getRouteParser();
+    echo $routeParser->urlFor("login");
+      $Controller = new \Controller\AController;
+      $Controller->set("admin","Test",$args);
+      $Controller->run();
+      return $response
+          ->withHeader('Content-Type', 'text/html')
+          ->withStatus(200);
+        })->setName("login");
 });
 
-//$app->get('{dir}/{name}', function ($request, $response, array $args) {
-    //require(__DIR__ . '/../Template/{dir}/{name}');
-    //return $response
-        //->withHeader('Content-Type', 'text/html')
-        //->withStatus(200);
-//});
+            //-------------------------//
 
+$routeParser = $app->getRouteCollector()->getRouteParser();
+echo $routeParser->urlFor("login");
 $app->run();
