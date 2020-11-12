@@ -367,3 +367,74 @@ Stack trace:
 #3 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\MiddlewareDispatcher.php(81): Slim\MiddlewareDispatcher->handle(Object(Slim\Psr7\Request))
 #4 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\Routing\Route.php(341): Slim\MiddlewareDispatcher->handle(Object(Slim\Psr7\Request))
 #5  in C:\Users\79096\Desktop\github\online-store\public\index.php on line 100
+[12-Nov-2020 13:13:29 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getRouteCollector() on null in C:\Users\79096\Desktop\github\online-store\public\index.php:132
+Stack trace:
+#0 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\Handlers\Strategies\RequestResponse.php(43): {closure}(Object(Slim\Psr7\Request), Object(Slim\Psr7\Response), Array)
+#1 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\Routing\Route.php(381): Slim\Handlers\Strategies\RequestResponse->__invoke(Object(Closure), Object(Slim\Psr7\Request), Object(Slim\Psr7\Response), Array)
+#2 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\MiddlewareDispatcher.php(81): Slim\Routing\Route->handle(Object(Slim\Psr7\Request))
+#3 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\MiddlewareDispatcher.php(81): Slim\MiddlewareDispatcher->handle(Object(Slim\Psr7\Request))
+#4 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\Routing\Route.php(341): Slim\MiddlewareDispatcher->handle(Object(Slim\Psr7\Request))
+#5  in C:\Users\79096\Desktop\github\online-store\public\index.php on line 132
+[12-Nov-2020 13:22:05 UTC] PHP Fatal error:  Uncaught Slim\Exception\HttpMethodNotAllowedException: Method not allowed. Must be one of: GET in C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\Middleware\RoutingMiddleware.php:96
+Stack trace:
+#0 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\Routing\RouteRunner.php(72): Slim\Middleware\RoutingMiddleware->performRouting(Object(Slim\Psr7\Request))
+#1 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\MiddlewareDispatcher.php(81): Slim\Routing\RouteRunner->handle(Object(Slim\Psr7\Request))
+#2 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\App.php(215): Slim\MiddlewareDispatcher->handle(Object(Slim\Psr7\Request))
+#3 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\App.php(199): Slim\App->handle(Object(Slim\Psr7\Request))
+#4 C:\Users\79096\Desktop\github\online-store\public\index.php(150): Slim\App->run()
+#5 {main}
+  thrown in C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\Middleware\RoutingMiddleware.php on line 96
+[12-Nov-2020 13:23:32 UTC] PHP Fatal error:  Uncaught Slim\Exception\HttpMethodNotAllowedException: Method not allowed. Must be one of: GET in C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\Middleware\RoutingMiddleware.php:96
+Stack trace:
+#0 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\Routing\RouteRunner.php(72): Slim\Middleware\RoutingMiddleware->performRouting(Object(Slim\Psr7\Request))
+#1 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\MiddlewareDispatcher.php(81): Slim\Routing\RouteRunner->handle(Object(Slim\Psr7\Request))
+#2 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\App.php(215): Slim\MiddlewareDispatcher->handle(Object(Slim\Psr7\Request))
+#3 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\App.php(199): Slim\App->handle(Object(Slim\Psr7\Request))
+#4 C:\Users\79096\Desktop\github\online-store\public\index.php(150): Slim\App->run()
+#5 {main}
+  thrown in C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\Middleware\RoutingMiddleware.php on line 96
+[12-Nov-2020 13:26:19 UTC] PHP Fatal error:  Uncaught Slim\Exception\HttpNotFoundException: Not found. in C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\Middleware\RoutingMiddleware.php:93
+Stack trace:
+#0 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\Routing\RouteRunner.php(72): Slim\Middleware\RoutingMiddleware->performRouting(Object(Slim\Psr7\Request))
+#1 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\MiddlewareDispatcher.php(81): Slim\Routing\RouteRunner->handle(Object(Slim\Psr7\Request))
+#2 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\App.php(215): Slim\MiddlewareDispatcher->handle(Object(Slim\Psr7\Request))
+#3 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\App.php(199): Slim\App->handle(Object(Slim\Psr7\Request))
+#4 C:\Users\79096\Desktop\github\online-store\public\index.php(150): Slim\App->run()
+#5 {main}
+  thrown in C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\Middleware\RoutingMiddleware.php on line 93
+[12-Nov-2020 13:26:32 UTC] PHP Fatal error:  Uncaught Slim\Exception\HttpNotFoundException: Not found. in C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\Middleware\RoutingMiddleware.php:93
+Stack trace:
+#0 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\Routing\RouteRunner.php(72): Slim\Middleware\RoutingMiddleware->performRouting(Object(Slim\Psr7\Request))
+#1 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\MiddlewareDispatcher.php(81): Slim\Routing\RouteRunner->handle(Object(Slim\Psr7\Request))
+#2 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\App.php(215): Slim\MiddlewareDispatcher->handle(Object(Slim\Psr7\Request))
+#3 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\App.php(199): Slim\App->handle(Object(Slim\Psr7\Request))
+#4 C:\Users\79096\Desktop\github\online-store\public\index.php(150): Slim\App->run()
+#5 {main}
+  thrown in C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\Middleware\RoutingMiddleware.php on line 93
+[12-Nov-2020 13:26:33 UTC] PHP Fatal error:  Uncaught Slim\Exception\HttpNotFoundException: Not found. in C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\Middleware\RoutingMiddleware.php:93
+Stack trace:
+#0 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\Routing\RouteRunner.php(72): Slim\Middleware\RoutingMiddleware->performRouting(Object(Slim\Psr7\Request))
+#1 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\MiddlewareDispatcher.php(81): Slim\Routing\RouteRunner->handle(Object(Slim\Psr7\Request))
+#2 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\App.php(215): Slim\MiddlewareDispatcher->handle(Object(Slim\Psr7\Request))
+#3 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\App.php(199): Slim\App->handle(Object(Slim\Psr7\Request))
+#4 C:\Users\79096\Desktop\github\online-store\public\index.php(150): Slim\App->run()
+#5 {main}
+  thrown in C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\Middleware\RoutingMiddleware.php on line 93
+[12-Nov-2020 13:27:53 UTC] PHP Fatal error:  Uncaught Slim\Exception\HttpNotFoundException: Not found. in C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\Middleware\RoutingMiddleware.php:93
+Stack trace:
+#0 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\Routing\RouteRunner.php(72): Slim\Middleware\RoutingMiddleware->performRouting(Object(Slim\Psr7\Request))
+#1 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\MiddlewareDispatcher.php(81): Slim\Routing\RouteRunner->handle(Object(Slim\Psr7\Request))
+#2 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\App.php(215): Slim\MiddlewareDispatcher->handle(Object(Slim\Psr7\Request))
+#3 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\App.php(199): Slim\App->handle(Object(Slim\Psr7\Request))
+#4 C:\Users\79096\Desktop\github\online-store\public\index.php(150): Slim\App->run()
+#5 {main}
+  thrown in C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\Middleware\RoutingMiddleware.php on line 93
+[12-Nov-2020 13:30:14 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\Users\79096\Desktop\github\online-store\Controller\adminController.php:46) in C:\Users\79096\Desktop\github\online-store\Libraries\View.php on line 20
+[12-Nov-2020 13:30:21 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\Users\79096\Desktop\github\online-store\Controller\adminController.php:45) in C:\Users\79096\Desktop\github\online-store\Libraries\View.php on line 20
+[12-Nov-2020 13:30:21 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\Users\79096\Desktop\github\online-store\Controller\adminController.php:45) in C:\Users\79096\Desktop\github\online-store\Libraries\View.php on line 20
+[12-Nov-2020 13:30:56 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\Users\79096\Desktop\github\online-store\Controller\adminController.php:45) in C:\Users\79096\Desktop\github\online-store\Libraries\View.php on line 20
+[12-Nov-2020 13:30:56 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\Users\79096\Desktop\github\online-store\Controller\adminController.php:45) in C:\Users\79096\Desktop\github\online-store\Libraries\View.php on line 20
+[12-Nov-2020 13:31:07 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\Users\79096\Desktop\github\online-store\Controller\adminController.php:45) in C:\Users\79096\Desktop\github\online-store\Libraries\View.php on line 20
+[12-Nov-2020 13:31:07 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\Users\79096\Desktop\github\online-store\Controller\adminController.php:45) in C:\Users\79096\Desktop\github\online-store\Libraries\View.php on line 20
+[12-Nov-2020 13:31:28 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\Users\79096\Desktop\github\online-store\Controller\adminController.php:45) in C:\Users\79096\Desktop\github\online-store\Libraries\View.php on line 20
+[12-Nov-2020 13:31:28 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\Users\79096\Desktop\github\online-store\Controller\adminController.php:45) in C:\Users\79096\Desktop\github\online-store\Libraries\View.php on line 20

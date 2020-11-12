@@ -9,6 +9,7 @@ class adminController extends AController
   {
     $this->login = "adStoun";
     $this->password = "12345";
+    $this->local = "admin";
     $this->view = new \Libraries\View();
   }
 
@@ -30,13 +31,38 @@ class adminController extends AController
     return false;
   }
 
+  function index()
+  {
+    if (!$this->checkAdmin()) {
+      $this->view->rendering("404");
+      return;
+    }
+    echo "Admin";
+  }
+
+  function Login()
+  {
+    if ($this->checkAdmin()) {
+      $this->view->redirect($this->local);
+      echo "string";
+    }
+    $this->view->rendering("Admin/Login-mebel");
+  }
+
+ //--------API часть админки----------//
+
   function loginAPI()  //Сама авторизация
   {
     if ($_POST["login"]==$this->login && $_POST["password"]==$this->password) {
       $_SESSION['type']="admin";
       $_SESSION['HTTP_USER_AGENT']=$_SERVER["HTTP_USER_AGENT"];
       setcookie("AuthAdmin", hash('ripemd320',$this->login."|".$_SERVER["HTTP_USER_AGENT"]),time()+60*60*24*7);
+      $this->view->redirect($this->local);
     }
+    else {
+      $this->view->redirect($this->local."/login");
+    }
+    echo "string";
   }
 
   function AddProductAPI() //Добавить продукт

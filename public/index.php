@@ -128,20 +128,32 @@ $app->group('/api', function (RouteCollectorProxy $group) {
 
 $app->group('/admin', function (RouteCollectorProxy $group) {
 
-  $group->get('/login', function ($request, $response, array $args) use ($app) {
-    $routeParser = $app->getRouteCollector()->getRouteParser();
-    echo $routeParser->urlFor("login");
+  $group->get('', function ($request, $response, array $args) {
       $Controller = new \Controller\AController;
-      $Controller->set("admin","Test",$args);
+      $Controller->set("admin","index",$args);
       $Controller->run();
       return $response
           ->withHeader('Content-Type', 'text/html')
           ->withStatus(200);
-        })->setName("login");
+        });
+
+  $group->get('/login', function ($request, $response, array $args) {
+      $Controller = new \Controller\AController;
+      $Controller->set("admin","Login",$args);
+      $Controller->run();
+      return $response
+          ->withHeader('Content-Type', 'text/html')
+          ->withStatus(200);
+        });
+    $group->post('/admin-login', function ($request, $response, array $args) {
+        $Controller = new \Controller\AController;
+        $Controller->set("admin","loginAPI",$args);
+        $Controller->run();
+        return $response
+            ->withHeader('Content-Type', 'text/html')
+            ->withStatus(200);
+          });
 });
 
             //-------------------------//
-
-$routeParser = $app->getRouteCollector()->getRouteParser();
-echo $routeParser->urlFor("login");
 $app->run();

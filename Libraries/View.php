@@ -13,4 +13,9 @@ class View
     {
       require(__DIR__ . "/../Template/{$name}.php");
     }
+
+		function redirect($url)
+		{
+				header('Location: /'.$url);
+		}
 }
