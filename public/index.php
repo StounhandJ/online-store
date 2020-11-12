@@ -77,6 +77,38 @@ $app->group('/', function (RouteCollectorProxy $group) {
 
 $app->group('/api', function (RouteCollectorProxy $group) {
 
+  $group->get('/category.get', function ($request, $response, array $args) {
+    //Возврат всех категорий товаров
+    $Controller = new \Controller\AController;
+    $Controller->set("api","CategoryGet",$args);
+    $Controller->run();
+    return $response
+        ->withHeader('Content-Type', 'application/json')
+        ->withStatus(200);
+      });
+
+    $group->get('/product.get', function ($request, $response, array $args) {
+        //Возврат всех товаров по категории
+        //Значения category(название категории, ОБЯЗАТЕЛЬНО)
+        $Controller = new \Controller\AController;
+        $Controller->set("api","ProductGet",$args);
+        $Controller->run();
+        return $response
+            ->withHeader('Content-Type', 'application/json')
+            ->withStatus(200);
+          });
+
+    $group->get('/product.info', function ($request, $response, array $args) {
+        //Возврат информацию о товаре по названию
+        //Значения name(название товара, ОБЯЗАТЕЛЬНО) и category(название категории, ОБЯЗАТЕЛЬНО)
+        $Controller = new \Controller\AController;
+        $Controller->set("api","ProductInfo",$args);
+        $Controller->run();
+        return $response
+            ->withHeader('Content-Type', 'application/json')
+            ->withStatus(200);
+          });
+
     $group->get('/productAdd', function ($request, $response, array $args) {
       //Добавдения товара в корзину
       //Значения productID(id товара, ОБЯЗАТЕЛЬНО) и url(страница возврата, ОБЯЗАТЕЛЬНО)

@@ -32,9 +32,9 @@ class ListGoods extends AModel //Работа с продуктами
     return $query["data"][0];
   }
 
-  function getInfoProductName($name) //Возвращает всю информацию о определенном продукте
+  function getInfoProductName($name,$category) //Возвращает всю информацию о определенном продукте
   {
-    $query = $this->db->request('SELECT * FROM `goods` WHERE `name`=:name',[':name'=>$name]);
+    $query = $this->db->request('SELECT * FROM `goods` WHERE `name`=:name AND `category`=:category',[':name'=>$name,':category'=>$category]);
     if($query["code"] != 200)
     {
       return NULL;
