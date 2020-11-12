@@ -3,10 +3,11 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Routing\RouteCollectorProxy;
 use Slim\Factory\AppFactory;
-
 require __DIR__ . '/../vendor/autoload.php';
-session_start();
 
+session_start();
+$app = AppFactory::create();
+        //---------Подключение классов---------//
 function autoload ($class) { //Загрузка файлов
     $namespase = '';
     $dir = __DIR__.'/../';
@@ -21,52 +22,126 @@ function autoload ($class) { //Загрузка файлов
       require $filename;
     }
 };
-
 spl_autoload_register('autoload');
-$app = AppFactory::create();
-$app->addRoutingMiddleware();
-$errorMiddleware= $app->addErrorMiddleware(true, true, true);
-$errorMiddleware->setDefaultErrorHandler(function () use ($app) {
-        $response = $app->getResponseFactory()->createResponse();
-        $view = new \Libraries\View();
-        $view->rendering("404");
-        return $response
-            ->withStatus(404)
-            ->withHeader('Content-Type', 'text/html');
-});
+
+        //-------------------------------//
+
+
+          //Ошибка при остувие страницы//
+// $app->addRoutingMiddleware();
+// $errorMiddleware= $app->addErrorMiddleware(true, true, true);
+// $errorMiddleware->setDefaultErrorHandler(function () use ($app) {
+//         $response = $app->getResponseFactory()->createResponse();
+//         $view = new \Libraries\View();
+//         $view->rendering("404");
+//         return $response
+//             ->withStatus(404)
+//             ->withHeader('Content-Type', 'text/html');
+// });
+
+        //-------------------------------//
+
+
+          //---------Главная---------//
 
 $app->group('/', function (RouteCollectorProxy $group) {
+
   $group->get('', function ($request, $response, array $args) {
+    //Главаня страница
+    //Значение category(Выбраная категория) и page(номер страницы)
       $Controller = new \Controller\AController;
-      $Controller->set("index","index",$request,$response,$args);
-      $response = $Controller->run();
+      $Controller->set("index","index",$args);
+      $Controller->run();
       return $response
           ->withHeader('Content-Type', 'text/html')
           ->withStatus(200);
         });
-    $group->get('product/{id}', function ($request, $response, array $args) {
+
+        //   !!!УДАЛИТЬ    //////
+    $group->get('product', function ($request, $response, array $args) {
+      //Информация о товаре
         $Controller = new \Controller\AController;
-        $Controller->set("index","index",$request,$response,$args);
-        $response = $Controller->run();
+        $Controller->set("index","index",$args);
+        $Controller->run();
+        return $response
+            ->withHeader('Content-Type', 'text/html')
+            ->withStatus(200);
+          });
+          /////       /////
+});
+
+            //-------------------------//
+
+
+            //---------API---------//
+
+$app->group('/api', function (RouteCollectorProxy $group) {
+
+  $group->get('/category.get', function ($request, $response, array $args) {
+    //Возврат всех категорий товаров
+    $Controller = new \Controller\AController;
+    $Controller->set("api","CategoryGet",$args);
+    $Controller->run();
+    return $response
+        ->withHeader('Content-Type', 'application/json')
+        ->withStatus(200);
+      });
+
+    $group->get('/product.get', function ($request, $response, array $args) {
+        //Возврат всех товаров по категории
+        //Значения category(название категории, ОБЯЗАТЕЛЬНО)
+        $Controller = new \Controller\AController;
+        $Controller->set("api","ProductGet",$args);
+        $Controller->run();
+        return $response
+            ->withHeader('Content-Type', 'application/json')
+            ->withStatus(200);
+          });
+
+    $group->get('/product.info', function ($request, $response, array $args) {
+        //Возврат информацию о товаре по названию
+        //Значения name(название товара, ОБЯЗАТЕЛЬНО) и category(название категории, ОБЯЗАТЕЛЬНО)
+        $Controller = new \Controller\AController;
+        $Controller->set("api","ProductInfo",$args);
+        $Controller->run();
+        return $response
+            ->withHeader('Content-Type', 'application/json')
+            ->withStatus(200);
+          });
+
+    $group->get('/productAdd', function ($request, $response, array $args) {
+      //Добавдения товара в корзину
+      //Значения productID(id товара, ОБЯЗАТЕЛЬНО) и url(страница возврата, ОБЯЗАТЕЛЬНО)
+        $Controller = new \Controller\AController;
+        $Controller->set("api","AddСart",$args);
+        $Controller->run();
         return $response
             ->withHeader('Content-Type', 'text/html')
             ->withStatus(200);
           });
 });
 
-$app->group('/api', function (RouteCollectorProxy $group) {
+            //-------------------------//
 
-});
+
+            //---------Админ панель---------//
 
 $app->group('/admin', function (RouteCollectorProxy $group) {
 
+  $group->get('/login', function ($request, $response, array $args) use ($app) {
+    $routeParser = $app->getRouteCollector()->getRouteParser();
+    echo $routeParser->urlFor("login");
+      $Controller = new \Controller\AController;
+      $Controller->set("admin","Test",$args);
+      $Controller->run();
+      return $response
+          ->withHeader('Content-Type', 'text/html')
+          ->withStatus(200);
+        })->setName("login");
 });
 
-//$app->get('{dir}/{name}', function ($request, $response, array $args) {
-    //require(__DIR__ . '/../Template/{dir}/{name}');
-    //return $response
-        //->withHeader('Content-Type', 'text/html')
-        //->withStatus(200);
-//});
+            //-------------------------//
 
+$routeParser = $app->getRouteCollector()->getRouteParser();
+echo $routeParser->urlFor("login");
 $app->run();
