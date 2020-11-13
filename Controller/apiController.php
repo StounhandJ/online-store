@@ -30,11 +30,11 @@ class apiController extends AController
     $model = new \Model\TimeTable;
     $AllCategory = $model->getAllCategory() ?? [];
     $out = [
-      "code"=200,
-      "mes"="ok",
-      "data"=$AllCategory
+      "code"=>200,
+      "mes"=>"ok",
+      "data"=>$AllProduct
     ];
-    echo json_encode($out,JSON_UNESCAPED_UNICODE));
+    echo json_encode($out,JSON_UNESCAPED_UNICODE);
   }
 
   function ProductGet()
@@ -42,42 +42,45 @@ class apiController extends AController
     $category = $_GET['category'];
     if (!isset($category)) {
       $out=['code'=>400,'mes'=>'Указаны не все параметры, обратитесь к документации',"items"=>[]];
+      echo json_encode($out,JSON_UNESCAPED_UNICODE);
       return;
     }
     $model = new \Model\TimeTable;
     $AllProduct = $model->getGoods($category,1,100) ?? []; //сколько товаров вернет из категории
     if (!isset($AllProduct)) {
       $out=['code'=>404,'mes'=>'Данная категория не найдена или пуста',"items"=>[]];
+      echo json_encode($out,JSON_UNESCAPED_UNICODE);
       return;
     }
     $out = [
-      "code"=200,
-      "mes"="ok",
-      "data"=$AllProduct
+      "code"=>200,
+      "mes"=>"ok",
+      "data"=>$AllProduct
     ];
-    echo json_encode($out,JSON_UNESCAPED_UNICODE));
+    echo json_encode($out,JSON_UNESCAPED_UNICODE);
   }
 
   function ProductInfo()
   {
-    $name = $_GET['name'];
-    $category = $_GET['category'];
-    if (!isset($category) || !isset($category)) {
+    $id= $_GET['id'];
+    if (!isset($id)) {
       $out=['code'=>400,'mes'=>'Указаны не все параметры, обратитесь к документации',"items"=>[]];
+      echo json_encode($out,JSON_UNESCAPED_UNICODE);
       return;
     }
-    $model = new \Model\TimeTable;
-    $InfoProduct = $model->getInfoProductName($name,$category); //сколько товаров вернет из категории
+    $model = new \Model\ListGoods;
+    $InfoProduct = $model->getInfoProductID($id); //сколько товаров вернет из категории
     if (!isset($InfoProduct)) {
       $out=['code'=>404,'mes'=>'Данный продукт не найден',"items"=>[]];
+      echo json_encode($out,JSON_UNESCAPED_UNICODE);
       return;
     }
     $out = [
-      "code"=200,
-      "mes"="ok",
-      "data"=$InfoProduct
+      "code"=>200,
+      "mes"=>"ok",
+      "data"=>$InfoProduct
     ];
-    echo json_encode($out,JSON_UNESCAPED_UNICODE));
+    echo json_encode($out,JSON_UNESCAPED_UNICODE);
   }
 
 }

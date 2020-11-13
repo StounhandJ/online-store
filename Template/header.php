@@ -35,8 +35,8 @@
 					<div class="col-sm-6">
 						<div class="contactinfo">
 							<ul class="nav nav-pills">
-								<li><a href="#"><i class="fa fa-phone"></i> +7 999 999 99 99</a></li>
-								<li><a href="#"><i class="fa fa-envelope"></i> info@gmail.com</a></li>
+								<li><a href="#"><i class="fa fa-phone"></i><?=$data['info']['telephone']?></a></li>
+								<li><a href="#"><i class="fa fa-envelope"></i><?=$data['info']['email']?></a></li>
 							</ul>
 						</div>
 					</div>

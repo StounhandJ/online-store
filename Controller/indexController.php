@@ -16,9 +16,11 @@ class indexController extends AController  //Контроллер для осн�
   function index() //Главаня страница
   {
     $model = new \Model\ListGoods;
+    $info = new \Model\InformationSite;
     $AllCategory = $model->getAllCategory();
     $category = $_GET['category']??$AllCategory[0];
     $page =  $_GET['page']??1;
+    $data["info"] = $info->get();
     $data["goods"] = $model->getGoods($category,$page);
     $data["category"] = $AllCategory;
     $data["page"] = $page;

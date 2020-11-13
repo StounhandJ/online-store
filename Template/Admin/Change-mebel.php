@@ -3,7 +3,9 @@
 	<head>
 		<link href="https://fonts.googleapis.com/css?family=Sawarabi+Mincho&display=swap" rel="stylesheet" />
 		<title>Изменить</title>
-		<link rel="stylesheet" type="text/css" href="C:\Users\senya\OneDrive\Рабочий стол\GitHub\online-store\Template\Admin-panel\CSS\Change-mebel.css">
+		<link rel="stylesheet" type="text/css" href="/Template/css/Admin/Change-mebel.css">
+		<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+		<script src="/Template/js/admin.js"></script>
 	</head>
 	<body>
 		<div class="black-line"></div>
@@ -11,37 +13,37 @@
 			<div class="admin">ADMIN</div>
 			<nav>
 				<ul>
-					<li><a href="main-mebel.html">Главная</a></li>
-					<li><a href="Add-mebel.html">Добавить</a></li>
-					<li><a href="Change-mebel.html">Изменить →</a></li>
-					<li><a href="Delete-mebel.html">Удалить</a></li>
+					<li><a href="/<?=$data['url']?>">Главная</a></li>
+					<li><a href="/<?=$data['url']?>/add">Добавить</a></li>
+					<li><a href="/<?=$data['url']?>/change">Изменить →</a></li>
+					<li><a href="/<?=$data['url']?>/delete">Удалить</a></li>
 				</ul>
 			</nav>
 		</div>
 		<div class="all">
 			<div class="main">
 				<h2>ИЗМЕНИТЬ ТОВАР</h2>
-				<form action="#" method="post">
+				<form action="#" method="post" id="change_product" enctype="multipart/form-data">
 					<div class="input">
-						<label for="name">Товар</label>
-						<select name="list1">
- 							<option>Выберите из списка</option>
- 							<option value="1">Option</option>
- 							<option value="2">Textarea</option>
- 							<option value="3">Label</option>
- 							<option value="4">Fieldset</option>
- 							<option value="5">Legend</option>
+						<label for="name" id >Товар</label>
+						<select name="list1" id="product">
+							<option>Выберите из списка</option>
+							
+ 							<?php foreach ($data["AllProducts"] as $var): ?>
+								<option value="<?=$var['id']?>"><?=$var['name']?></option>
+							<?php endforeach; ?>
+
  						</select>
 					</div>
 					<div class="input">
 						<label for="name">Изменить категорию</label>
-						<select name="list1">
+						<select name="list1" id="category">
  							<option>Выберите из списка</option>
- 							<option value="1">Option</option>
- 							<option value="2">Textarea</option>
- 							<option value="3">Label</option>
- 							<option value="4">Fieldset</option>
- 							<option value="5">Legend</option>
+ 							
+ 							<?php foreach ($data["AllCategory"] as $var): ?>
+								<option value="<?=$var?>"><?=$var?></option>
+							<?php endforeach; ?>
+ 							
  						</select>
 					</div>
 					<div class="input">
@@ -49,17 +51,19 @@
 						<input type="text" name="name" id="name" value="" tabindex="1" />
 					</div>
 					<div class="input">
-						<label for="name">Новая цена</label>
-						<input type="text" name="name" id="name" value="" tabindex="1" />
+						<label for="name" >Новая цена</label>
+						<input type="text" name="name" id = "price" value="" tabindex="1" />
 					</div>
 					<div class="input">
-						<label for="name">Новое описание</label>
-						<input type="text" name="name" id="name" value="" tabindex="1" />
+						<label for="name" >Новое описание</label>
+						<input type="text" name="name" id = "description" value="" tabindex="1" />
 					</div>
 					<div class="input-file">
 						<label for="name">Добавить картинку</label>
-						<input type="file" name="file" id="file" tabindex="1" accept="image/*"/>
-						<label for="file">выберите файл</label>
+						<label class="fileUP">
+							выберите файл
+						<input type="file" name="pictures" id="pictures" tabindex="1"/>
+						</label>
 					</div>
 					<div class="button">
 						<input type="submit" value="ИЗМЕНИТЬ ТОВАР" />
@@ -93,7 +97,7 @@
 						<input type="text" name="name" id="name" value="" tabindex="1" />
 					</div>
 					<div class="input-file">
-						<label for="name">Новая картинка</label>
+						<label class = "text" for="name">Новая картинка</label>
 						<input type="file" name="file" id="file" tabindex="1" accept="image/*"/>
 						<label for="file">выберите файл</label>
 					</div>

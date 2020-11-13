@@ -80,6 +80,7 @@ form input[type="text"]{
 	font-family: Sawarabi Mincho;
 	margin-left: 50px;
 }
+
 form input[type="file"]{
 	display: none;
 }
@@ -87,7 +88,7 @@ form input[type="file"]{
 	margin-bottom: 50px;
 	margin-top: 20px;
 }
-.input-file label[for="file"]{
+.fileUP{
 	cursor: pointer;
 	background: #C4C4C4;
 	opacity: 0.5;
@@ -104,6 +105,7 @@ form input[type="file"]{
 	margin-left: 210px;
 	margin-right: 160px;
 }
+
 label{
 	font-size: 25px;
 	font-family: Roboto;

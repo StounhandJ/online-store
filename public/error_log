@@ -438,3 +438,44 @@ Stack trace:
 [12-Nov-2020 13:31:07 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\Users\79096\Desktop\github\online-store\Controller\adminController.php:45) in C:\Users\79096\Desktop\github\online-store\Libraries\View.php on line 20
 [12-Nov-2020 13:31:28 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\Users\79096\Desktop\github\online-store\Controller\adminController.php:45) in C:\Users\79096\Desktop\github\online-store\Libraries\View.php on line 20
 [12-Nov-2020 13:31:28 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\Users\79096\Desktop\github\online-store\Controller\adminController.php:45) in C:\Users\79096\Desktop\github\online-store\Libraries\View.php on line 20
+[13-Nov-2020 12:04:38 UTC] PHP Warning:  Invalid argument supplied for foreach() in C:\Users\79096\Desktop\github\online-store\Template\Admin\Add-mebel.php on line 34
+[13-Nov-2020 12:05:04 UTC] PHP Warning:  Invalid argument supplied for foreach() in C:\Users\79096\Desktop\github\online-store\Template\Admin\Add-mebel.php on line 34
+[13-Nov-2020 12:05:10 UTC] PHP Warning:  Invalid argument supplied for foreach() in C:\Users\79096\Desktop\github\online-store\Template\Admin\Add-mebel.php on line 34
+[13-Nov-2020 12:05:54 UTC] PHP Warning:  Invalid argument supplied for foreach() in C:\Users\79096\Desktop\github\online-store\Template\Admin\Add-mebel.php on line 35
+[13-Nov-2020 12:05:59 UTC] PHP Warning:  Invalid argument supplied for foreach() in C:\Users\79096\Desktop\github\online-store\Template\Admin\Add-mebel.php on line 35
+[13-Nov-2020 12:12:26 UTC] PHP Fatal error:  Uncaught Slim\Exception\HttpMethodNotAllowedException: Method not allowed. Must be one of: GET in C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\Middleware\RoutingMiddleware.php:96
+Stack trace:
+#0 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\Routing\RouteRunner.php(72): Slim\Middleware\RoutingMiddleware->performRouting(Object(Slim\Psr7\Request))
+#1 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\MiddlewareDispatcher.php(81): Slim\Routing\RouteRunner->handle(Object(Slim\Psr7\Request))
+#2 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\App.php(215): Slim\MiddlewareDispatcher->handle(Object(Slim\Psr7\Request))
+#3 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\App.php(199): Slim\App->handle(Object(Slim\Psr7\Request))
+#4 C:\Users\79096\Desktop\github\online-store\public\index.php(177): Slim\App->run()
+#5 {main}
+  thrown in C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\Middleware\RoutingMiddleware.php on line 96
+[13-Nov-2020 12:12:50 UTC] PHP Fatal error:  Uncaught Slim\Exception\HttpMethodNotAllowedException: Method not allowed. Must be one of: GET in C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\Middleware\RoutingMiddleware.php:96
+Stack trace:
+#0 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\Routing\RouteRunner.php(72): Slim\Middleware\RoutingMiddleware->performRouting(Object(Slim\Psr7\Request))
+#1 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\MiddlewareDispatcher.php(81): Slim\Routing\RouteRunner->handle(Object(Slim\Psr7\Request))
+#2 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\App.php(215): Slim\MiddlewareDispatcher->handle(Object(Slim\Psr7\Request))
+#3 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\App.php(199): Slim\App->handle(Object(Slim\Psr7\Request))
+#4 C:\Users\79096\Desktop\github\online-store\public\index.php(177): Slim\App->run()
+#5 {main}
+  thrown in C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\Middleware\RoutingMiddleware.php on line 96
+[13-Nov-2020 12:12:55 UTC] PHP Fatal error:  Uncaught Slim\Exception\HttpMethodNotAllowedException: Method not allowed. Must be one of: GET in C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\Middleware\RoutingMiddleware.php:96
+Stack trace:
+#0 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\Routing\RouteRunner.php(72): Slim\Middleware\RoutingMiddleware->performRouting(Object(Slim\Psr7\Request))
+#1 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\MiddlewareDispatcher.php(81): Slim\Routing\RouteRunner->handle(Object(Slim\Psr7\Request))
+#2 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\App.php(215): Slim\MiddlewareDispatcher->handle(Object(Slim\Psr7\Request))
+#3 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\App.php(199): Slim\App->handle(Object(Slim\Psr7\Request))
+#4 C:\Users\79096\Desktop\github\online-store\public\index.php(177): Slim\App->run()
+#5 {main}
+  thrown in C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\Middleware\RoutingMiddleware.php on line 96
+[13-Nov-2020 12:13:31 UTC] PHP Fatal error:  Uncaught Slim\Exception\HttpMethodNotAllowedException: Method not allowed. Must be one of: GET in C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\Middleware\RoutingMiddleware.php:96
+Stack trace:
+#0 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\Routing\RouteRunner.php(72): Slim\Middleware\RoutingMiddleware->performRouting(Object(Slim\Psr7\Request))
+#1 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\MiddlewareDispatcher.php(81): Slim\Routing\RouteRunner->handle(Object(Slim\Psr7\Request))
+#2 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\App.php(215): Slim\MiddlewareDispatcher->handle(Object(Slim\Psr7\Request))
+#3 C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\App.php(199): Slim\App->handle(Object(Slim\Psr7\Request))
+#4 C:\Users\79096\Desktop\github\online-store\public\index.php(177): Slim\App->run()
+#5 {main}
+  thrown in C:\Users\79096\Desktop\github\online-store\vendor\slim\slim\Slim\Middleware\RoutingMiddleware.php on line 96

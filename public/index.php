@@ -100,7 +100,7 @@ $app->group('/api', function (RouteCollectorProxy $group) {
 
     $group->get('/product.info', function ($request, $response, array $args) {
         //Возврат информацию о товаре по названию
-        //Значения name(название товара, ОБЯЗАТЕЛЬНО) и category(название категории, ОБЯЗАТЕЛЬНО)
+        //Значения id(id товара, ОБЯЗАТЕЛЬНО)
         $Controller = new \Controller\AController;
         $Controller->set("api","ProductInfo",$args);
         $Controller->run();
@@ -145,7 +145,35 @@ $app->group('/admin', function (RouteCollectorProxy $group) {
           ->withHeader('Content-Type', 'text/html')
           ->withStatus(200);
         });
-    $group->post('/admin-login', function ($request, $response, array $args) {
+
+    $group->get('/change', function ($request, $response, array $args) {
+        $Controller = new \Controller\AController;
+        $Controller->set("admin","Change",$args);
+        $Controller->run();
+        return $response
+            ->withHeader('Content-Type', 'text/html')
+            ->withStatus(200);
+          });
+    $group->get('/add', function ($request, $response, array $args) {
+        $Controller = new \Controller\AController;
+        $Controller->set("admin","Add",$args);
+        $Controller->run();
+        return $response
+            ->withHeader('Content-Type', 'text/html')
+            ->withStatus(200);
+          });
+          
+    $group->get('/delete', function ($request, $response, array $args) {
+	    $Controller = new \Controller\AController;
+	    $Controller->set("admin","Del",$args);
+	    $Controller->run();
+	    return $response
+	        ->withHeader('Content-Type', 'text/html')
+	        ->withStatus(200);
+	      });
+	      
+			//------API admin------//
+    $group->post('/admin.login', function ($request, $response, array $args) {
         $Controller = new \Controller\AController;
         $Controller->set("admin","loginAPI",$args);
         $Controller->run();
@@ -153,6 +181,34 @@ $app->group('/admin', function (RouteCollectorProxy $group) {
             ->withHeader('Content-Type', 'text/html')
             ->withStatus(200);
           });
+          
+    $group->post('/info.update', function ($request, $response, array $args) {
+        $Controller = new \Controller\AController;
+        $Controller->set("admin","InfoUpdate",$args);
+        $Controller->run();
+        return $response
+            ->withHeader('Content-Type', 'text/html')
+            ->withStatus(200);
+          });
+          
+    $group->post('/product.add', function ($request, $response, array $args) {
+        $Controller = new \Controller\AController;
+        $Controller->set("admin","AddProductAPI",$args);
+        $Controller->run();
+        return $response
+            ->withHeader('Content-Type', 'text/html')
+            ->withStatus(200);
+          });
+          
+    $group->post('/product.update', function ($request, $response, array $args) {
+        $Controller = new \Controller\AController;
+        $Controller->set("admin","UpdateProductAPI",$args);
+        $Controller->run();
+        return $response
+            ->withHeader('Content-Type', 'text/html')
+            ->withStatus(200);
+          });
+          
 });
 
             //-------------------------//

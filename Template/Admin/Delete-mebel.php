@@ -3,7 +3,7 @@
 	<head>
 		<link href="https://fonts.googleapis.com/css?family=Sawarabi+Mincho&display=swap" rel="stylesheet" />
 		<title>Удалить</title>
-		<link rel="stylesheet" type="text/css" href="C:\Users\senya\OneDrive\Рабочий стол\GitHub\online-store\Template\Admin-panel\CSS\Delete-mebel.css">
+		<link rel="stylesheet" type="text/css" href="/Template/css/Admin/Delete-mebel.css">
 	</head>
 	<body>
 		<div class="black-line"></div>
@@ -11,10 +11,10 @@
 			<div class="admin">ADMIN</div>
 			<nav>
 				<ul>
-					<li><a href="main-mebel.html">Главная</a></li>
-					<li><a href="Add-mebel.html">Добавить</a></li>
-					<li><a href="Change-mebel.html">Изменить</a></li>
-					<li><a href="Delete-mebel.html">Удалить →</a></li>
+					<li><a href="/<?=$data['url']?>">Главная</a></li>
+					<li><a href="/<?=$data['url']?>/add">Добавить</a></li>
+					<li><a href="/<?=$data['url']?>/change">Изменить</a></li>
+					<li><a href="/<?=$data['url']?>/delete">Удалить →</a></li>
 				</ul>
 			</nav>
 		</div>
