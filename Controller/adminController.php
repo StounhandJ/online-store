@@ -37,7 +37,10 @@ class adminController extends AController
       $this->view->rendering("404");
       return;
     }
-    echo "Admin";
+    $info = new \Model\InformationSite;
+    $data["info"]=$info->get();
+    $data["url"]=$this->local;
+    $this->view->rendering("Admin/main-mebel",$data);
   }
 
   function Login()
@@ -46,7 +49,45 @@ class adminController extends AController
       $this->view->redirect($this->local);
       echo "string";
     }
-    $this->view->rendering("Admin/Login-mebel");
+    $data["url"]=$this->local;
+    $this->view->rendering("Admin/Login-mebel",$data);
+  }
+
+  function Change()
+  {
+    if (!$this->checkAdmin()) {
+      $this->view->rendering("404");
+      return;
+    }
+    $model = new \Model\ListGoods;
+    $data["AllCategory"]=$model->getAllCategory();
+    $data["AllProducts"]=$model->getAllGoods();
+    $data["url"]=$this->local;
+    $this->view->rendering("Admin/Change-mebel",$data);
+  }
+
+  function Add()
+  {
+    if (!$this->checkAdmin()) {
+      $this->view->rendering("404");
+      return;
+    }
+    $model = new \Model\ListGoods;
+    $data["AllCategory"]=$model->getAllCategory();
+    $data["url"]=$this->local;
+    $this->view->rendering("Admin/Add-mebel",$data);
+  }
+  
+   function Del()
+  {
+    if (!$this->checkAdmin()) {
+      $this->view->rendering("404");
+      return;
+    }
+    $model = new \Model\ListGoods;
+    $data["AllProducts"]=$model->getAllGoods();
+    $data["url"]=$this->local;
+    $this->view->rendering("Admin/Delete-mebel",$data);
   }
 
  //--------API часть админки----------//
@@ -64,6 +105,16 @@ class adminController extends AController
     }
     echo "string";
   }
+  
+  function InfoUpdate() //Добавить продукт
+  {
+      if (!$this->checkAdmin()) {
+        $this->view->rendering("404");
+        return;
+      }
+      $info = new \Model\InformationSite;
+      $info->set($_POST);
+  }
 
   function AddProductAPI() //Добавить продукт
   {
@@ -71,33 +122,51 @@ class adminController extends AController
         $this->view->rendering("404");
         return;
       }
-
+      $facade=($_POST["facade"]=="1")? true : false;
+      $name = $_POST["name"];
+      $category = $_POST["category"];
+      $description = $_POST["description"];
+      $price = $_POST["price"];
+      $nameIMG = hash('ripemd128',$name);
+      $uploads_dir = __DIR__.'/../Template/images/product';
+      move_uploaded_file($_FILES["pictures"]["tmp_name"], "$uploads_dir/$nameIMG.jpg");
+	  $model = new \Model\ListGoods;
+      $AllCategory = $model->creatProduct($name,$price,$description,$category,$facade,$nameIMG);
   }
 
-  function RedProductAPI() //Редактировать продукт
+  function UpdateProductAPI() //Редактировать продукт
   {
       $OriginName = $_POST["OriginName"];
-      if (!$this->checkAdmin() || !isset($OriginName)) {
-        $this->view->rendering("404");
-        return;
-      }
-      $model = new \Model\ListGoods;
-      $data = $model->getInfoProductName($OriginName);
-      $name = $_GET["name"] ?? $data["name"];
-      $price = $_GET["price"] ?? $data["price"];
-      $description = $_GET["description"] ?? $data["description"];
-      $categor = $_GET["categor"] ?? $data["categor"];
-      $img = "test";
-      $model->setInfoProduct($OriginName,$name,$price,$description,$category,$img);
-  }
-
-  function DelProductAPI() //Удалить продукт
-  {
       if (!$this->checkAdmin()) {
         $this->view->rendering("404");
         return;
       }
+      $nameIMG=null;
+      if(isset($_FILES["pictures"]))
+      {
+      	$nameIMG = hash('ripemd128',$_FILES["pictures"]["tmp_name"]);
+    	$uploads_dir = __DIR__.'/../Template/images/product';
+    	move_uploaded_file($_FILES["pictures"]["tmp_name"], "$uploads_dir/$nameIMG.jpg");
+    	$oldIMG = $_POST['OLDpictures'];
+    	$f = "$uploads_dir/$oldIMG.jpg";
+    	var_dump($f);
+    	var_dump(file_exists($f));
+    	if(file_exists($f)){
+			unlink($f);
+		}
+      }
+      $model = new \Model\ListGoods;
+      $model->setInfoProduct($_POST['id'],$_POST['name'],$_POST['price'],$_POST['description'],$_POST['category'],$_POST['facade'],$nameIMG);
+  }
 
+  function DelProductAPI() //Удалить продукт
+  {
+      if (!$this->checkAdmin() || !isset($_POST['id'])) {
+        $this->view->rendering("404");
+        return;
+      }
+	  $model = new \Model\ListGoods;
+	  $model->deleteProduct($_POST['id']);
   }
 
 }
