@@ -3,7 +3,7 @@
     <link href="https://fonts.googleapis.com/css?family=Sawarabi+Mincho&display=swap" rel="stylesheet" />
 	<meta charset="utf-8">
 	<title>Войти</title>
-	<link rel="stylesheet" type="text/css" href="/Template/css/Admin/Login-mebel.css">
+	<link rel="stylesheet" type="text/css" href="/Template/css/Admin/Admin-login.css">
   </head>
   <body>
     <div class="black-line"></div>

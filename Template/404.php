@@ -17,7 +17,7 @@
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
     <![endif]-->
-    <link rel="shortcut icon" href="/images/ico/favicon.ico">
+    <link rel="shortcut icon" href="/images/favicon.ico">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/Template/images/ico/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/Template/images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/Template/images/ico/apple-touch-icon-72-precomposed.png">
@@ -27,10 +27,10 @@
 <body>
 	<div class="container text-center">
 		<div class="logo-404">
-			<a href="index.html"><img src="/Template/images/home/logo.png" alt="" /></a>
+			<a href="index.html"><img src="/Template/images/logo.png" alt="" /></a>
 		</div>
 		<div class="content-404">
-			<img src="/Template/images/404/404.png" class="img-responsive" alt="" />
+			<img src="/Template/images/404.png" class="img-responsive" alt="" />
 			<h1><b>404</b>Страница не найдена</h1>
 			<p></p>
 			<h2><a href="/">Вернуться</a></h2>

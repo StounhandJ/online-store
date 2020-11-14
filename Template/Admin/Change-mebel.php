@@ -3,7 +3,7 @@
 	<head>
 		<link href="https://fonts.googleapis.com/css?family=Sawarabi+Mincho&display=swap" rel="stylesheet" />
 		<title>Изменить</title>
-		<link rel="stylesheet" type="text/css" href="/Template/css/Admin/Change-mebel.css">
+		<link rel="stylesheet" type="text/css" href="/Template/css/Admin/Admin-main.css">
 		<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 		<script src="/Template/js/admin.js"></script>
 	</head>
