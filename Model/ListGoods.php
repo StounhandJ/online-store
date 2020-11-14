@@ -51,6 +51,16 @@ class ListGoods extends AModel //Работа с продуктами
     }
     return $query["data"][0];
   }
+  
+  function getSumProduct($category)
+  {
+  	$query = $this->db->request('SELECT COUNT(id) AS "sum" FROM `goods` WHERE `category`=:category',[':category'=>$category]);
+  	if($query["code"] != 200)
+    {
+      return NULL;
+    }
+    return $query["data"][0]["sum"];
+  }
 
   function setInfoProduct($id,$name,$price,$description,$category,$facade,$img)
   {

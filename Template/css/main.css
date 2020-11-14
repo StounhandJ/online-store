@@ -876,9 +876,9 @@ h2.title {
 }
 
 .productinfo img{
-    width: 250px;
-  	height: 250px;
-  	object-fit: fill;
+  width: 250px;
+  height: 250px;
+  object-fit: fill;
 }
 
 .productinfo{
@@ -1091,7 +1091,7 @@ h2.title {
   display: inline-block;
   margin: 50% auto;
   margin-bottom: 25px;
-  margin-left: 50%;
+  margin-left: 45%;
   margin-top: 0;
 }
 .pagination  .active  a{
@@ -1108,6 +1108,7 @@ h2.title {
   padding: 6px 12px;
   text-decoration: none;
   color:#000;
+  border:0;
 }
 .pagination  li  a:hover{
   background:#FE980F;

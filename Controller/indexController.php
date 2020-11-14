@@ -17,13 +17,16 @@ class indexController extends AController  //Контроллер для осн�
   {
     $model = new \Model\ListGoods;
     $info = new \Model\InformationSite;
+    $max = 9;
     $AllCategory = $model->getAllCategory();
     $category = $_GET['category']??$AllCategory[0];
+    $allPage = ceil($model->getSumProduct($category)/$max);
     $page =  $_GET['page']??1;
     $data["info"] = $info->get();
-    $data["goods"] = $model->getGoods($category,$page);
+    $data["goods"] = $model->getGoods($category,$page,$max);
     $data["category"] = $AllCategory;
-    $data["page"] = $page;
+    $data["allPage"] = $allPage;
+    $data["page"] =$page;
     if (isset($data["goods"])) {
         $this->view->rendering("index",$data);
         //рендеринг странички
