@@ -84,6 +84,8 @@ class adminController extends AController
       $this->view->rendering("404");
       return;
     }
+    $model = new \Model\ListGoods;
+    $data["AllProducts"]=$model->getAllGoods();
     $data["url"]=$this->local;
     $this->view->rendering("Admin/Delete-mebel",$data);
   }
@@ -120,6 +122,7 @@ class adminController extends AController
         $this->view->rendering("404");
         return;
       }
+      $facade=($_POST["facade"]=="1")? true : false;
       $name = $_POST["name"];
       $category = $_POST["category"];
       $description = $_POST["description"];
@@ -128,7 +131,7 @@ class adminController extends AController
       $uploads_dir = __DIR__.'/../Template/images/product';
       move_uploaded_file($_FILES["pictures"]["tmp_name"], "$uploads_dir/$nameIMG.jpg");
 	  $model = new \Model\ListGoods;
-      $AllCategory = $model->creatProduct($name,$price,$description,$category,$nameIMG);
+      $AllCategory = $model->creatProduct($name,$price,$description,$category,$facade,$nameIMG);
   }
 
   function UpdateProductAPI() //Редактировать продукт
@@ -153,16 +156,17 @@ class adminController extends AController
 		}
       }
       $model = new \Model\ListGoods;
-      $model->setInfoProduct($_POST['id'],$_POST['name'],$_POST['price'],$_POST['description'],$_POST['category'],$nameIMG);
+      $model->setInfoProduct($_POST['id'],$_POST['name'],$_POST['price'],$_POST['description'],$_POST['category'],$_POST['facade'],$nameIMG);
   }
 
   function DelProductAPI() //Удалить продукт
   {
-      if (!$this->checkAdmin()) {
+      if (!$this->checkAdmin() || !isset($_POST['id'])) {
         $this->view->rendering("404");
         return;
       }
-
+	  $model = new \Model\ListGoods;
+	  $model->deleteProduct($_POST['id']);
   }
 
 }

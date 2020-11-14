@@ -24,9 +24,7 @@ class ListGoods extends AModel //Работа с продуктами
   
   function getAllGoods() //Возвращает все товары из определеной кетегории в количестве в зависимости от страницы
   {
-	$min = ((($page ?? 1) - 1) * $max);
-    $data=[':min'=>$min,':max'=>$max,':category'=>$category];
-	$query = $this->db->request('SELECT * FROM `goods` WHERE 1',$data);
+	$query = $this->db->request('SELECT * FROM `goods` WHERE 1 ORDER BY `name`');
     if($query["code"] != 200)
 		{
 			return NULL;
@@ -54,35 +52,45 @@ class ListGoods extends AModel //Работа с продуктами
     return $query["data"][0];
   }
 
-  function setInfoProduct($id,$name,$price,$description,$category,$img)
+  function setInfoProduct($id,$name,$price,$description,$category,$facade,$img)
   {
   	$sql = 'UPDATE `goods` SET ';
   	if(isset($name)) {$sql.='`name`=:name,';$data[':name']=$name;}
   	if(isset($price)) {$sql.='`price`=:price,';$data[':price']=$price;}
   	if(isset($description)) {$sql.='`description`=:description,';$data[':description']=$description;}
   	if(isset($category)) {$sql.='`category`=:category,';$data[':category']=$category;}
+  	if(isset($facade)) {$sql.='`facade`=:facade,';$data[':facade']=$facade;}
   	if(isset($img)) {$sql.='`img`=:img,';$data[':img']=$img;}
   	$sql = substr($sql,0,-1);
   	$sql.=" WHERE `id`=$id";
     $this->db->request($sql,$data);
   }
   
-  function creatProduct($name,$price,$description,$category,$img)
+  function creatProduct($name,$price,$description,$category,$facade,$img)
   {
   	$data=[
       ':name'=>$name,
       ':price'=>$price,
       ':description'=>$description,
       ':category'=>$category,
+      ':facade'=>$facade,
       ':img'=>$img,
 
     ];
-  	 var_dump($this->db->request('INSERT INTO `goods`(`name`, `price`, `description`, `category`, `img`) VALUES (:name,:price,:description,:category,:img)',$data));
+  	 $this->db->request('INSERT INTO `goods`(`name`, `price`, `description`, `category`,`facade` ,`img`) VALUES (:name,:price,:description,:category,:facade,:img)',$data);
+  }
+  
+  function deleteProduct($id)
+  {
+  	$data=[
+      ':id'=>$id,
+    ];
+  	 $this->db->request('DELETE FROM `goods` WHERE `id`=:id',$data);
   }
 
   function getAllCategory() //Возвращает все категории
   {
-		$query = $this->db->request('SELECT DISTINCT `category` FROM `goods` WHERE 1');
+		$query = $this->db->request('SELECT DISTINCT `category` FROM `goods` WHERE 1 ORDER BY `category`');
     if($query["code"] != 200)
 		{
 			return NULL;

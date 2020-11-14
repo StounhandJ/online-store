@@ -209,6 +209,14 @@ $app->group('/admin', function (RouteCollectorProxy $group) {
             ->withStatus(200);
           });
           
+    $group->post('/product.delete', function ($request, $response, array $args) {
+        $Controller = new \Controller\AController;
+        $Controller->set("admin","DelProductAPI",$args);
+        $Controller->run();
+        return $response
+            ->withHeader('Content-Type', 'text/html')
+            ->withStatus(200);
+          });
 });
 
             //-------------------------//

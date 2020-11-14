@@ -52,11 +52,19 @@
 						<label for="name">Описание</label>
 						<input type="text" name="name" id="description" value="" tabindex="1" />
 					</div>
+					<div class="input">
+						<label for="name">Наличие фасада</label>
+						<select name="list1" id="facade">
+ 							<option>Выберите из списка</option>
+ 							<option value="1">Да</option>
+ 							<option value="0">Нет</option>
+ 						</select>
+					</div>
 					<div class="input-file">
 						<label for="name">Добавить картинку</label>
 						<label class="fileUP">
 							выберите файл
-						<input type="file" name="pictures" id="pictures" tabindex="1"/>
+						<input type="file" name="pictures" id="pictures" tabindex="1" accept="image/*"/>
 						</label>
 					</div>
 					<div class="button">
@@ -66,23 +74,25 @@
 			</div>
 			<div class="main">
 				<h2>НОВЫЙ МАТЕРИАЛ</h2>
-				<form action="#" method="post">
+				<form action="#" method="post" id="new_material" enctype="multipart/form-data"> 
 					<div class="input">
 						<label for="name">Название материала</label>
 						<input type="text" name="name" id="name" value="" tabindex="1" />
 					</div>
 					<div class="input">
 						<label for="name">Цена</label>
-						<input type="text" name="name" id="name" value="" tabindex="1" />
+						<input type="text" name="price" id="price" value="" tabindex="1" />
 					</div>
 					<div class="input">
 						<label for="name">Описание</label>
-						<input type="text" name="name" id="name" value="" tabindex="1" />
+						<input type="text" name="description" id="description" value="" tabindex="1" />
 					</div>
 					<div class="input-file">
 						<label for="name">Добавить картинку</label>
-						<input type="file" name="file" id="file" tabindex="1" accept="image/*"/>
-						<label for="file">выберите файл</label>
+						<label class="fileUP">
+							выберите файл
+						<input type="file" name="pictures" id="pictures" tabindex="1" accept="image/*"/>
+						</label>
 					</div>
 					<div class="button">
 						<input type="submit" value="ДОБАВИТЬ" />
