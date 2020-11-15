@@ -3,15 +3,13 @@ require(__DIR__ . DIRECTORY_SEPARATOR."header.php");
 ?>
 <section>
         <div class="container">
-            <div class="row">
-                <div class="col-sm-3">
-                <div class="col-sm-9 padding-right">
+                <div class="qwerty">
                     <div class="features_items"><!--features_items-->
-                        <h2 class="title text-center">Товары</h2>
+                        <h2 class="title text-center">Материалы</h2>
 
                         <?php foreach ($data['goods'] as $val):?>
 
-                        <div class="col-sm-4">
+                        <div class="col-sm-3">
                             <div class="product-image-wrapper">
                                 <div class="single-products">
                                         <div class="productinfo text-center">
@@ -35,8 +33,6 @@ require(__DIR__ . DIRECTORY_SEPARATOR."header.php");
                         <?php endforeach;?>
 
                     </div><!--features_items-->
-
-                </div>
             </div>
             <ul class="pagination">
                 <?php

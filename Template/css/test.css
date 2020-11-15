@@ -1,0 +1,26 @@
+.right_arrow {
+	
+	width:0;
+	height:0;
+	left:23px;
+	position:absolute;
+	border-bottom:6px solid transparent;
+	border-left:10px solid transparent;
+	border-top:6px solid transparent;
+	border-right:10px solid black;
+}
+
+.circle {
+	width:8px;
+	height:8px;
+	border:1px solid black;
+	border-radius:50%;
+	position:absolute;
+	left:0;
+	top:0;
+	cursor: default;
+	-moz-user-select: none;
+	-khtml-user-select: none;
+	user-select: none; 
+	  -webkit-user-select: none;   
+}

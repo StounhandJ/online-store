@@ -56,12 +56,23 @@ $app->group('/', function (RouteCollectorProxy $group) {
           ->withHeader('Content-Type', 'text/html')
           ->withStatus(200);
         });
+  
+  $group->get('materials', function ($request, $response, array $args) {
+    //Главаня страница
+    //Значение category(Выбраная категория) и page(номер страницы)
+      $Controller = new \Controller\AController;
+      $Controller->set("index","materials",$args);
+      $Controller->run();
+      return $response
+          ->withHeader('Content-Type', 'text/html')
+          ->withStatus(200);
+        });
 
         //   !!!УДАЛИТЬ    //////
-    $group->get('product', function ($request, $response, array $args) {
+    $group->get('test', function ($request, $response, array $args) {
       //Информация о товаре
         $Controller = new \Controller\AController;
-        $Controller->set("index","index",$args);
+        $Controller->set("index","test",$args);
         $Controller->run();
         return $response
             ->withHeader('Content-Type', 'text/html')

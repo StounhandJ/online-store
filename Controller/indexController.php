@@ -27,6 +27,7 @@ class indexController extends AController  //Контроллер для осн�
     $data["category"] = $AllCategory;
     $data["allPage"] = $allPage;
     $data["page"] =$page;
+    $data["name"]="Товары";
     if (isset($data["goods"])) {
         $this->view->rendering("index",$data);
         //рендеринг странички
@@ -36,6 +37,35 @@ class indexController extends AController  //Контроллер для осн�
     //Вывод страницы 404
     return;
   }
+
+  function materials() //Главаня страница
+  {
+    $model = new \Model\ListGoods;
+    $info = new \Model\InformationSite;
+    $max = 9;
+    $AllCategory = $model->getAllCategory();
+    $category = $_GET['category']??$AllCategory[0];
+    $allPage = ceil($model->getSumProduct($category)/$max);
+    $page =  $_GET['page']??1;
+    $data["info"] = $info->get();
+    $data["goods"] = $model->getGoods($category,$page,$max);
+    $data["category"] = $AllCategory;
+    $data["allPage"] = $allPage;
+    $data["page"] =$page;
+    $data["name"]="Материалы";
+    if (isset($data["goods"])) {
+        $this->view->rendering("materials",$data);
+        //рендеринг странички
+        return;
+    }
+    $this->view->rendering("404");
+    //Вывод страницы 404
+    return;
+  }
+
+	function test(){
+		$this->view->rendering("test",$data);
+	}
 
   function Product() //Страница товара
   {

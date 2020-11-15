@@ -8,7 +8,6 @@
 
 body {
   font-family: 'Roboto', sans-serif;
-  background:;
   position: relative;
   font-weight:400px;
 }
@@ -827,7 +826,8 @@ h2.title:before{
 
 
 h2.title {
-  color: #FE980F;
+  /*color: #FE980F;*/
+  color: #964b00;
   font-family: 'Roboto', sans-serif;
   font-size: 18px;
   font-weight: 700;
@@ -2495,5 +2495,3 @@ h2.title {
 .contact-info .social-networks ul li a:hover{
   color: #FE980F;
 }
-
-
