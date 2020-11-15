@@ -119,6 +119,16 @@ $app->group('/api', function (RouteCollectorProxy $group) {
             ->withHeader('Content-Type', 'application/json')
             ->withStatus(200);
           });
+    $group->get('/material.info', function ($request, $response, array $args) {
+        //Возврат информацию о товаре по названию
+        //Значения id(id товара, ОБЯЗАТЕЛЬНО)
+        $Controller = new \Controller\AController;
+        $Controller->set("api","MaterialInfo",$args);
+        $Controller->run();
+        return $response
+            ->withHeader('Content-Type', 'application/json')
+            ->withStatus(200);
+          });
 
     $group->get('/productAdd', function ($request, $response, array $args) {
       //Добавдения товара в корзину
@@ -202,6 +212,8 @@ $app->group('/admin', function (RouteCollectorProxy $group) {
             ->withStatus(200);
           });
           
+          //------API admin Product------//
+          
     $group->post('/product.add', function ($request, $response, array $args) {
         $Controller = new \Controller\AController;
         $Controller->set("admin","AddProductAPI",$args);
@@ -228,6 +240,34 @@ $app->group('/admin', function (RouteCollectorProxy $group) {
             ->withHeader('Content-Type', 'text/html')
             ->withStatus(200);
           });
+          
+          //------API admin Material------//
+          
+    $group->post('/material.add', function ($request, $response, array $args) {
+        $Controller = new \Controller\AController;
+        $Controller->set("admin","AddMaterialAPI",$args);
+        $Controller->run();
+        return $response
+            ->withHeader('Content-Type', 'text/html')
+            ->withStatus(200);
+          });
+    $group->post('/material.update', function ($request, $response, array $args) {
+        $Controller = new \Controller\AController;
+        $Controller->set("admin","UpdateMaterialAPI",$args);
+        $Controller->run();
+        return $response
+            ->withHeader('Content-Type', 'text/html')
+            ->withStatus(200);
+          });
+          
+    $group->post('/material.delete', function ($request, $response, array $args) {
+        $Controller = new \Controller\AController;
+        $Controller->set("admin","DelMaterialAPI",$args);
+        $Controller->run();
+        return $response
+            ->withHeader('Content-Type', 'text/html')
+            ->withStatus(200);
+          });          
 });
 
             //-------------------------//

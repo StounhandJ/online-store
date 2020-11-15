@@ -22,7 +22,7 @@ class ListGoods extends AModel //Работа с продуктами
 		return $query["data"];
   }
   
-  function getAllGoods() //Возвращает все товары из определеной кетегории в количестве в зависимости от страницы
+  function getAllGoods() //Возвращает все товары в алфавитном порядке
   {
 	$query = $this->db->request('SELECT * FROM `goods` WHERE 1 ORDER BY `name`');
     if($query["code"] != 200)
@@ -62,7 +62,7 @@ class ListGoods extends AModel //Работа с продуктами
     return $query["data"][0]["sum"];
   }
 
-  function setInfoProduct($id,$name,$price,$description,$category,$facade,$img)
+  function updateProduct($id,$name,$price,$description,$category,$facade,$img)
   {
   	$sql = 'UPDATE `goods` SET ';
   	if(isset($name)) {$sql.='`name`=:name,';$data[':name']=$name;}
@@ -72,11 +72,11 @@ class ListGoods extends AModel //Работа с продуктами
   	if(isset($facade)) {$sql.='`facade`=:facade,';$data[':facade']=$facade;}
   	if(isset($img)) {$sql.='`img`=:img,';$data[':img']=$img;}
   	$sql = substr($sql,0,-1);
-  	$sql.=" WHERE `id`=$id";
+  	$sql.=" WHERE `id`=:id"; $data[':id']=$id;
     $this->db->request($sql,$data);
   }
   
-  function creatProduct($name,$price,$description,$category,$facade,$img)
+  function createProduct($name,$price,$description,$category,$facade,$img)
   {
   	$data=[
       ':name'=>$name,
@@ -92,10 +92,7 @@ class ListGoods extends AModel //Работа с продуктами
   
   function deleteProduct($id)
   {
-  	$data=[
-      ':id'=>$id,
-    ];
-  	 $this->db->request('DELETE FROM `goods` WHERE `id`=:id',$data);
+  	$this->db->request('DELETE FROM `goods` WHERE `id`=:id',[':id'=>$id]);
   }
 
   function getAllCategory() //Возвращает все категории

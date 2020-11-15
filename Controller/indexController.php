@@ -40,20 +40,17 @@ class indexController extends AController  //Контроллер для осн�
 
   function materials() //Главаня страница
   {
-    $model = new \Model\ListGoods;
+    $model = new \Model\ListMaterials;
     $info = new \Model\InformationSite;
     $max = 9;
-    $AllCategory = $model->getAllCategory();
-    $category = $_GET['category']??$AllCategory[0];
-    $allPage = ceil($model->getSumProduct($category)/$max);
+    $allPage = ceil($model->getSumMaterial()/$max);
     $page =  $_GET['page']??1;
     $data["info"] = $info->get();
-    $data["goods"] = $model->getGoods($category,$page,$max);
-    $data["category"] = $AllCategory;
+    $data["materials"] = $model->getMaterial($page,$max);
     $data["allPage"] = $allPage;
     $data["page"] =$page;
     $data["name"]="Материалы";
-    if (isset($data["goods"])) {
+    if (isset($data["materials"])) {
         $this->view->rendering("materials",$data);
         //рендеринг странички
         return;

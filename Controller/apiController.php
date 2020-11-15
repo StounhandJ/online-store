@@ -82,6 +82,29 @@ class apiController extends AController
     ];
     echo json_encode($out,JSON_UNESCAPED_UNICODE);
   }
+  
+    function MaterialInfo()
+  {
+    $id= $_GET['id'];
+    if (!isset($id)) {
+      $out=['code'=>400,'mes'=>'Указаны не все параметры, обратитесь к документации',"items"=>[]];
+      echo json_encode($out,JSON_UNESCAPED_UNICODE);
+      return;
+    }
+    $model = new \Model\ListMaterials;
+    $InfoProduct = $model->getInfoMaterialID($id); //сколько товаров вернет из категории
+    if (!isset($InfoProduct)) {
+      $out=['code'=>404,'mes'=>'Данный продукт не найден',"items"=>[]];
+      echo json_encode($out,JSON_UNESCAPED_UNICODE);
+      return;
+    }
+    $out = [
+      "code"=>200,
+      "mes"=>"ok",
+      "data"=>$InfoProduct
+    ];
+    echo json_encode($out,JSON_UNESCAPED_UNICODE);
+  }
 
 }
 

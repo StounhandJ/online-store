@@ -7,13 +7,13 @@ require(__DIR__ . DIRECTORY_SEPARATOR."header.php");
                     <div class="features_items"><!--features_items-->
                         <h2 class="title text-center">Материалы</h2>
 
-                        <?php foreach ($data['goods'] as $val):?>
+                        <?php foreach ($data['materials'] as $val):?>
 
                         <div class="col-sm-3">
                             <div class="product-image-wrapper">
                                 <div class="single-products">
                                         <div class="productinfo text-center">
-                                            <img src="/Template/images/product/<?=$val["img"]?>.jpg" alt="" />
+                                            <img src="/Template/images/material/<?=$val["img"]?>.jpg" alt="" />
                                             <h2><?=$val["price"]?></h2>
                                             <p><?=$val["name"]?></p>
                                             <a href="api/productAdd?productID=<?=$val['id']?>&url=<?=$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']?>" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Добавить в корзину</a>

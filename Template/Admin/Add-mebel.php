@@ -80,10 +80,6 @@
 						<input type="text" name="name" id="name" value="" tabindex="1" />
 					</div>
 					<div class="input">
-						<label for="name">Цена</label>
-						<input type="text" name="price" id="price" value="" tabindex="1" />
-					</div>
-					<div class="input">
 						<label for="name">Описание</label>
 						<input type="text" name="description" id="description" value="" tabindex="1" />
 					</div>

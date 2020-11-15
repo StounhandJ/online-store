@@ -18,10 +18,7 @@ $(document).ready(function() {
 			processData:false,
 			contentType:false,
 			data:formData,
-			url:`/${url}/info.update`,
-			success:function(data){
-				console.log(data);
-			}
+			url:`/${url}/info.update`
 		});
 		alert("Изменено");
 		return false;
@@ -37,7 +34,7 @@ $(document).ready(function() {
 	  	description	= $('#new_product #description').val();
 	  	price =$('#new_product #price').val();
 	  	facade = (!isNaN($('#new_product #facade').val())) ? $('#new_product #facade').val():"";
-	  	if(category=="Выберите из списка" || name==="" || description==="" || price==="" || facade==="") return false;
+	  	if(category=="Выберите из списка" || name==="" || description==="" || price==="" || facade==="" || $('#new_product #pictures').prop('files')[0]==undefined) return false;
 		var formData = new FormData();
 	    formData.append('pictures',$('#new_product #pictures').prop('files')[0]);
 	    formData.append('category',category);
@@ -51,10 +48,7 @@ $(document).ready(function() {
 			processData:false,
 			contentType:false,
 			data:formData,
-			url:`/${url}/product.add`,
-			success:function(data){
-				console.log(data);
-			}
+			url:`/${url}/product.add`
 		});
 		alert("Добавленно");
 		$('#new_product #new_category').val("");
@@ -73,7 +67,6 @@ $(document).ready(function() {
 		if(!isNaN($('#change_product #product').val())){
 			$.get(`/api/product.info?id=${$('#change_product #product').val()}`).done(function(json){
 				data = JSON.parse(json)["data"];
-				console.log(data['facade']);
 				$(`#change_product #category :contains(${data['category']})`).prop("selected", true);
 				$(`#change_product #facade option[value="${data['facade']}"]`).prop("selected", true);
 				$('#change_product #name').val(data['name']);
@@ -96,7 +89,6 @@ $(document).ready(function() {
 	
 	  $('#change_product').submit(function(event) {
 	  	if (typeof data !== 'undefined') {
-	  		console.log($('#change_product #facade').val());
 			var formData = new FormData();
 			formData.append("id",data["id"]);
 			name = $('#change_product #name').val();
@@ -136,6 +128,94 @@ $(document).ready(function() {
 				contentType:false,
 				data:formData,
 				url:`/${url}/product.delete`
+			});
+			alert("Удалено");
+		}
+		return false;
+	})
+	
+		//-----Добавить материал----//
+	
+  $('#new_material').submit(function(event) {
+	  	name = $('#new_material #name').val();
+	  	description	= $('#new_material #description').val();
+	  	if(name==="" || description==="" || $('#new_material #pictures').prop('files')[0]==undefined) return false;
+		var formData = new FormData();
+	    formData.append('pictures',$('#new_material #pictures').prop('files')[0]);
+	    formData.append('name',name);
+	    formData.append('description',description);
+		$.ajax({
+			type:'POST',
+			cache:false,
+			processData:false,
+			contentType:false,
+			data:formData,
+			url:`/${url}/material.add`,
+			success:function(data){
+				console.log(data);
+			}
+		});
+		alert("Добавленно");
+		$('#new_material #name').val("");
+		$('#new_material #description').val("");
+	  	$('#new_material #pictures')[0].value = "";
+	  	return false;
+	})
+	
+			//----Изменить материал-----//
+
+	$('#change_material #material').on('change',function(event) {
+		if(!isNaN($('#change_material #material').val())){
+			$.get(`/api/material.info?id=${$('#change_material #material').val()}`).done(function(json){
+				dataMaterial = JSON.parse(json)["data"];
+				$('#change_material #name').val(dataMaterial['name']);
+				$('#change_material #description').val(dataMaterial['description']);
+			})
+		}
+		else
+		{
+			$('#change_material #name').val("");
+			$('#change_material #description').val("");
+			$('#change_material #pictures')[0].value = "";
+			dataMaterial='undefined';
+		}
+	})
+	
+	  $('#change_material').submit(function(event) {
+	  	if (typeof dataMaterial !== 'undefined') {
+			var formData = new FormData();
+			formData.append("id",dataMaterial["id"]);
+			name = $('#change_material #name').val();
+			description = $('#change_material #description').val();
+			pictures = $('#change_material #pictures').prop('files')[0];
+			if(name!=dataMaterial["name"] && name!=="") formData.append('name',name);
+			if(description!=dataMaterial["description"] && description!=="") formData.append('description',description);
+			if(typeof pictures !== 'undefined') {formData.append('pictures',pictures);formData.append('OLDpictures',dataMaterial['img']);}
+			$.ajax({
+				type:'POST',
+				cache:false,
+				processData:false,
+				contentType:false,
+				data:formData,
+				url:`/${url}/material.update`
+			});
+			alert("Обновленно");
+		}
+	  	return false;
+	})
+	
+					//----Удаоить материал-----//
+	$('#delete_material').submit(function(event) {
+		if(!isNaN($('#delete_material #material').val())){
+			var formData = new FormData();
+			formData.append('id',$('#delete_material #material').val());
+			$.ajax({
+				type:'POST',
+				cache:false,
+				processData:false,
+				contentType:false,
+				data:formData,
+				url:`/${url}/material.delete`
 			});
 			alert("Удалено");
 		}

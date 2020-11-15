@@ -46,11 +46,11 @@
 						<label for="name">Удалить материал</label>
 						<select name="list1" id="material">
  							<option>Выберите из списка</option>
- 							<option value="1">Option</option>
- 							<option value="2">Textarea</option>
- 							<option value="3">Label</option>
- 							<option value="4">Fieldset</option>
- 							<option value="5">Legend</option>
+ 							
+ 							<?php foreach ($data["AllMaterials"] as $var): ?>
+									<option value="<?=$var['id']?>"><?=$var['name']?></option>
+								<?php endforeach; ?>
+								
  						</select>
 					</div>
 					<div class="button">

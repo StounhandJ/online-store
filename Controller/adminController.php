@@ -6,11 +6,13 @@ class adminController extends AController
 {
 
   function __construct()
-  {
+  { 
     $this->login = "adStoun";
     $this->password = "12345";
     $this->local = "admin";
     $this->view = new \Libraries\View();
+    $this->IMGproduct = __DIR__.'/../Template/images/product';
+    $this->IMGmaterial = __DIR__.'/../Template/images/material';
   }
 
   function checkAdmin()  //Проверка на админа, True если админ
@@ -53,19 +55,6 @@ class adminController extends AController
     $this->view->rendering("Admin/Login-mebel",$data);
   }
 
-  function Change()
-  {
-    if (!$this->checkAdmin()) {
-      $this->view->rendering("404");
-      return;
-    }
-    $model = new \Model\ListGoods;
-    $data["AllCategory"]=$model->getAllCategory();
-    $data["AllProducts"]=$model->getAllGoods();
-    $data["url"]=$this->local;
-    $this->view->rendering("Admin/Change-mebel",$data);
-  }
-
   function Add()
   {
     if (!$this->checkAdmin()) {
@@ -77,6 +66,21 @@ class adminController extends AController
     $data["url"]=$this->local;
     $this->view->rendering("Admin/Add-mebel",$data);
   }
+
+  function Change()
+  {
+    if (!$this->checkAdmin()) {
+      $this->view->rendering("404");
+      return;
+    }
+    $model = new \Model\ListGoods;
+    $model2 = new \Model\ListMaterials;
+    $data["AllCategory"]=$model->getAllCategory();
+    $data["AllProducts"]=$model->getAllGoods();
+    $data["AllMaterials"]=$model2->getAllMaterial();
+    $data["url"]=$this->local;
+    $this->view->rendering("Admin/Change-mebel",$data);
+  }
   
    function Del()
   {
@@ -85,14 +89,16 @@ class adminController extends AController
       return;
     }
     $model = new \Model\ListGoods;
+    $model2 = new \Model\ListMaterials;
     $data["AllProducts"]=$model->getAllGoods();
+    $data["AllMaterials"]=$model2->getAllMaterial();
     $data["url"]=$this->local;
     $this->view->rendering("Admin/Delete-mebel",$data);
   }
 
  //--------API часть админки----------//
 
-  function loginAPI()  //Сама авторизация
+  function loginAPI()  //Авторизация
   {
     if ($_POST["login"]==$this->login && $_POST["password"]==$this->password) {
       $_SESSION['type']="admin";
@@ -106,7 +112,7 @@ class adminController extends AController
     echo "string";
   }
   
-  function InfoUpdate() //Добавить продукт
+  function InfoUpdate() //Обновить информацию на сайте
   {
       if (!$this->checkAdmin()) {
         $this->view->rendering("404");
@@ -115,6 +121,8 @@ class adminController extends AController
       $info = new \Model\InformationSite;
       $info->set($_POST);
   }
+  
+  //------API admin Product------//
 
   function AddProductAPI() //Добавить продукт
   {
@@ -127,16 +135,14 @@ class adminController extends AController
       $category = $_POST["category"];
       $description = $_POST["description"];
       $price = $_POST["price"];
-      $nameIMG = hash('ripemd128',$name);
-      $uploads_dir = __DIR__.'/../Template/images/product';
-      move_uploaded_file($_FILES["pictures"]["tmp_name"], "$uploads_dir/$nameIMG.jpg");
+      $nameIMG = hash('ripemd128',$name.$description);
+      move_uploaded_file($_FILES["pictures"]["tmp_name"], "$this->IMGproduct/$nameIMG.jpg");
 	  $model = new \Model\ListGoods;
-      $AllCategory = $model->creatProduct($name,$price,$description,$category,$facade,$nameIMG);
+      $AllCategory = $model->createProduct($name,$price,$description,$category,$facade,$nameIMG);
   }
 
   function UpdateProductAPI() //Редактировать продукт
   {
-      $OriginName = $_POST["OriginName"];
       if (!$this->checkAdmin()) {
         $this->view->rendering("404");
         return;
@@ -144,19 +150,17 @@ class adminController extends AController
       $nameIMG=null;
       if(isset($_FILES["pictures"]))
       {
-      	$nameIMG = hash('ripemd128',$_FILES["pictures"]["tmp_name"]);
-    	$uploads_dir = __DIR__.'/../Template/images/product';
-    	move_uploaded_file($_FILES["pictures"]["tmp_name"], "$uploads_dir/$nameIMG.jpg");
+      	$id = $_POST['id'] ?? "123";
+      	$nameIMG = hash('ripemd128',$_FILES["pictures"]["tmp_name"].$id);
+    	move_uploaded_file($_FILES["pictures"]["tmp_name"], "$this->IMGproduct/$nameIMG.jpg");
     	$oldIMG = $_POST['OLDpictures'];
-    	$f = "$uploads_dir/$oldIMG.jpg";
-    	var_dump($f);
-    	var_dump(file_exists($f));
+    	$f = "$this->IMGproduct/$oldIMG.jpg";
     	if(file_exists($f)){
 			unlink($f);
 		}
       }
       $model = new \Model\ListGoods;
-      $model->setInfoProduct($_POST['id'],$_POST['name'],$_POST['price'],$_POST['description'],$_POST['category'],$_POST['facade'],$nameIMG);
+      $model->updateProduct($_POST['id'],$_POST['name'],$_POST['price'],$_POST['description'],$_POST['category'],$_POST['facade'],$nameIMG);
   }
 
   function DelProductAPI() //Удалить продукт
@@ -165,10 +169,67 @@ class adminController extends AController
         $this->view->rendering("404");
         return;
       }
-	  $model = new \Model\ListGoods;
+      $model = new \Model\ListGoods;
+	  $oldIMG = $model->getInfoProductID($_POST['id'])["img"];
+	  $f = "$this->IMGproduct/$oldIMG.jpg";
+	  if(file_exists($f)){
+		unlink($f);
+	  }
 	  $model->deleteProduct($_POST['id']);
   }
+  
+  //------API admin Material------//
 
+	function AddMaterialAPI() //Добавить материал
+	  {
+	      if (!$this->checkAdmin()) {
+	        $this->view->rendering("404");
+	        return;
+	      }
+	      $name = $_POST["name"];
+	      $description = $_POST["description"];
+	      $nameIMG = hash('ripemd128',$name.$description);
+	      move_uploaded_file($_FILES["pictures"]["tmp_name"], "$this->IMGmaterial/$nameIMG.jpg");
+		  $model = new \Model\ListMaterials;
+	      $AllCategory = $model->createMaterial($name,$description,$nameIMG);
+	  }
+	  
+	  function UpdateMaterialAPI() //Редактировать материал
+		{
+	      if (!$this->checkAdmin()) {
+	        $this->view->rendering("404");
+	        return;
+	      }
+	      $nameIMG=null;
+	      if(isset($_FILES["pictures"]))
+	      {
+	      	$id = $_POST['id'] ?? "123";
+	      	$nameIMG = hash('ripemd128',$_FILES["pictures"]["tmp_name"].$id);
+	    	move_uploaded_file($_FILES["pictures"]["tmp_name"], "$this->IMGmaterial/$nameIMG.jpg");
+	    	$oldIMG = $_POST['OLDpictures'];
+	    	$f = "$this->IMGmaterial/$oldIMG.jpg";
+	    	if(file_exists($f)){
+				unlink($f);
+			}
+	      }
+	      $model = new \Model\ListMaterials;
+	      $model->updateMaterial($_POST['id'],$_POST['name'],$_POST['description'],$nameIMG);
+	  }
+	  
+	function DelMaterialAPI() //Удалить материал
+	{
+		if (!$this->checkAdmin() || !isset($_POST['id'])) {
+			$this->view->rendering("404");
+    		return;
+		}
+		$model = new \Model\ListMaterials;
+		$oldIMG = $model->getInfoMaterialID($_POST['id'])["img"];
+		$f = "$this->IMGmaterial/$oldIMG.jpg";
+    	if(file_exists($f)){
+			unlink($f);
+		}
+		$model->deleteMaterial($_POST['id']);
+	}
 }
 
 
