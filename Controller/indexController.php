@@ -24,7 +24,8 @@ class indexController extends AController  //Контроллер для осн�
     $page =  $_GET['page']??1;
     $data["info"] = $info->get();
     $data["goods"] = $model->getGoods($category,$page,$max);
-    $data["category"] = $AllCategory;
+    $data["Allcategory"] = $AllCategory;
+    $data["category"] = $category;
     $data["allPage"] = $allPage;
     $data["page"] =$page;
     $data["name"]="Товары";

@@ -9,7 +9,7 @@ require(__DIR__ . DIRECTORY_SEPARATOR."header.php");
 						<h2>Категории</h2>
 						<div class="panel-group category-products" id="accordian"><!--category-productsr-->
 
-							<?php foreach ($data['category'] as $val):?>
+							<?php foreach ($data['Allcategory'] as $val):?>
 								<div class="panel panel-default">
 									<div class="panel-heading">
 										<h4 class="panel-title"><a href="/?category=<?=$val?>"><?=$val?></a></h4>
@@ -24,7 +24,7 @@ require(__DIR__ . DIRECTORY_SEPARATOR."header.php");
 
 				<div class="col-sm-9 padding-right">
 					<div class="features_items"><!--features_items-->
-						<h2 class="title text-center">Товары</h2>
+						<h2 class="title text-center"><?=$data['category']?></h2>
 
 						<?php foreach ($data['goods'] as $val):?>
 

@@ -127,6 +127,7 @@ select{
 }
 option{
 	color: black;
+	background: #FAB06D;
 }
 .input, .input-file {
 	clear:both; 

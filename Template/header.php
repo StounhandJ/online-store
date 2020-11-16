@@ -43,10 +43,8 @@
 					<div class="col-sm-6">
 						<div class="social-icons pull-right">
 							<ul class="nav navbar-nav">
-								<li><a href="#"><i class="fa fa-facebook" target="_blank" title="facebook"></i></a></li>
-								<li><a href="#"><i class="fa fa-twitter" target="_blank" title="twitter"></i></a></li>
-								<li><a href="#"><i class="fa fa-paper-plane" target="_blank" title="telegram"></i></a></li>
-								<li><a href="#"><i class="fa fa-google-plus" target="_blank" title="google-plus"></i></a></li>
+								<li><a href="#"><i class="fa fa-vk" target="_blank" title="ВКонтакте"></i></a></li>
+								<li><a href="#"><i class="fa fa-instagram" target="_blank" title="Инстаграм"></i></a></li>
 							</ul>
 						</div>
 					</div>
@@ -77,6 +75,14 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-9">
+						<div class="navbar-header">
+							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+								<span class="sr-only">Toggle navigation</span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+							</button>
+						</div>
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
 								<?php 
