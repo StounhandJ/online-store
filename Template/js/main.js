@@ -5,6 +5,20 @@
 	var RGBChange = function() {
 	  $('#RGB').css('background', 'rgb('+r.getValue()+','+g.getValue()+','+b.getValue()+')')
 	};	
+
+function getUrlVar(){
+    var urlVar = window.location.search;
+    var arrayVar = [];
+    var valueAndKey = [];
+    var resultArray = [];
+    arrayVar = (urlVar.substr(1)).split('&');
+    if(arrayVar[0]=="") return false;
+    for (i = 0; i < arrayVar.length; i ++) {
+        valueAndKey = arrayVar[i].split('=');
+        resultArray[valueAndKey[0]] = valueAndKey[1];
+    }
+    return resultArray;
+}
 		
 /*scroll to top*/
 
@@ -27,4 +41,42 @@ $(document).ready(function(){
 	        zIndex: 2147483647 // Z-Index for the overlay
 		});
 	});
+	
+	$('#material [class="btn btn-default add-to-cart"]').click(function(event) {
+			var formData = new FormData();
+			_GET=getUrlVar();
+			formData.append('productID',_GET["productID"]);
+			formData.append('facade',_GET["facade"]);
+			formData.append('materialID',$(this)[0].id);
+			$.ajax({
+					type:'POST',
+					cache:false,
+					processData:false,
+					contentType:false,
+					data:formData,
+					url:`/api/productAddmaterial`,
+					success: function(){ 
+					    $(location).attr('href',"/cart"); 
+					  }
+			});
+			return false
+		});
+		
+	$('#product [class="btn btn-default add-to-cart"]').click(function(event) {
+			var formData = new FormData();
+			formData.append('productID',$(this)[0].id);
+			$.ajax({
+					type:'POST',
+					cache:false,
+					processData:false,
+					contentType:false,
+					data:formData,
+					url:`/api/productAdd`,
+					success: function(){ 
+					    alert("Добавленно в корзину");
+					  }
+			});
+			return false
+		});
+	
 });
