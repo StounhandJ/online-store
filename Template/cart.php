@@ -17,46 +17,48 @@ require(__DIR__ . DIRECTORY_SEPARATOR."header.php");
 						</tr>
 					</thead>
 					<tbody>
+						
+						<?php $totalPrice = 0;$cart = json_decode($_COOKIE["cart"],true) ?? [];foreach ($data["allProduct"] as $val):?>
 						<tr>
 							<td class="cart-image">
-								<a href=""><img src="Template/images/product/2be990b52ee90103bb51e25602a5dfe0.jpg" alt="" style="height:90px;"></a>
+								<a href=""><img src="Template/images/product/<?=$val["img"]?>.jpg" alt="" style="height:90px;"></a>
 							</td>
 							<td class="cart-name">
-								<h4><a href="">Люкс кровать де ля сортир проверка переноса</a></h4>
+								<h4><a href=""><?=$val["name"]?></a></h4>
 							</td>
 							<td class="cart-body">
-								<input type="submit" value="Добавить материал" style="border-radius:10px;text-align:center;outline:none;"><p>Цвет:</p>
+									<input type="submit" value="Добавить материал" style="border-radius:10px;text-align:center;outline:none;"><p>Цвет:</p>
+								<form calss="corpus" action="/test" method="post">
+									<input type="hidden" style="width:100px;" class="color" name="color" value="<?=$cart[$val["id"]]["corpusColor"]?>"/>
+									<input type="hidden" value="<?=$val["id"]?>" name="productID" />
+								</form>
 							</td>
-							<td class="cart-facade">
-								<input type="submit" value="Добавить материал" style="border-radius:10px;text-align:center;outline:none;"><p>Цвет:</p>
-							</td>
+							<?php if($val["facade"]){?>
+								<td class="cart-facade">
+										<input type="submit" value="Добавить материал" style="border-radius:10px;text-align:center;outline:none;"><p>Цвет:</p>
+									<form calss="facade">
+										<input type="hidden" style="width:100px;" class="color" value="<?=$cart[$val["id"]]["facadeColor"]?>"/>
+										<input type="hidden" value="<?=$val["id"]?>" />
+									</form>
+								</td>
+							<?php } else{?>
+								<td class="cart-facade">
+										<p>Недоступно</p>
+									</td>
+							<?php }?>
 							<td class="cart-total">
-								<p class="cart_total_price">255 000 руб</p>
+								<p class="cart_total_price">
+								<?php 
+								$totalPrice+= (int)str_replace([" ","р."],"",$val["price"]);
+								echo $val["price"];?>
+								</p>
 							</td>
 							<td class="cart-delete">
-								<a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
+								<a class="cart_quantity_delete" href="/api/productDel?productID=<?=$val["id"]?>"><i class="fa fa-times"></i></a>
 							</td>
 						</tr>
-							<tr>
-							<td class="cart-image">
-								<a href=""><img src="Template/images/product/2be990b52ee90103bb51e25602a5dfe0.jpg" alt="" style="height:90px;"></a>
-							</td>
-							<td class="cart-name">
-								<h4><a href="">Люкс кровать де ля сортир проверка переноса</a></h4>
-							</td>
-							<td class="cart-body">
-								<input type="submit" value="Добавить материал" style="border-radius:10px;text-align:center;outline:none;"><p>Цвет:</p>
-							</td>
-							<td class="cart-facade">
-								<input type="submit" value="Добавить материал" style="border-radius:10px;text-align:center;outline:none;"><p>Цвет:</p>
-							</td>
-							<td class="cart-total">
-								<p class="cart_total_price">255 000 руб</p>
-							</td>
-							<td class="cart-delete">
-								<a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
-							</td>
-						</tr>
+						<?php endforeach;?>
+						
 					</tbody>
 				</table>
 			</div>
@@ -90,7 +92,7 @@ require(__DIR__ . DIRECTORY_SEPARATOR."header.php");
 									</div>
 								</span>
 							</li>
-							<li>Итого: <span>255 000 руб</span></li>
+							<li>Итого: <span><?= number_format($totalPrice, 0, ',', ' ') . " р."?></span></li>
 						</ul>
 							<a class="btn btn-default update" href="">Заказать</a>
 					</div>
@@ -98,7 +100,6 @@ require(__DIR__ . DIRECTORY_SEPARATOR."header.php");
 			</div>
 		</div>
 	</section><!--/#do_action-->
-
 <?php
 require(__DIR__ .DIRECTORY_SEPARATOR. "footer.php");
 ?>

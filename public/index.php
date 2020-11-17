@@ -160,6 +160,8 @@ $app->group('/api', function (RouteCollectorProxy $group) {
             ->withStatus(200);
           });
 
+					//------API корзины------//
+					
     $group->get('/productAdd', function ($request, $response, array $args) {
       //Добавдения товара в корзину
       //Значения productID(id товара, ОБЯЗАТЕЛЬНО) и url(страница возврата, ОБЯЗАТЕЛЬНО)
@@ -170,6 +172,40 @@ $app->group('/api', function (RouteCollectorProxy $group) {
             ->withHeader('Content-Type', 'text/html')
             ->withStatus(200);
           });
+          
+    $group->post('/productAddmaterial', function ($request, $response, array $args) {
+      //Добавляет товару материал
+      //Значения productID(id товара, ОБЯЗАТЕЛЬНО) и facade(bool, ОБЯЗАТЕЛЬНО) для фасада или корпуса
+        $Controller = new \Controller\AController;
+        $Controller->set("api","AddСartMaterial",$args);
+        $Controller->run();
+        return $response
+            ->withHeader('Content-Type', 'text/html')
+            ->withStatus(200);
+          });
+    
+    $group->post('/productAddcolor', function ($request, $response, array $args) {
+      //Добавляет товару цвет
+      //Значения productID(id товара, ОБЯЗАТЕЛЬНО) и facade(bool, ОБЯЗАТЕЛЬНО) и color(bool, ОБЯЗАТЕЛЬНО)
+        $Controller = new \Controller\AController;
+        $Controller->set("api","AddСartColor",$args);
+        $Controller->run();
+        return $response
+            ->withHeader('Content-Type', 'text/html')
+            ->withStatus(200);
+          });
+    
+    $group->get('/productDel', function ($request, $response, array $args) {
+      //Удаляет товара из корзины
+      //Значения productID(id товара, ОБЯЗАТЕЛЬНО)
+        $Controller = new \Controller\AController;
+        $Controller->set("api","DelСart",$args);
+        $Controller->run();
+        return $response
+            ->withHeader('Content-Type', 'text/html')
+            ->withStatus(200);
+          });
+
 });
 
             //-------------------------//

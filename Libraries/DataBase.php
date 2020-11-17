@@ -37,7 +37,16 @@ class DataBase
 		}
 
 		try {
-			return ['code'=>200,'mes'=>'Успешно','data'=>$query->fetchall(),];
+			$out = [];
+			$fetchall=$query->fetchall();
+			foreach ($fetchall as $key => $val) 
+			{
+				foreach ($val as $key2 => $val2) 
+				{
+				if(!is_numeric($key2)){$out[$key][$key2]=$val2;}
+				}
+			}
+			return ['code'=>200,'mes'=>'Успешно','data'=>$out,];
 		}
 		catch(\PDOException $e) {
 			return ['code'=>204,'mes'=>'Успешно, но ответа нет','data'=>NULL,];

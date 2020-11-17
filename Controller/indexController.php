@@ -73,6 +73,15 @@ class indexController extends AController  //Контроллер для осн�
 
 	function cart(){
 		$info = new \Model\InformationSite;
+		$model = new \Model\ListGoods;
+		$cart = json_decode($_COOKIE["cart"]) ?? [];
+		$allProduct = [];
+		foreach ($cart as $key=>$val) 
+		{
+			$product = $model->getInfoProductID($key);
+			if(isset($product)){$allProduct[]=$product;}
+		}
+		$data["allProduct"] = $allProduct;
     	$data["info"] = $info->get();
 		$data["name"]="Корзина";
 		$this->view->rendering("cart",$data);

@@ -13,16 +13,20 @@
     <link href="Template/css/animate.css" rel="stylesheet">
 	<link href="Template/css/responsive.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!--[if lt IE 9]><script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
-    <script src="js/html5shiv.js"></script>
-    <script src="js/respond.min.js"></script>
-    <![endif]-->
     <link rel="shortcut icon" href="images/favicon.ico">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="Template/images/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="Template/images/ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="Template/images/ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="Template/images/ico/apple-touch-icon-57-precomposed.png">
 	<link href="Template/css/main.css" rel="stylesheet">
+	
+	<script src="Template/js/jquery.js"></script>
+	<script src="Template/js/bootstrap.min.js"></script>
+	<script src="Template/js/jquery.scrollUp.min.js"></script>
+	<script src="Template/js/price-range.js"></script>
+	
+    <script src="Template/js/main.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/Template/colorpicker/js/evol-colorpicker.min.js"type="text/javascript"charset="utf-8"> ></script>
+	<link href="/Template/colorpicker/css/evol-colorpicker.min.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.css">
+	<script src="Template/js/cart.js"></script>
     
 </head><!--/head-->
 

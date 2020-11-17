@@ -9,6 +9,13 @@ class ListGoods extends AModel //Работа с продуктами
   {
     $this->connect();
   }
+  
+  function СorrectionProduct($product)
+  //Редактирует продукт в нужную форму
+  {
+  	$product["facade"] = ($product["facade"]=="1")? true: false;
+  	return $product;
+  }
 
   function getGoods($category,$page=1,$max=10) //Возвращает все товары из определеной кетегории в количестве в зависимости от страницы
   {
@@ -39,7 +46,7 @@ class ListGoods extends AModel //Работа с продуктами
     {
       return NULL;
     }
-    return $query["data"][0];
+    return $this->СorrectionProduct($query["data"][0]);
   }
 
   function getInfoProductName($name,$category) //Возвращает всю информацию о определенном продукте

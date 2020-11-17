@@ -12,18 +12,67 @@ class apiController extends AController
 
   function AddСart()  //Добавляет товар в корзину по id
   {
-    if (!isset($_GET["productID"]) || !isset($_GET['url'])) {
-      return;
-    }
-    $cart = json_decode($_COOKIE["cart"]) ?? [];
-    if (!in_array($_GET["productID"],$cart)) {
-      $cart[] = $_GET["productID"];
-      setcookie("cart", json_encode($cart),time()+60*60*24*7,'/');
-    }
-    $url = $_GET['url'];
-    header("Location: {$url}");
-    echo "err";
+	    if (!isset($_GET["productID"]) || !isset($_GET['url'])) {
+	      return;
+	    }
+	    $cart = json_decode($_COOKIE["cart"],true) ?? [];
+	    if (!array_key_exists($_GET["productID"],$cart)) {
+	      $cart[$_GET["productID"]] = [];
+	      setcookie("cart", json_encode($cart),time()+60*60*24*7,'/');
+	    }
+	    $url = $_GET['url'];
+	    header("Location: {$url}");
+	    echo "err";
   }
+  
+    function AddСartColor()  //Добавляет товару цвет
+  {
+	    $cart = json_decode($_COOKIE["cart"],true) ?? [];
+	    if (!isset($_POST["productID"]) || !isset($_POST['facade']) || !isset($_POST['color']) || !isset($cart[$_POST["productID"]])) {
+	      return;
+	    }
+	    $facade=($_POST["facade"]=="1")? true : false;
+	    if($facade){
+	    	$cart[$_POST["productID"]]["facadeColor"]=$_POST['color'];
+	    }
+	    else
+	    {
+	    	$cart[$_POST["productID"]]["corpusColor"]=$_POST['color'];
+	    }
+	    setcookie("cart", json_encode($cart),time()+60*60*24*7,'/');
+  }
+  
+      function AddСartMaterial()  //Добавляет товару материал
+		{
+		    $cart = json_decode($_COOKIE["cart"],true) ?? [];
+		    if (!isset($_POST["productID"]) || !isset($_POST['facade']) || !isset($_POST['materialID']) || !isset($cart[$_POST["productID"]])) {
+		      return;
+		    }
+		    $facade=($_POST["facade"]=="1")? true : false;
+		    if($facade){
+		    	$cart[$_POST["productID"]]["facadeColor"]=$_POST['color'];
+		    }
+		    else
+		    {
+		    	$cart[$_POST["productID"]]["corpusColor"]=$_POST['color'];
+		    }
+		    setcookie("cart", json_encode($cart),time()+60*60*24*7,'/');
+		}
+	
+	function DelСart()  //Удаляет товар из корзины по id
+		{
+	    if (!isset($_GET["productID"])) {
+	      return;
+	    }
+	    $cart = json_decode($_COOKIE["cart"],true) ?? [];
+	    if (isset($cart[$_GET["productID"]])) {
+	      unset($cart[$_GET["productID"]]);
+	      setcookie("cart", json_encode($cart),time()+60*60*24*7,'/');
+	    }
+	    $url = $_GET['url'];
+	    header("Location: /cart");
+	    echo "err";
+	}
 
   function CategoryGet()
   {
