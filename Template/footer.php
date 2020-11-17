@@ -42,7 +42,7 @@
 	<script src="Template/js/bootstrap.min.js"></script>
 	<script src="Template/js/jquery.scrollUp.min.js"></script>
 	<script src="Template/js/price-range.js"></script>
-    <script src="Template/js/jquery.prettyPhoto.js"></script>
+    <!--<script src="Template/js/jquery.prettyPhoto.js"></script>-->
     <script src="Template/js/main.js"></script>
 </body>
 </html>

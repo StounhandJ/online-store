@@ -34,25 +34,26 @@
 					</div>
 					<div class="input">
 						<label for="name">Соц. сеть</label>
-						<select name="list1" disabled>
+						<select name="list1" id="socialNetwork">
  							<option>Выберите из списка</option>
- 							<option value="1">Option</option>
- 							<option value="2">Textarea</option>
- 							<option value="3">Label</option>
- 							<option value="4">Fieldset</option>
- 							<option value="5">Legend</option>
+ 							<option value="vk">ВК</option>
+ 							<option value="instagram">Инстаграм</option>
  						</select>
 					</div>
 					<div class="input">
 						<label for="name">Новая ссылка</label>
-						<input type="text" disabled name="name" id="name" value="" tabindex="1" />
+						<input type="text" name="name" id="NEWsocialNetwork" value="" tabindex="1" />
 					</div>
 					<div class="input">
 						<label for="name">Часы работы</label>
-						<input type="text" disabled name="name" id="name" value="" tabindex="1" />
+						<input type="text" name="name" id="officeHours" value="<?=$data["info"]["officeHours"]?>" tabindex="1" />
+					</div>
+					<div class="input">
+						<label for="textarea" style="margin-bottom: 10px;">Монтаж</label>
+						<textarea id="montage" class="textarea"><?=str_replace("</b>","**",str_replace("<b>","*",str_replace('<br>',"\n",$data["info"]["montage"])))?></textarea>
 					</div>
 					<div class="button">
-						<input type="submit" value="СОХРАНИТЬ" />
+						<input type="submit" value="СОХРАНИТЬ(Не робит)" />
 					</div>
 				</form>
 			</div>

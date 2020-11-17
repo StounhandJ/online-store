@@ -11,19 +11,20 @@ class indexController extends AController  //Контроллер для осн�
   function __construct()
   {
     $this->view = new \Libraries\View();
+    $this->productsPage = 9; //Товаров на одной странице
+    $this->materialsPage = 12; //Материалов на одной странице
   }
 
   function index() //Главаня страница
   {
     $model = new \Model\ListGoods;
     $info = new \Model\InformationSite;
-    $max = 9;
     $AllCategory = $model->getAllCategory();
     $category = $_GET['category']??$AllCategory[0];
-    $allPage = ceil($model->getSumProduct($category)/$max);
+    $allPage = ceil($model->getSumProduct($category)/$this->productsPage);
     $page =  $_GET['page']??1;
     $data["info"] = $info->get();
-    $data["goods"] = $model->getGoods($category,$page,$max);
+    $data["goods"] = $model->getGoods($category,$page,$this->productsPage);
     $data["Allcategory"] = $AllCategory;
     $data["category"] = $category;
     $data["allPage"] = $allPage;
@@ -43,11 +44,10 @@ class indexController extends AController  //Контроллер для осн�
   {
     $model = new \Model\ListMaterials;
     $info = new \Model\InformationSite;
-    $max = 9;
-    $allPage = ceil($model->getSumMaterial()/$max);
+    $allPage = ceil($model->getSumMaterial()/$this->materialsPage);
     $page =  $_GET['page']??1;
     $data["info"] = $info->get();
-    $data["materials"] = $model->getMaterial($page,$max);
+    $data["materials"] = $model->getMaterial($page,$this->materialsPage);
     $data["allPage"] = $allPage;
     $data["page"] =$page;
     $data["name"]="Материалы";
@@ -60,9 +60,26 @@ class indexController extends AController  //Контроллер для осн�
     //Вывод страницы 404
     return;
   }
+  
+  
+    function montage(){ //Монтаж
+    $info = new \Model\InformationSite;
+    $data["info"] = $info->get();
+    $data["name"]="Монтаж";
+    $this->view->rendering("montage",$data);
+    //Вывод страницы 404
+    return;
+  }
+
+	function cart(){
+		$info = new \Model\InformationSite;
+    	$data["info"] = $info->get();
+		$data["name"]="Корзина";
+		$this->view->rendering("cart",$data);
+	}
 
 	function test(){
-		$this->view->rendering("test",$data);
+		$this->view->rendering("test");
 	}
 
   function Product() //Страница товара

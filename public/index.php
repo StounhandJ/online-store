@@ -38,7 +38,6 @@ spl_autoload_register('autoload');
 //             ->withStatus(404)
 //             ->withHeader('Content-Type', 'text/html');
 // });
-
         //-------------------------------//
 
 
@@ -67,6 +66,26 @@ $app->group('/', function (RouteCollectorProxy $group) {
           ->withHeader('Content-Type', 'text/html')
           ->withStatus(200);
         });
+        
+    $group->get('montage', function ($request, $response, array $args) {
+    //Монтаж
+      $Controller = new \Controller\AController;
+      $Controller->set("index","montage",$args);
+      $Controller->run();
+      return $response
+          ->withHeader('Content-Type', 'text/html')
+          ->withStatus(200);
+        });
+        
+    $group->get('cart', function ($request, $response, array $args) {
+    //Монтаж
+      $Controller = new \Controller\AController;
+      $Controller->set("index","cart",$args);
+      $Controller->run();
+      return $response
+          ->withHeader('Content-Type', 'text/html')
+          ->withStatus(200);
+        });
 
         //   !!!УДАЛИТЬ    //////
     $group->get('test', function ($request, $response, array $args) {
@@ -87,6 +106,17 @@ $app->group('/', function (RouteCollectorProxy $group) {
             //---------API---------//
 
 $app->group('/api', function (RouteCollectorProxy $group) {
+	
+	
+	$group->get('/info.get', function ($request, $response, array $args) {
+    //Возврат всей информации
+    $Controller = new \Controller\AController;
+    $Controller->set("api","InfoGet",$args);
+    $Controller->run();
+    return $response
+        ->withHeader('Content-Type', 'application/json')
+        ->withStatus(200);
+      });
 
   $group->get('/category.get', function ($request, $response, array $args) {
     //Возврат всех категорий товаров

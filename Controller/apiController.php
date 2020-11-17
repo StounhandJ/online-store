@@ -106,6 +106,23 @@ class apiController extends AController
     echo json_encode($out,JSON_UNESCAPED_UNICODE);
   }
 
+    function InfoGet()
+  {
+    $model = new \Model\InformationSite;
+    $InfoProduct = $model->get();
+    if (!isset($InfoProduct)) {
+      $out=['code'=>404,'mes'=>'Данный продукт не найден',"items"=>[]];
+      echo json_encode($out,JSON_UNESCAPED_UNICODE);
+      return;
+    }
+    $out = [
+      "code"=>200,
+      "mes"=>"ok",
+      "data"=>$InfoProduct
+    ];
+    echo json_encode($out,JSON_UNESCAPED_UNICODE);
+  }
+
 }
 
 

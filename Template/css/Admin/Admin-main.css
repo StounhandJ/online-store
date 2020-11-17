@@ -80,6 +80,23 @@ form input[type="text"]{
 	font-family: Sawarabi Mincho;
 	margin-left: 50px;
 }
+.textarea{
+	background: #C4C4C4;
+	opacity: 0.5;
+	margin: 15px auto;
+	margin-bottom:0px;
+	border: 5px solid #fe980f;
+	font-size: 20px;
+	padding: 0px 10px;
+	width: 450px;
+	height: 150px;
+	outline: none;
+	color: black;
+	border-radius: 28px;
+	font-family: Sawarabi Mincho;
+	margin-left: 50px;
+	resize: none;
+}
 form input[type="file"]{
 	display: none;
 }

@@ -8,22 +8,49 @@ $(document).ready(function() {
 		// 	});
 
 	//----Изменить основную информацию-----//
-	$('#change_info').submit(function(event) {
-		var formData = new FormData();
-		formData.append('telephone',$('#change_info #telephone').val());
-	    formData.append('email',$('#change_info #email').val());
-	    $.ajax({
-			type:'POST',
-			cache:false,
-			processData:false,
-			contentType:false,
-			data:formData,
-			url:`/${url}/info.update`
-		});
-		alert("Изменено");
-		return false;
+	
+	$('#change_info #socialNetwork').on('change',function(event) {
+		if($('#change_info #socialNetwork').val()!=="Выберите из списка"){
+			$.get(`/api/info.get`).done(function(json){
+				dataSocialNetwork = JSON.parse(json)["data"];
+				$('#change_info #NEWsocialNetwork').val(dataSocialNetwork[$('#change_info #socialNetwork').val()]);
+				socialNetwork = $('#change_info #socialNetwork').val();
+			})
+		}
+		else
+		{
+			$('#change_info #NEWsocialNetwork').val("");
+			socialNetwork = "";
+		}
 	})
 	
+	$('#change_info').submit(function(event) {
+		var formData = new FormData();
+		$.get(`/api/info.get`).done(function(json){
+				dataInfo = JSON.parse(json)["data"];
+				telephone = $('#change_info #telephone').val();
+				email = $('#change_info #email').val();
+				officeHours = $('#change_info #officeHours').val();
+				montage = $('#change_info #montage').val().replace(/\*\*/i,'</b>').replace(/\*/i,'<b>').replace(/\n/g,'<br>');
+				if(socialNetwork!==""){	NEWsocialNetwork=$('#change_info #NEWsocialNetwork').val()};
+				if(NEWsocialNetwork!=dataInfo[socialNetwork] && NEWsocialNetwork!=="") formData.append(socialNetwork,NEWsocialNetwork);
+				if(telephone!=dataInfo["telephone"] && telephone!=="") formData.append('telephone',telephone);
+				if(email!=dataInfo["email"] && email!=="") formData.append('email',email);
+				if(officeHours!=dataInfo["officeHours"] && officeHours!=="") formData.append('officeHours',officeHours);
+				if(montage!=dataInfo["montage"] && montage!=="") formData.append('montage',montage);
+			    $.ajax({
+					type:'POST',
+					cache:false,
+					processData:false,
+					contentType:false,
+					data:formData,
+					url:`/${url}/info.update`
+				});
+				alert("Изменено");
+			})
+		return false;
+	})
+
 	
 	//-----Добавить товар----//
 	

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,8 +42,8 @@
 					<div class="col-sm-6">
 						<div class="social-icons pull-right">
 							<ul class="nav navbar-nav">
-								<li><a href="#"><i class="fa fa-vk" target="_blank" title="ВКонтакте"></i></a></li>
-								<li><a href="#"><i class="fa fa-instagram" target="_blank" title="Инстаграм"></i></a></li>
+								<li><a href="<?=$data["info"]["vk"]?>"><i class="fa fa-vk" target="_blank" title="ВКонтакте"></i></a></li>
+								<li><a href="<?=$data["info"]["instagram"]?>"><i class="fa fa-instagram" target="_blank" title="Инстаграм"></i></a></li>
 							</ul>
 						</div>
 					</div>
@@ -63,7 +62,7 @@
 					<div class="col-sm-8">
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
-								<li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Корзина</a></li>
+								<li><a href="/cart"><i class="fa fa-shopping-cart"></i> Корзина</a></li>
 							</ul>
 						</div>
 					</div>
@@ -85,13 +84,13 @@
 						</div>
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
-								<?php 
-									if($data["name"]=="Товары"){echo '<li><a href="/" class="active">Товары</a></li>';}
-									else{echo '<li><a href="/">Товары</a></li>';}
-									if($data["name"]=="Материалы"){echo '<li><a href="/materials" class="active">Материалы</a></li>';}
-									else{echo '<li><a href="/materials">Материалы</a></li>';}
+								<?php
+									$out = "";
+									$out.= '<li><a href="/"'.(($data["name"]=="Товары")?'class="active"':'').'>Товары</a></li>';
+									$out.= '<li><a href="/materials"'.(($data["name"]=="Материалы")?'class="active"':'').'>Материалы</a></li>';
+									$out.= '<li><a href="/montage"'.(($data["name"]=="Монтаж")?'class="active"':'').'>Монтаж</a></li>';
+									echo $out;
 								?>
-								<li><a href="#">Монтаж</a></li>
 								<li><a href="#">Отзывы</a></li>
 								<li><a href="#">Контакты</a></li>
 							</ul>
