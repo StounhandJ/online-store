@@ -811,7 +811,17 @@ h2.title:before{
 h2.title {
   color: #964b00;
   font-family: 'Roboto', sans-serif;
-  font-size: 18px;
+  font-size: 25px;
+  font-weight: 700;
+  margin: 0 15px;
+  text-transform: uppercase;
+  margin-bottom: 30px;
+  position: relative;
+}
+
+h1.title {
+  color: #964b00;
+  font-family: 'Roboto', sans-serif;
   font-weight: 700;
   margin: 0 15px;
   text-transform: uppercase;
@@ -907,6 +917,19 @@ h2.title {
   color: #964b00;
 }
 
+.add-material, .add-facade {
+  background:#fff;
+  border-color: #ccc;
+  border-radius: 0;
+  color: #964b00;
+  font-family: 'Roboto', sans-serif;
+  font-size: 15px;
+}
+
+.add-material, .add-facade:hover {
+  background:#964b00;
+  color: #fff;
+}
 
 .product-overlay p{
   font-family: 'Roboto', sans-serif;
@@ -915,7 +938,10 @@ h2.title {
   color: #fff;
 }
 
-
+.p-material-added{
+	margin-top: 5px;
+	margin-bottom: 10px;
+}
 
 .add-to-cart {
   background:#F5F5ED;
@@ -1070,9 +1096,8 @@ h2.title {
 .pagination {
   position: relative;
   display: inline-block;
-  margin: 50% auto;
   margin-bottom: 25px;
-  margin-left: 45%;
+  margin-left: 47%;
   margin-top: 0;
 }
 .pagination  .active  a{
@@ -1656,6 +1681,7 @@ h2.title {
   color: #696763;
   padding: 30px 25px 30px 0;
   margin-bottom: 80px;
+  border-radius: 30px;
 }
 
 /*.total_area span {*/

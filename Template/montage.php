@@ -5,7 +5,7 @@ require(__DIR__ . DIRECTORY_SEPARATOR."header.php");
     	<div class="bg">
 	    	<div class="row">    		
 	    		<div class="col-sm-12">    			   			
-					<h2 class="title text-center">Монтаж</h2>    			    				    				
+					<h1 class="title text-center">Монтаж</h1>    			    				    				
 					<div id="gmap" class="contact-map" style="word-wrap: break-word; font-size: 30px;">
 					<?=$data["info"]["montage"]?>	
 					</div>

@@ -60,7 +60,7 @@
 				<div class="row">
 					<div class="col-sm-4">
 						<div class="logo pull-left">
-							<a href=""><img src="Template/images/logo.png" alt="" /></a>
+							<a href="/"><img src="Template/images/logo.png" alt="" /></a>
 						</div>
 					</div>
 					<div class="col-sm-8">
@@ -95,7 +95,6 @@
 									$out.= '<li><a href="/montage"'.(($data["name"]=="Монтаж")?'class="active"':'').'>Монтаж</a></li>';
 									echo $out;
 								?>
-								<li><a href="#">Отзывы</a></li>
 								<li><a href="#">Контакты</a></li>
 							</ul>
 						</div>

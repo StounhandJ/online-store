@@ -59,7 +59,7 @@ $(document).ready(function() {
 	  	category = ( $('#new_product #new_category').val() !== "") ? $('#new_product #new_category').val() : $('#new_product #old_category').val();
 	  	name = $('#new_product #name').val();
 	  	description	= $('#new_product #description').val();
-	  	price =$('#new_product #price').val();
+	  	price =$('#new_product #price').val().replace(" ","");
 	  	facade = (!isNaN($('#new_product #facade').val())) ? $('#new_product #facade').val():"";
 	  	if(category=="Выберите из списка" || name==="" || description==="" || price==="" || facade==="" || $('#new_product #pictures').prop('files')[0]==undefined) return false;
 		var formData = new FormData();
@@ -119,7 +119,7 @@ $(document).ready(function() {
 			var formData = new FormData();
 			formData.append("id",data["id"]);
 			name = $('#change_product #name').val();
-			price = $('#change_product #price').val();
+			price = $('#change_product #price').val().replace(" ","");
 			description = $('#change_product #description').val();
 			category = $('#change_product #category').val();
 			pictures = $('#change_product #pictures').prop('files')[0];

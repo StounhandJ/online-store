@@ -9,6 +9,38 @@ class apiController extends AController
   function __construct()
   {
   }
+  
+
+	function СartPush()  //Отправляет заказ на почту
+  {
+	    if (!isset($_COOKIE["cart"])) {
+	      return;
+	    }
+	    $goods = new \Model\ListGoods;
+	    $material = new \Model\ListMaterials;
+	    $text ="";
+	    $text.=$_POST["name"].";\n".$_POST["phone"].";\n".$_POST["email"]."\n\n";
+	    $cart = json_decode($_COOKIE["cart"],true) ?? [];
+	    foreach($cart as $key=>$val)
+	    {
+	    	$product = $goods->getInfoProductID($key);
+	    	$name = $product["name"];
+	    	$corpusMaterial = $material->getInfoMaterialID($val["corpusMaterial"])["name"]??"Не указано";
+	    	$facadeMaterial = $material->getInfoMaterialID($val["facadeMaterial"])["name"]??"Не указано";
+	    	$corpusColor = $val["corpusColor"]??"Не указано";
+	    	$facadeColor = $val["facadeColor"]??"Не указано";
+	    	if($product!=NULL)
+	    	{
+	    		$totalPrice+= (int)str_replace([" ","р."],"",$product["price"]);
+	    		$text.=($product['facade']=="1")?"$name - материал корпуса $corpusMaterial и цвет $corpusColor, материал фасада $facadeMaterial и цвет $facadeColor;\n":"$name - материал корпуса $corpusMaterial и цвет $corpusColor;\n";
+	    	}
+	    }
+	    $price = number_format($totalPrice, 0, ',', ' ') . " р.";
+	    $text.="Итоговая цена:".$price."\n\n".$_POST["adress"].";\n".$_POST["comment"];
+	    mail("roman.m2003@yandex.ru","Заказ",$text);
+	    unset($_COOKIE['cart']);
+    	setcookie('cart', null, -1, '/');
+  }
 
   function AddСart()  //Добавляет товар в корзину по id
   {

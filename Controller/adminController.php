@@ -134,7 +134,7 @@ class adminController extends AController
       $name = $_POST["name"];
       $category = $_POST["category"];
       $description = $_POST["description"];
-      $price = $_POST["price"];
+      $price = number_format($_POST["price"], 0, ',', ' ') . " р.";
       $nameIMG = hash('ripemd128',$name.$description);
       move_uploaded_file($_FILES["pictures"]["tmp_name"], "$this->IMGproduct/$nameIMG.jpg");
 	  $model = new \Model\ListGoods;
@@ -160,7 +160,7 @@ class adminController extends AController
 		}
       }
       $model = new \Model\ListGoods;
-      $model->updateProduct($_POST['id'],$_POST['name'],$_POST['price'],$_POST['description'],$_POST['category'],$_POST['facade'],$nameIMG);
+      $model->updateProduct($_POST['id'],$_POST['name'],number_format($_POST["price"], 0, ',', ' ') . " р.",$_POST['description'],$_POST['category'],$_POST['facade'],$nameIMG);
   }
 
   function DelProductAPI() //Удалить продукт

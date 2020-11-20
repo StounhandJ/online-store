@@ -64,18 +64,17 @@ $(document).ready(function(){
 		
 	$('#product [class="btn btn-default add-to-cart"]').click(function(event) {
 			var formData = new FormData();
-			formData.append('productID',$(this)[0].id);
+			id = $(this)[0].id;
+			formData.append('productID',id);
 			$.ajax({
 					type:'POST',
 					cache:false,
 					processData:false,
 					contentType:false,
 					data:formData,
-					url:`/api/productAdd`,
-					success: function(){ 
-					    alert("Добавленно в корзину");
-					  }
+					url:`/api/productAdd`
 			});
+			$(`#product a[id="${id}"]`).text("Добавлено!");
 			return false
 		});
 	

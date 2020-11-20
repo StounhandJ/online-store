@@ -53,7 +53,7 @@
 						<textarea id="montage" class="textarea"><?=str_replace("</b>","**",str_replace("<b>","*",str_replace('<br>',"\n",$data["info"]["montage"])))?></textarea>
 					</div>
 					<div class="button">
-						<input type="submit" value="СОХРАНИТЬ(Не робит)" />
+						<input type="submit" value="СОХРАНИТЬ" />
 					</div>
 				</form>
 			</div>

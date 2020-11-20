@@ -26,8 +26,13 @@ require(__DIR__ . DIRECTORY_SEPARATOR."header.php");
 					<div class="features_items"><!--features_items-->
 						<h2 class="title text-center"><?=$data['category']?></h2>
 
-						<?php foreach ($data['goods'] as $val):?>
-
+						<?php foreach ($data['goods'] as $val):
+							if (!array_key_exists($val["id"],json_decode($_COOKIE["cart"],true) ?? [])) {
+								$button = '<a class="btn btn-default add-to-cart"  id="'.$val["id"].'"><i class="fa fa-shopping-cart"></i>Добавить в корзину</a>';
+							}
+							else{
+								$button = '<a class="btn btn-default add-to-cart off">Добавлено!</a>';
+							}?>
 						<div class="col-sm-4" id="product">
 							<div class="product-image-wrapper">
 								<div class="single-products">
@@ -35,14 +40,14 @@ require(__DIR__ . DIRECTORY_SEPARATOR."header.php");
 											<img src="/Template/images/product/<?=$val["img"]?>.jpg" alt="" />
 											<h2><?=$val["price"]?></h2>
 											<p><?=$val["name"]?></p>
-											<a class="btn btn-default add-to-cart"  id="<?=$val["id"]?>"><i class="fa fa-shopping-cart"></i>Добавить в корзину</a>
+											<?=$button?>
 										</div>
 										<div class="product-overlay">
 											<div class="overlay-content">
 												<h2><?=$val["description"]?></h2>
 												<h2><?=$val["price"]?></h2>
 												<p><?=$val["name"]?></p>
-												<a class="btn btn-default add-to-cart" id="<?=$val["id"]?>"><i class="fa fa-shopping-cart"></i>Добавить в корзину</a>
+												<?=$button?>
 											</div>
 										</div>
 								</div>
@@ -57,7 +62,7 @@ require(__DIR__ . DIRECTORY_SEPARATOR."header.php");
 			</div>
 			<ul class="pagination">
 				<?php
-							$url = ((!empty($_SERVER['HTTPS'])) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST']."?category=".$_GET['category']."&page=";
+							$url = ((!empty($_SERVER['HTTPS'])) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST']."?category=".$data['category']."&page=";
 							$col = 0;
 							$mas = ($data["page"]!=$data["allPage"]) ? 1:2;
 							$mas = ($data["allPage"]<=2) ? $data["page"]-1:$mas;

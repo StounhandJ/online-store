@@ -17,7 +17,7 @@ require(__DIR__ . DIRECTORY_SEPARATOR."header.php");
                                             <h2><?=$val["price"]?></h2>
                                             <p><?=$val["name"]?></p>
                                             <?php if(isset($_GET["productID"])){?>
-                                                	<a class="btn btn-default add-to-cart" id="<?=$val["id"]?>"><i class="fa fa-shopping-cart"></i>Добавить в корзину</a>
+                                                	<a class="btn btn-default add-to-cart" id="<?=$val["id"]?>"><i class="fa fa-shopping-cart"></i>Добавить к товару</a>
                                             	<?php }?>
                                             </div>
                                         <div class="product-overlay">
@@ -26,7 +26,7 @@ require(__DIR__ . DIRECTORY_SEPARATOR."header.php");
                                                 <h2><?=$val["price"]?></h2>
                                                 <p><?=$val["name"]?></p>
                                                 <?php if(isset($_GET["productID"])){?>
-                                                	<a class="btn btn-default add-to-cart" id="<?=$val["id"]?>"><i class="fa fa-shopping-cart"></i>Добавить в корзину</a>
+                                                	<a class="btn btn-default add-to-cart" id="<?=$val["id"]?>"><i class="fa fa-shopping-cart"></i>Добавить к товару</a>
                                             	<?php }?>
                                             </div>
                                         </div>
@@ -40,7 +40,7 @@ require(__DIR__ . DIRECTORY_SEPARATOR."header.php");
             </div>
             <ul class="pagination">
                 <?php
-                            $url = ((!empty($_SERVER['HTTPS'])) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST']."?category=".$_GET['category']."&page=";
+                            $url = ((!empty($_SERVER['HTTPS'])) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST']."?page=";
                             $col = 0;
                             $mas = ($data["page"]!=$data["allPage"]) ? 1:2;
                             $mas = ($data["allPage"]<=2) ? $data["page"]-1:$mas;

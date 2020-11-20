@@ -23,7 +23,6 @@ function autoload ($class) { //Загрузка файлов
     }
 };
 spl_autoload_register('autoload');
-
         //-------------------------------//
 
 
@@ -161,7 +160,16 @@ $app->group('/api', function (RouteCollectorProxy $group) {
           });
 
 					//------API корзины------//
-					
+	$group->post('/cartPush', function ($request, $response, array $args) {
+      // Отправляет заказ на почту
+        $Controller = new \Controller\AController;
+        $Controller->set("api","СartPush",$args);
+        $Controller->run();
+        return $response
+            ->withHeader('Content-Type', 'text/html')
+            ->withStatus(200);
+          });
+	
     $group->post('/productAdd', function ($request, $response, array $args) {
       //Добавдения товара в корзину
       //Значения productID(id товара, ОБЯЗАТЕЛЬНО) и url(страница возврата, ОБЯЗАТЕЛЬНО)
