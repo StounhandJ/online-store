@@ -36,7 +36,7 @@ class apiController extends AController
 	    	}
 	    }
 	    $price = number_format($totalPrice, 0, ',', ' ') . " р.";
-	    $text.="Итоговая цена:".$price."\n\n".$_POST["adress"].";\n".$_POST["comment"];
+	    $text.="Итоговая цена:".$price."\n\n".$_POST["address"].";\n".$_POST["comment"];
 	    mail("roman.m2003@yandex.ru","Заказ",$text);
 	    unset($_COOKIE['cart']);
     	setcookie('cart', null, -1, '/');

@@ -66,13 +66,15 @@ $(document).ready(function() {
 		name = $("#name").val();
 		phone = $("#phone").val();
 		email = $("#email").val();
-		adress = $("#adress").val();
+		adress = $("#address").val();
 		comment = $("#comment").val();
+		
+		console.log(window.yandex.autofill.getProfileData(field_list));
 		if(name==="" || phone==="" || email==="" || adress==="" || adress==="comment") return false;
 		formData.append('name',name);
 		formData.append('phone',phone);
 		formData.append('email',email);
-		formData.append('adress',adress);
+		formData.append('address',address);
 		formData.append('comment',comment);
 		$.ajax({
 			type:'POST',

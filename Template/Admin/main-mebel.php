@@ -49,6 +49,10 @@
 						<input type="text" name="name" id="officeHours" value="<?=$data["info"]["officeHours"]?>" tabindex="1" />
 					</div>
 					<div class="input">
+						<label for="name">Description основной</label>
+						<input type="text" name="name" id="descriptionMain" value="<?=$data["info"]["descriptionMain"]?>" tabindex="1" />
+					</div>
+					<div class="input">
 						<label for="name">Description товаров</label>
 						<input type="text" name="name" id="descriptionProduct" value="<?=$data["info"]["descriptionProduct"]?>" tabindex="1" />
 					</div>

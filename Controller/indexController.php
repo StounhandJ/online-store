@@ -31,7 +31,7 @@ class indexController extends AController  //Контроллер для осн�
     $data["allPage"] = $allPage;
     $data["page"] =$page;
     $data["name"]="Товары";
-    $data["description"]=$category.$infoData["descriptionProduct"];
+    $data["description"]=(!isset($_GET['category']))?$infoData["descriptionMain"]:$category.$infoData["descriptionProduct"];
     if (isset($data["goods"])) {
         $this->view->rendering("index",$data);
         //рендеринг странички

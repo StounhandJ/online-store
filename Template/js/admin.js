@@ -34,6 +34,7 @@ $(document).ready(function() {
 				descriptionProduct = $('#change_info #descriptionProduct').val();
 				descriptionMaterial = $('#change_info #descriptionMaterial').val();
 				descriptionMontage = $('#change_info #descriptionMontage').val();
+				descriptionMain = $('#change_info #descriptionMain').val();
 				if(socialNetwork!==""){	NEWsocialNetwork=$('#change_info #NEWsocialNetwork').val()};
 				if(NEWsocialNetwork!=dataInfo[socialNetwork] && NEWsocialNetwork!=="") formData.append(socialNetwork,NEWsocialNetwork);
 				if(telephone!=dataInfo["telephone"] && telephone!=="") formData.append('telephone',telephone);
@@ -42,6 +43,7 @@ $(document).ready(function() {
 				if(descriptionProduct!=dataInfo["descriptionProduct"] && descriptionProduct!=="") formData.append('descriptionProduct',descriptionProduct);
 				if(descriptionMaterial!=dataInfo["descriptionMaterial"] && descriptionMaterial!=="") formData.append('descriptionMaterial',descriptionMaterial);
 				if(descriptionMontage!=dataInfo["descriptionMontage"] && descriptionMontage!=="") formData.append('descriptionMontage',descriptionMontage);
+				if(descriptionMain!=dataInfo["descriptionMain"] && descriptionMain!=="") formData.append('descriptionMain',descriptionMain);
 			    $.ajax({
 					type:'POST',
 					cache:false,
