@@ -33,10 +33,7 @@ $(document).ready(function() {
 				processData:false,
 				contentType:false,
 				data:formData,
-				url:`/api/productAddcolor`,
-				success: function(data){ 
-				    console.log(data);
-				  }
+				url:`/api/productAddcolor`
 		});
 		return false;
 	});
@@ -59,7 +56,7 @@ $(document).ready(function() {
 				data:formData,
 				url:`/api/productDel`,
 				success: function(data){	
-				    console.log($(`tr[id='${id}']`).remove());	
+				    $(`tr[id='${id}']`).remove();	
 				  }
 		});
 		return false;
