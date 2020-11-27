@@ -27,10 +27,7 @@
     <title>Лучшая мебель СНГ - <?=$data["name"]?></title>
     <link defer href="Template/css/bootstrap.min.css" rel="stylesheet">
     <link defer href="Template/css/font-awesome.min.css" rel="stylesheet">
-    <link defer href="Template/css/prettyPhoto.css" rel="stylesheet">
-    <link defer href="Template/css/price-range.css" rel="stylesheet">
     <link href="Template/css/animate.css" rel="stylesheet">
-	<link defer href="Template/css/responsive.css" rel="stylesheet">
 	<link defer rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="shortcut icon" href="images/favicon.ico">
 	<link href="Template/css/main.css" rel="stylesheet">
