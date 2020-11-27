@@ -1,11 +1,18 @@
 url = "admin";
 
+function changeFile(name)
+{
+	$(`${name} #pictures`)[0].value = "";
+	$(`${name} .fileUP .text`)[0].textContent = "выбирите файл";
+}
+
 $(document).ready(function() {
 	
 				//-------Добавить потом отображение что файл добавлен-----//
-		// 	$('#pictures').change(function(){
-		// 		$('label.text').text($('label.text').val()+" (Выбран)");
-		// 	});
+			$('.fileUP').change(function(){
+				$(this)[0].children[0].textContent = "файл выбран";
+				console.log($(this)[0].children[0]);
+			});
 
 	//----Изменить основную информацию-----//
 	
@@ -88,7 +95,7 @@ $(document).ready(function() {
 		$('#new_product #name').val("");
 		$('#new_product #description').val("");
 	  	$('#new_product #price').val("");
-	  	$('#new_product #pictures')[0].value = "";
+	  	changeFile("#new_product");
 	  	$('#new_product #old_category option:selected').prop("selected", false);
 		$('#new_product #facade option:selected').prop("selected", false);
 	  	return false;
@@ -100,12 +107,13 @@ $(document).ready(function() {
 		if(!isNaN($('#change_product #product').val())){
 			$.get(`/api/product.info?id=${$('#change_product #product').val()}`).done(function(json){
 				data = JSON.parse(json)["data"];
+				facade = (data['facade'])?1:0;
 				$(`#change_product #category :contains(${data['category']})`).prop("selected", true);
-				$(`#change_product #facade option[value="${data['facade']}"]`).prop("selected", true);
+				$(`#change_product #facade option[value="${facade}"]`).prop("selected", true);
 				$('#change_product #name').val(data['name']);
 				$('#change_product #price').val(data['price']);
 				$('#change_product #description').val(data['description']);
-				
+				changeFile('#change_product');
 			})
 		}
 		else
@@ -113,7 +121,7 @@ $(document).ready(function() {
 			$('#change_product #name').val("");
 			$('#change_product #price').val("");
 			$('#change_product #description').val("");
-			$('#change_product #pictures')[0].value = "";
+			changeFile('#change_product');
 			$('#change_product #category option:selected').prop('selected', false);
 			$('#change_product #facade option').prop('selected', false);
 			data='undefined';
@@ -145,6 +153,7 @@ $(document).ready(function() {
 				url:`/${url}/product.update`
 			});
 			alert("Обновленно");
+			changeFile('#change_product');
 		}
 	  	return false;
 	});
@@ -192,7 +201,7 @@ $(document).ready(function() {
 		alert("Добавленно");
 		$('#new_material #name').val("");
 		$('#new_material #description').val("");
-	  	$('#new_material #pictures')[0].value = "";
+	  	changeFile('#new_material');
 	  	return false;
 	});
 	
@@ -204,13 +213,14 @@ $(document).ready(function() {
 				dataMaterial = JSON.parse(json)["data"];
 				$('#change_material #name').val(dataMaterial['name']);
 				$('#change_material #description').val(dataMaterial['description']);
+				changeFile('#change_material');
 			})
 		}
 		else
 		{
 			$('#change_material #name').val("");
 			$('#change_material #description').val("");
-			$('#change_material #pictures')[0].value = "";
+			changeFile('#change_material');
 			dataMaterial='undefined';
 		}
 	})
@@ -233,6 +243,7 @@ $(document).ready(function() {
 				data:formData,
 				url:`/${url}/material.update`
 			});
+			changeFile('#change_material');
 			alert("Обновленно");
 		}
 	  	return false;

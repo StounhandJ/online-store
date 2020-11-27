@@ -68,9 +68,7 @@
 					</div>
 					<div class="input-file">
 						<label for="name">Изменить картинку</label>
-						<label class="fileUP">
-							выберите файл
-						<input type="file" name="pictures" id="pictures" tabindex="1" accept="image/*"/>
+						<label class="fileUP"><span class="text">выберите файл</span><input type="file" name="pictures" id="pictures" tabindex="1" accept="image/*"/>
 						</label>
 					</div>
 					<div class="button">
@@ -102,9 +100,7 @@
 					</div>
 					<div class="input-file">
 						<label for="name">Добавить картинку</label>
-						<label class="fileUP">
-							выберите файл
-						<input type="file" name="pictures" id="pictures" tabindex="1" accept="image/*"/>
+						<label class="fileUP"><span class="text">выберите файл</span><input type="file" name="pictures" id="pictures" tabindex="1" accept="image/*"/>
 						</label>
 					</div>
 					<div class="button">
