@@ -31,13 +31,17 @@ $(document).ready(function() {
 				telephone = $('#change_info #telephone').val();
 				email = $('#change_info #email').val();
 				officeHours = $('#change_info #officeHours').val();
-				montage = $('#change_info #montage').val().replace(/\*\*/i,'</b>').replace(/\*/i,'<b>').replace(/\n/g,'<br>');
+				descriptionProduct = $('#change_info #descriptionProduct').val();
+				descriptionMaterial = $('#change_info #descriptionMaterial').val();
+				descriptionMontage = $('#change_info #descriptionMontage').val();
 				if(socialNetwork!==""){	NEWsocialNetwork=$('#change_info #NEWsocialNetwork').val()};
 				if(NEWsocialNetwork!=dataInfo[socialNetwork] && NEWsocialNetwork!=="") formData.append(socialNetwork,NEWsocialNetwork);
 				if(telephone!=dataInfo["telephone"] && telephone!=="") formData.append('telephone',telephone);
 				if(email!=dataInfo["email"] && email!=="") formData.append('email',email);
 				if(officeHours!=dataInfo["officeHours"] && officeHours!=="") formData.append('officeHours',officeHours);
-				if(montage!=dataInfo["montage"] && montage!=="") formData.append('montage',montage);
+				if(descriptionProduct!=dataInfo["descriptionProduct"] && descriptionProduct!=="") formData.append('descriptionProduct',descriptionProduct);
+				if(descriptionMaterial!=dataInfo["descriptionMaterial"] && descriptionMaterial!=="") formData.append('descriptionMaterial',descriptionMaterial);
+				if(descriptionMontage!=dataInfo["descriptionMontage"] && descriptionMontage!=="") formData.append('descriptionMontage',descriptionMontage);
 			    $.ajax({
 					type:'POST',
 					cache:false,

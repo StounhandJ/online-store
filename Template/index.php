@@ -24,7 +24,7 @@ require(__DIR__ . DIRECTORY_SEPARATOR."header.php");
 
 				<div class="col-sm-9 padding-right">
 					<div class="features_items"><!--features_items-->
-						<h2 class="title text-center"><?=$data['category']?></h2>
+						<h1 style="font-size:25px;" class="title text-center"><?=$data['category']?></h2>
 
 						<?php foreach ($data['goods'] as $val):
 							if (!array_key_exists($val["id"],json_decode($_COOKIE["cart"],true) ?? [])) {

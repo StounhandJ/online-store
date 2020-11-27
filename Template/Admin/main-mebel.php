@@ -49,8 +49,16 @@
 						<input type="text" name="name" id="officeHours" value="<?=$data["info"]["officeHours"]?>" tabindex="1" />
 					</div>
 					<div class="input">
-						<label for="textarea" style="margin-bottom: 10px;">Монтаж</label>
-						<textarea id="montage" class="textarea"><?=str_replace("</b>","**",str_replace("<b>","*",str_replace('<br>',"\n",$data["info"]["montage"])))?></textarea>
+						<label for="name">Description товаров</label>
+						<input type="text" name="name" id="descriptionProduct" value="<?=$data["info"]["descriptionProduct"]?>" tabindex="1" />
+					</div>
+					<div class="input">
+						<label for="name">Description материалов</label>
+						<input type="text" name="name" id="descriptionMaterial" value="<?=$data["info"]["descriptionMaterial"]?>" tabindex="1" />
+					</div>
+					<div class="input">
+						<label for="name">Description монтаж</label>
+						<input type="text" name="name" id="descriptionMontage" value="<?=$data["info"]["descriptionMontage"]?>" tabindex="1" />
 					</div>
 					<div class="button">
 						<input type="submit" value="СОХРАНИТЬ" />

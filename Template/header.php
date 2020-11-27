@@ -1,18 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  	<!-- Yandex.Metrika counter -->
+<script type="text/javascript" >
+   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+   m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+   ym(69671746, "init", {
+        clickmap:true,
+        trackLinks:true,
+        accurateTrackBounce:true
+   });
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/69671746" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+  	<meta name="yandex-verification" content="0efaaa001720d531" />
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="<?=$data['description']?>">
+    <meta name="Keywords" content="мебель кухни на заказ Москва доставка">
+    <meta property="og:title" content="Лучшая мебель СНГ - <?=$data["name"]?>">
+    <meta property="og:description" content="<?=$data['description']?>">
+    <meta property="og:site_name" content="Лучшая мебель СНГ">
+    <meta property="og:image" content="Template/images/logo.png">
     <title>Лучшая мебель СНГ - <?=$data["name"]?></title>
-    <link href="Template/css/bootstrap.min.css" rel="stylesheet">
-    <link href="Template/css/font-awesome.min.css" rel="stylesheet">
-    <link href="Template/css/prettyPhoto.css" rel="stylesheet">
-    <link href="Template/css/price-range.css" rel="stylesheet">
+    <link defer href="Template/css/bootstrap.min.css" rel="stylesheet">
+    <link defer href="Template/css/font-awesome.min.css" rel="stylesheet">
+    <link defer href="Template/css/prettyPhoto.css" rel="stylesheet">
+    <link defer href="Template/css/price-range.css" rel="stylesheet">
     <link href="Template/css/animate.css" rel="stylesheet">
-	<link href="Template/css/responsive.css" rel="stylesheet">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link defer href="Template/css/responsive.css" rel="stylesheet">
+	<link defer rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="shortcut icon" href="images/favicon.ico">
 	<link href="Template/css/main.css" rel="stylesheet">
 	
@@ -21,12 +40,12 @@
 	<script src="Template/js/jquery.scrollUp.min.js"></script>
 	<script src="Template/js/price-range.js"></script>
 	
-    <script src="Template/js/main.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
-	<script src="/Template/colorpicker/js/evol-colorpicker.min.js"type="text/javascript"charset="utf-8"> ></script>
-	<link href="/Template/colorpicker/css/evol-colorpicker.min.css" rel="stylesheet" type="text/css">
-	<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.css">
-	<script src="Template/js/cart.js"></script>
+    <script defer src="Template/js/main.js"></script>
+    <script defer src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+	<script defer src="/Template/colorpicker/js/evol-colorpicker.min.js"type="text/javascript"charset="utf-8"> ></script>
+	<link defer href="/Template/colorpicker/css/evol-colorpicker.min.css" rel="stylesheet" type="text/css">
+	<link defer rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.css">
+	<script defer src="Template/js/cart.js"></script>
     
 </head><!--/head-->
 

@@ -19,6 +19,7 @@ class indexController extends AController  //Контроллер для осн�
   {
     $model = new \Model\ListGoods;
     $info = new \Model\InformationSite;
+    $infoData = $info->get();
     $AllCategory = $model->getAllCategory();
     $category = $_GET['category']??$AllCategory[0];
     $allPage = ceil($model->getSumProduct($category)/$this->productsPage);
@@ -30,6 +31,7 @@ class indexController extends AController  //Контроллер для осн�
     $data["allPage"] = $allPage;
     $data["page"] =$page;
     $data["name"]="Товары";
+    $data["description"]=$category.$infoData["descriptionProduct"];
     if (isset($data["goods"])) {
         $this->view->rendering("index",$data);
         //рендеринг странички
@@ -44,13 +46,15 @@ class indexController extends AController  //Контроллер для осн�
   {
     $model = new \Model\ListMaterials;
     $info = new \Model\InformationSite;
+    $infoData = $info->get();
     $allPage = ceil($model->getSumMaterial()/$this->materialsPage);
     $page =  $_GET['page']??1;
-    $data["info"] = $info->get();
+    $data["info"] = $infoData;
     $data["materials"] = $model->getMaterial($page,$this->materialsPage);
     $data["allPage"] = $allPage;
     $data["page"] =$page;
     $data["name"]="Материалы";
+    $data["description"]=$infoData["descriptionMaterial"];
     if (isset($data["materials"])) {
         $this->view->rendering("materials",$data);
         //рендеринг странички
@@ -64,10 +68,11 @@ class indexController extends AController  //Контроллер для осн�
   
     function montage(){ //Монтаж
     $info = new \Model\InformationSite;
-    $data["info"] = $info->get();
+    $infoData = $info->get();
+    $data["info"] =$infoData;
     $data["name"]="Монтаж";
+    $data["description"]=$infoData["descriptionMontage"];
     $this->view->rendering("montage",$data);
-    //Вывод страницы 404
     return;
   }
 

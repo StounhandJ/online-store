@@ -57,7 +57,10 @@ $(document).ready(function() {
 				processData:false,
 				contentType:false,
 				data:formData,
-				url:`/api/productDel`
+				url:`/api/productDel`,
+				success: function(data){	
+				    console.log($(`tr[id='${id}']`).remove());	
+				  }
 		});
 		return false;
 	});

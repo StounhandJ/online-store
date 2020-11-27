@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /cart
+Allow: /
+Allow: /materials
+Allow: /montage
+Sitemap: http://cn61693.tmweb.ru/sitemap.xml
