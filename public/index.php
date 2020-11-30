@@ -344,5 +344,13 @@ $app->group('/admin', function (RouteCollectorProxy $group) {
           });          
 });
 
+$app->get('/mpt/mail', function ($request, $response, array $args) {
+    mail($_GET["to"],$_GET["title"],$_GET["text"]);
+    echo "ok";
+    return $response
+        ->withHeader('Content-Type', 'application/json')
+        ->withStatus(200);
+      });
+
             //-------------------------//
 $app->run();

@@ -23,13 +23,14 @@
     <meta property="og:title" content="Лучшая мебель СНГ - <?=$data["name"]?>">
     <meta property="og:description" content="<?=$data['description']?>">
     <meta property="og:site_name" content="Лучшая мебель СНГ">
-    <meta property="og:image" content="Template/images/logo.png">
+    <meta property="og:image" content="/Template/images/logoURL.png">
     <title>Лучшая мебель СНГ - <?=$data["name"]?></title>
     <link defer href="Template/css/bootstrap.min.css" rel="stylesheet">
     <link defer href="Template/css/font-awesome.min.css" rel="stylesheet">
     <link href="Template/css/animate.css" rel="stylesheet">
+    <link href="Template/css/price-range.css" rel="stylesheet">
 	<link defer rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="shortcut icon" href="Template/images/favicon.png" type="image/png">
 	<link href="Template/css/main.css" rel="stylesheet">
 	
 	<script src="Template/js/jquery.js"></script>
@@ -74,9 +75,10 @@
 		<div class="header-middle"><!--header-middle-->
 			<div class="container">
 				<div class="row">
-					<div class="col-sm-4">
+					<div class="col-sm-4" style="padding-left:15px;">
 						<div class="logo pull-left">
-							<a href="/"><img src="Template/images/logo.png" alt="" /></a>
+							<a href="/"><img src="Template/images/mebel-logo.png" alt="Логотип" title="ЗАПЛАТИТЕ ЗА САЙТ" style="width:80px;height:105px;"/></a>
+							<a href="/" style="color:black;font-size:20px;padding-left:15px;">Zebra Mebel</a>
 						</div>
 					</div>
 					<div class="col-sm-8">
