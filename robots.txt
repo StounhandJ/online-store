@@ -1,5 +1,7 @@
 User-agent: *
 Disallow: /cart
+Disallow: /api/*
+Disallow: /api
 Allow: /
 Allow: /materials
 Allow: /montage
