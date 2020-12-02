@@ -24,6 +24,9 @@
     <meta property="og:description" content="<?=$data['description']?>">
     <meta property="og:site_name" content="Лучшая мебель СНГ">
     <meta property="og:image" content="/Template/images/logoURL.png">
+    <link rel="image_src" href="/Template/images/logoURL.png" />
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://cn61693.tmweb.ru/">
     <title>Лучшая мебель СНГ - <?=$data["name"]?></title>
     <link defer href="Template/css/bootstrap.min.css" rel="stylesheet">
     <link defer href="Template/css/font-awesome.min.css" rel="stylesheet">
