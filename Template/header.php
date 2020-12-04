@@ -80,7 +80,7 @@
 				<div class="row">
 					<div class="col-sm-4" style="padding-left:15px;">
 						<div class="logo pull-left">
-							<a href="/"><img src="Template/images/mebel-logo.png" alt="Логотип" title="ЗАПЛАТИТЕ ЗА САЙТ" style="width:80px;height:105px;"/></a>
+							<a href="/"><img src="Template/images/mebel-logo.png" alt="Логотип" style="width:80px;height:105px;"/></a>
 							<a href="/" style="color:black;font-size:20px;padding-left:15px;">Zebra Mebel</a>
 						</div>
 					</div>

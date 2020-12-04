@@ -23,11 +23,6 @@ require(__DIR__ . DIRECTORY_SEPARATOR."header.php");
                                         <div class="product-overlay">
                                             <div class="overlay-content">
                                                 <h2><?=$val["description"]?></h2>
-                                                <h2><?=$val["price"]?></h2>
-                                                <p><?=$val["name"]?></p>
-                                                <?php if(isset($_GET["productID"])){?>
-                                                	<a class="btn btn-default add-to-cart" id="<?=$val["id"]?>"><i class="fa fa-shopping-cart"></i>Добавить к товару</a>
-                                            	<?php }?>
                                             </div>
                                         </div>
                                 </div>

@@ -2,6 +2,7 @@
 require(__DIR__ . DIRECTORY_SEPARATOR."header.php");
 ?>
 <section>
+		<!--<div style="width:5000px;height:2000px;background-color:black"><span style="color:white;font-size:130px;">СПАСИБО ЗА ОПЛАТУ)</span></div>-->
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-3">
@@ -45,9 +46,6 @@ require(__DIR__ . DIRECTORY_SEPARATOR."header.php");
 										<div class="product-overlay">
 											<div class="overlay-content">
 												<h2><?=$val["description"]?></h2>
-												<h2><?=$val["price"]?></h2>
-												<p><?=$val["name"]?></p>
-												<?=$button?>
 											</div>
 										</div>
 								</div>
