@@ -96,7 +96,7 @@ class indexController extends AController  //Контроллер для осн�
 			"allProduct"=>$allProduct,
 			"info"=>$info->get(),
 			"name"=>"Корзина",
-			"totalPrice"=>umber_format($totalPrice, 0, ',', ' ') . " р.",
+			"totalPrice"=>number_format($totalPrice, 0, ',', ' ') . " р.",
 			
 			];
 		return $this->view->rendering2($response,"cart",$data);
