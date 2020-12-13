@@ -102,12 +102,13 @@ class apiController extends AController
 
   function CategoryGet()
   {
-    $model = new \Model\TimeTable;
+    $model = new \Model\ListGoods;
     $AllCategory = $model->getAllCategory() ?? [];
+   
     $out = [
       "code"=>200,
       "mes"=>"ok",
-      "data"=>$AllProduct
+      "data"=>$AllCategory
     ];
     echo json_encode($out,JSON_UNESCAPED_UNICODE);
   }

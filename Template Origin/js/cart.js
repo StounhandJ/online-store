@@ -1,3 +1,30 @@
+function number_format(number, decimals, dec_point, separator ) {
+  number = (number + '').replace(/[^0-9+\-Ee.]/g, '');
+  var n = !isFinite(+number) ? 0 : +number,
+    prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
+    sep = (typeof separator === 'undefined') ? ',' : separator ,
+    dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
+    s = '',
+    toFixedFix = function(n, prec) {
+      var k = Math.pow(10, prec);
+      return '' + (Math.round(n * k) / k)
+        .toFixed(prec);
+    };
+  // Фиксим баг в IE parseFloat(0.55).toFixed(0) = 0;
+  s = (prec ? toFixedFix(n, prec) : '' + Math.round(n))
+    .split('.');
+  if (s[0].length > 3) {
+    s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
+  }
+  if ((s[1] || '')
+    .length < prec) {
+    s[1] = s[1] || '';
+    s[1] += new Array(prec - s[1].length + 1)
+      .join('0');
+  }
+  return s.join(dec);
+}
+
 $(document).ready(function() {
     $(".color").colorpicker();
     $(".color").colorpicker({
@@ -47,17 +74,26 @@ $(document).ready(function() {
 	$('[class="cart_quantity_delete"]').click(function(event) {
 		var formData = new FormData();
 		id = $(this)[0].id;
-		formData.append('productID',id);
-		$.ajax({
-				type:'POST',
-				cache:false,
-				processData:false,
-				contentType:false,
-				data:formData,
-				url:`/api/productDel`,
-				success: function(data){	
-				    $(`tr[id='${id}']`).remove();	
-				  }
+		$.get(`/api/product.info?id=${id}`).done(function(json){
+				try{
+				price = Number(JSON.parse(json)["data"]["price"].replace(' ','').replace(' ','').replace('р.',''));
+				totalPrice = Number($('#totalPrice')[0].innerText.replace(' ','').replace(' р.',''));
+				itogPrice = number_format(totalPrice-price, 0, ',', ' ') + " р.";
+				$('#totalPrice')[0].innerText = itogPrice;
+				}
+				catch{}
+				formData.append('productID',id);
+				$.ajax({
+						type:'POST',
+						cache:false,
+						processData:false,
+						contentType:false,
+						data:formData,
+						url:`/api/productDel`,
+						success: function(data){	
+						    $(`tr[id='${id}']`).remove();	
+						  }
+				});
 		});
 		return false;
 	});

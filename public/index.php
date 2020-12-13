@@ -25,7 +25,6 @@ function autoload ($class) { //Загрузка файлов
 spl_autoload_register('autoload');
         //-------------------------------//
 
-
           //Ошибка при остувие страницы//
 $app->addRoutingMiddleware();
 $errorMiddleware= $app->addErrorMiddleware(true, true, true);
@@ -38,53 +37,21 @@ $errorMiddleware->setDefaultErrorHandler(function () use ($app) {
             ->withHeader('Content-Type', 'text/html');
 });
         //-------------------------------//
-
+//\Controller\AController::$res = new Response();
+//echo \Controller\AController::$res;
+//$app->add($methodOverrideMiddleware);
 
           //---------Главная---------//
 
 $app->group('/', function (RouteCollectorProxy $group) {
-
-  $group->get('', function ($request, $response, array $args) {
-    //Главаня страница
-    //Значение category(Выбраная категория) и page(номер страницы)
-      $Controller = new \Controller\AController;
-      $Controller->set("index","index",$args);
-      $Controller->run();
-      return $response
-          ->withHeader('Content-Type', 'text/html')
-          ->withStatus(200);
-        });
+	
+	$group->get('',"\Controller\indexController:index");
   
-  $group->get('materials', function ($request, $response, array $args) {
-    //Главаня страница
-    //Значение category(Выбраная категория) и page(номер страницы)
-      $Controller = new \Controller\AController;
-      $Controller->set("index","materials",$args);
-      $Controller->run();
-      return $response
-          ->withHeader('Content-Type', 'text/html')
-          ->withStatus(200);
-        });
+	$group->get('materials', "\Controller\indexController:materials");
         
-    $group->get('montage', function ($request, $response, array $args) {
-    //Монтаж
-      $Controller = new \Controller\AController;
-      $Controller->set("index","montage",$args);
-      $Controller->run();
-      return $response
-          ->withHeader('Content-Type', 'text/html')
-          ->withStatus(200);
-        });
+    $group->get('montage', "\Controller\indexController:montage");
         
-    $group->get('cart', function ($request, $response, array $args) {
-    //Монтаж
-      $Controller = new \Controller\AController;
-      $Controller->set("index","cart",$args);
-      $Controller->run();
-      return $response
-          ->withHeader('Content-Type', 'text/html')
-          ->withStatus(200);
-        });
+    $group->get('cart', "\Controller\indexController:cart");
 
         //   !!!УДАЛИТЬ    //////
     $group->get('test', function ($request, $response, array $args) {
