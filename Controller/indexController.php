@@ -38,9 +38,8 @@ class indexController extends AController  //Контроллер для осн�
     return $this->view->error404($response);
   }
 
-  function materials($request, $response, array $args) //Главаня страница
+  function materials($request, $response, array $args) //Матеириалы
   {
-  	$this->addResponse($response);
     $model = new \Model\ListMaterials;
     $info = new \Model\InformationSite;
     $infoData = $info->get();
@@ -53,7 +52,6 @@ class indexController extends AController  //Контроллер для осн�
     	"materials"=>$model->getMaterial($page,$this->materialsPage),
     	"name"=>"Материалы",
     	'pagination'=>$this->view->createPagination("/materials?",$page,$allPage),
-    	
     	];
     if (isset($data["materials"])) {
         return $this->view->rendering2($response,"materials",$data);
@@ -62,9 +60,8 @@ class indexController extends AController  //Контроллер для осн�
   }
   
   
-    function montage($request, $response, array $args){ //Монтаж
-    $this->addResponse($response);
-    
+    function montage($request, $response, array $args) //Монтаж
+    {
     $info = new \Model\InformationSite;
     $infoData = $info->get();
     $data = [
@@ -75,14 +72,13 @@ class indexController extends AController  //Контроллер для осн�
     return $this->view->rendering2($response,"montage",$data);
   }
 
-	function cart($request, $response, array $args){
-		$this->addResponse($response);
+	function cart($request, $response, array $args) //Корзина
+	{ 
 		$info = new \Model\InformationSite;
 		$model = new \Model\ListGoods;
 		$modelMat = new \Model\ListMaterials;
-		$cart = json_decode($_COOKIE["cart"]) ?? [];
 		$allProduct = [];
-		$cart = json_decode($_COOKIE["cart"],true) ?? [];
+		$cart = json_decode($request->getCookieParams()["cart"],true) ?? [];
 		$totalPrice = 0;
 		foreach ($cart as $key=>$val) 
 		{
@@ -96,35 +92,15 @@ class indexController extends AController  //Контроллер для осн�
 				$allProduct[]=$product;
 			}
 		}
-		$data["allProduct"] = $allProduct;
-    	$data["info"] = $info->get();
-		$data["name"]="Корзина";
-		$data["totalPrice"]=number_format($totalPrice, 0, ',', ' ') . " р.";
+		$data = [
+			"allProduct"=>$allProduct,
+			"info"=>$info->get(),
+			"name"=>"Корзина",
+			"totalPrice"=>umber_format($totalPrice, 0, ',', ' ') . " р.",
+			
+			];
 		return $this->view->rendering2($response,"cart",$data);
 	}
-
-  function Product() //Страница товара
-  {
-  	$this->addResponse($response);
-  	
-    if (!isset($this->args["id"])) {
-      $this->view->rendering("404");
-      //Вывод страницы 404
-      return $this->codeHTML404();
-    }
-    $model = new \Model\ListGoods;
-    $AllCategory = $model->getAllCategory();
-    $data["product"] = $model->getInfoProduct($this->args["id"]);
-    $data["category"] = $AllCategory;
-    if (isset($data)) {
-        //$this->view->rendering("product",$data);
-        //рендеринг странички
-        return $this->codeHTML200();
-    }
-    $this->view->rendering("404");
-    //Вывод страницы 404
-    return $this->codeHTML404();
-  }
 
 }
 
