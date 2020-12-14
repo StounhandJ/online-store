@@ -42,6 +42,14 @@ class View
 		return $response->withRedirect("/".$url);
 	}
 	
+	function renderingAPI($response,$text) //Вторая версия рендеринга с использованием шабонизатора и стандарта PSR-7
+    {
+    	$response->getBody()->write(json_encode($text,JSON_UNESCAPED_UNICODE));
+    	return $response
+          ->withHeader('Content-Type', 'application/json')
+          ->withStatus(200);
+    }
+	
 	function createPagination($uri,$page,$allPage) //рабочая категория, страница сейчас, общее количество
 	{
 		$pagination = "";

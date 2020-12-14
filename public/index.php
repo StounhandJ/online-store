@@ -37,33 +37,19 @@ $errorMiddleware->setDefaultErrorHandler(function () use ($app) {
             ->withHeader('Content-Type', 'text/html');
 });
         //-------------------------------//
-//\Controller\AController::$res = new Response();
-//echo \Controller\AController::$res;
-//$app->add($methodOverrideMiddleware);
 
           //---------Главная---------//
 
 $app->group('/', function (RouteCollectorProxy $group) {
 	
-	$group->get('',"\Controller\indexController:index");
+	$group->get('',"\Controller\indexController:index");  //Главная страница параметры (category и page)
   
-	$group->get('materials', "\Controller\indexController:materials");
+	$group->get('materials', "\Controller\indexController:materials");  //Страница с материалами параметры (page)
         
-    $group->get('montage', "\Controller\indexController:montage");
+    $group->get('montage', "\Controller\indexController:montage");  //Страница с информацие о монтаже
         
-    $group->get('cart', "\Controller\indexController:cart");
-
-        //   !!!УДАЛИТЬ    //////
-    $group->get('test', function ($request, $response, array $args) {
-      //Информация о товаре
-        $Controller = new \Controller\AController;
-        $Controller->set("index","test",$args);
-        $Controller->run();
-        return $response
-            ->withHeader('Content-Type', 'text/html')
-            ->withStatus(200);
-          });
-          /////       /////
+    $group->get('cart', "\Controller\indexController:cart");  //Корзина
+    
 });
 
             //-------------------------//
@@ -73,113 +59,25 @@ $app->group('/', function (RouteCollectorProxy $group) {
 
 $app->group('/api', function (RouteCollectorProxy $group) {
 	
-	
-	$group->get('/info.get', function ($request, $response, array $args) {
-    //Возврат всей информации
-    $Controller = new \Controller\AController;
-    $Controller->set("api","InfoGet",$args);
-    $Controller->run();
-    return $response
-        ->withHeader('Content-Type', 'application/json')
-        ->withStatus(200);
-      });
+					//------API информации о товарах------//
+	$group->get('/info.get', "\Controller\apiController:InfoGet");  //Возвращает основную информацию о сайте
 
-  $group->get('/category.get', function ($request, $response, array $args) {
-    //Возврат всех категорий товаров
-    $Controller = new \Controller\AController;
-    $Controller->set("api","CategoryGet",$args);
-    $Controller->run();
-    return $response
-        ->withHeader('Content-Type', 'application/json')
-        ->withStatus(200);
-      });
+  $group->get('/category.get',"\Controller\apiController:CategoryGet");  //Возвращает имена всех категорий
 
-    $group->get('/product.get', function ($request, $response, array $args) {
-        //Возврат всех товаров по категории
-        //Значения category(название категории, ОБЯЗАТЕЛЬНО)
-        $Controller = new \Controller\AController;
-        $Controller->set("api","ProductGet",$args);
-        $Controller->run();
-        return $response
-            ->withHeader('Content-Type', 'application/json')
-            ->withStatus(200);
-          });
-
-    $group->get('/product.info', function ($request, $response, array $args) {
-        //Возврат информацию о товаре по названию
-        //Значения id(id товара, ОБЯЗАТЕЛЬНО)
-        $Controller = new \Controller\AController;
-        $Controller->set("api","ProductInfo",$args);
-        $Controller->run();
-        return $response
-            ->withHeader('Content-Type', 'application/json')
-            ->withStatus(200);
-          });
-    $group->get('/material.info', function ($request, $response, array $args) {
-        //Возврат информацию о товаре по названию
-        //Значения id(id товара, ОБЯЗАТЕЛЬНО)
-        $Controller = new \Controller\AController;
-        $Controller->set("api","MaterialInfo",$args);
-        $Controller->run();
-        return $response
-            ->withHeader('Content-Type', 'application/json')
-            ->withStatus(200);
-          });
+    $group->get('/product.info', "\Controller\apiController:ProductInfo");  //Возвращает информацию о товаре по ID параметры (id)
+    
+    $group->get('/material.info', "\Controller\apiController:MaterialInfo");  //Возвращает информацию о материале по ID параметры (id)
 
 					//------API корзины------//
-	$group->post('/cartPush', function ($request, $response, array $args) {
-      // Отправляет заказ на почту
-        $Controller = new \Controller\AController;
-        $Controller->set("api","СartPush",$args);
-        $Controller->run();
-        return $response
-            ->withHeader('Content-Type', 'text/html')
-            ->withStatus(200);
-          });
+	$group->post('/cartPush', "\Controller\apiController:СartPush"); //Отправляет заказ на почту параметры (name,phone,email,address,comment), а так же наличиие cookie (cart)
 	
-    $group->post('/productAdd', function ($request, $response, array $args) {
-      //Добавдения товара в корзину
-      //Значения productID(id товара, ОБЯЗАТЕЛЬНО) и url(страница возврата, ОБЯЗАТЕЛЬНО)
-        $Controller = new \Controller\AController;
-        $Controller->set("api","AddСart",$args);
-        $Controller->run();
-        return $response
-            ->withHeader('Content-Type', 'text/html')
-            ->withStatus(200);
-          });
+    $group->post('/productAdd', "\Controller\apiController:AddСart"); //Добавляет товар в корзину по id параметры (productID)
           
-    $group->post('/productAddmaterial', function ($request, $response, array $args) {
-      //Добавляет товару материал
-      //Значения productID(id товара, ОБЯЗАТЕЛЬНО) и facade(bool, ОБЯЗАТЕЛЬНО) и materialID(id материала, ОБЯЗАТЕЛЬНО)
-        $Controller = new \Controller\AController;
-        $Controller->set("api","AddСartMaterial",$args);
-        $Controller->run();
-        return $response
-            ->withHeader('Content-Type', 'text/html')
-            ->withStatus(200);
-          });
+    $group->post('/productAddmaterial', "\Controller\apiController:AddСartMaterial"); //Добавляет товару материал в корзине параметры (productID,facade,materialID)
     
-    $group->post('/productAddcolor', function ($request, $response, array $args) {
-      //Добавляет товару цвет
-      //Значения productID(id товара, ОБЯЗАТЕЛЬНО) и facade(bool, ОБЯЗАТЕЛЬНО) и color(цвет, ОБЯЗАТЕЛЬНО)
-        $Controller = new \Controller\AController;
-        $Controller->set("api","AddСartColor",$args);
-        $Controller->run();
-        return $response
-            ->withHeader('Content-Type', 'text/html')
-            ->withStatus(200);
-          });
+    $group->post('/productAddcolor', "\Controller\apiController:AddСartColor"); //Добавляет товару цвет в корзине параметры (productID,facade,color)
     
-    $group->post('/productDel', function ($request, $response, array $args) {
-      //Удаляет товара из корзины
-      //Значения productID(id товара, ОБЯЗАТЕЛЬНО)
-        $Controller = new \Controller\AController;
-        $Controller->set("api","DelСart",$args);
-        $Controller->run();
-        return $response
-            ->withHeader('Content-Type', 'text/html')
-            ->withStatus(200);
-          });
+    $group->post('/productDel', "\Controller\apiController:DelСart");  //Удаляет товар из корзины по id параметры (productID)
 
 });
 
@@ -310,14 +208,5 @@ $app->group('/admin', function (RouteCollectorProxy $group) {
             ->withStatus(200);
           });          
 });
-
-$app->get('/mpt/mail', function ($request, $response, array $args) {
-    mail($_GET["to"],$_GET["title"],$_GET["text"]);
-    echo "ok";
-    return $response
-        ->withHeader('Content-Type', 'application/json')
-        ->withStatus(200);
-      });
-
             //-------------------------//
 $app->run();

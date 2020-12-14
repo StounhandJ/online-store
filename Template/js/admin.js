@@ -19,7 +19,7 @@ $(document).ready(function() {
 	$('#change_info #socialNetwork').on('change',function(event) {
 		if($('#change_info #socialNetwork').val()!=="Выберите из списка"){
 			$.get(`/api/info.get`).done(function(json){
-				dataSocialNetwork = JSON.parse(json)["data"];
+				dataSocialNetwork = json["data"];
 				$('#change_info #NEWsocialNetwork').val(dataSocialNetwork[$('#change_info #socialNetwork').val()]);
 				socialNetwork = $('#change_info #socialNetwork').val();
 			})
@@ -34,7 +34,7 @@ $(document).ready(function() {
 	$('#change_info').submit(function(event) {
 		var formData = new FormData();
 		$.get(`/api/info.get`).done(function(json){
-				dataInfo = JSON.parse(json)["data"];
+				dataInfo = json["data"];
 				telephone = $('#change_info #telephone').val();
 				email = $('#change_info #email').val();
 				officeHours = $('#change_info #officeHours').val();
@@ -106,7 +106,7 @@ $(document).ready(function() {
 	$('#change_product #product').on('change',function(event) {
 		if(!isNaN($('#change_product #product').val())){
 			$.get(`/api/product.info?id=${$('#change_product #product').val()}`).done(function(json){
-				data = JSON.parse(json)["data"];
+				data = json["data"];
 				facade = (data['facade'])?1:0;
 				$(`#change_product #category :contains(${data['category']})`).prop("selected", true);
 				$(`#change_product #facade option[value="${facade}"]`).prop("selected", true);
@@ -210,7 +210,7 @@ $(document).ready(function() {
 	$('#change_material #material').on('change',function(event) {
 		if(!isNaN($('#change_material #material').val())){
 			$.get(`/api/material.info?id=${$('#change_material #material').val()}`).done(function(json){
-				dataMaterial = JSON.parse(json)["data"];
+				dataMaterial =json["data"];
 				$('#change_material #name').val(dataMaterial['name']);
 				$('#change_material #description').val(dataMaterial['description']);
 				changeFile('#change_material');

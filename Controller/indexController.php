@@ -24,7 +24,7 @@ class indexController extends AController  //Контроллер для осн�
     $data = [
     	'Allcategory'=>$AllCategory,
     	'category'=>$category,
-    	"description"=>(!isset($_GET['category']))?$infoData["descriptionMain"]:str_replace("{name}",$category,$infoData["descriptionProduct"]),
+    	"description"=>(!isset($request->getQueryParams()['category']))?$infoData["descriptionMain"]:str_replace("{name}",$category,$infoData["descriptionProduct"]),
     	'goods'=>$model->getGoods($category,$page,$this->productsPage),
     	'goods_cart'=>json_decode($request->getCookieParams()["cart"],true) ?? [],
     	'info'=>$info->get(),

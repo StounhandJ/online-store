@@ -8,19 +8,23 @@ class apiController extends AController
 
   function __construct()
   {
+  	$this->view = new \Libraries\View();
   }
   
 
-	function СartPush()  //Отправляет заказ на почту
-  {
-	    if (!isset($_COOKIE["cart"])) {
-	      return;
+	function СartPush($request, $response, array $args)  //Отправляет заказ на почту
+	{
+	    if (!isset($request->getCookieParams()["cart"])) 
+	    {
+	      $out = ['code'=>400,'mes'=>'Корзина пуста'];
+	      return $this->view->renderingAPI($response,$out);
 	    }
+	    
 	    $goods = new \Model\ListGoods;
 	    $material = new \Model\ListMaterials;
 	    $text ="";
-	    $text.=$_POST["name"].";\n".$_POST["phone"].";\n".$_POST["email"]."\n\n";
-	    $cart = json_decode($_COOKIE["cart"],true) ?? [];
+	    $text.=$request->getParsedBody()["name"].";\n".$request->getParsedBody()["phone"].";\n".$request->getParsedBody()["email"]."\n\n";
+	    $cart = json_decode($request->getCookieParams()["cart"],true) ?? [];
 	    foreach($cart as $key=>$val)
 	    {
 	    	$product = $goods->getInfoProductID($key);
@@ -36,168 +40,173 @@ class apiController extends AController
 	    	}
 	    }
 	    $price = number_format($totalPrice, 0, ',', ' ') . " р.";
-	    $text.="Итоговая цена:".$price."\n\n".$_POST["address"].";\n".$_POST["comment"];
+	    $text.="Итоговая цена:".$price."\n\n".$request->getParsedBody()["address"].";\n".$request->getParsedBody()["comment"];
 	    mail("roman.m2003@yandex.ru","Заказ",$text);
-	    unset($_COOKIE['cart']);
+	    unset($request->getCookieParams()['cart']);
     	setcookie('cart', null, -1, '/');
-  }
+    	$out = ['code'=>200,'mes'=>'Заказ успешно отправлен'];
+    	return $this->view->renderingAPI($response,$out);
+	}
 
-  function AddСart()  //Добавляет товар в корзину по id
-  {
-	    if (!isset($_POST["productID"])) {
-	      return;
-	    }
-	    $cart = json_decode($_COOKIE["cart"],true) ?? [];
-	    if (!array_key_exists($_POST["productID"],$cart)) {
-	      $cart[$_POST["productID"]] = [];
-	      setcookie("cart", json_encode($cart),time()+60*60*24*7,'/');
-	    }
-  }
-  
-    function AddСartColor()  //Добавляет товару цвет
-  {
-	    $cart = json_decode($_COOKIE["cart"],true) ?? [];
-	    if (!isset($_POST["productID"]) || !isset($_POST['facade']) || !isset($_POST['color']) || !isset($cart[$_POST["productID"]])) {
-	      return;
-	    }
-	    $facade=($_POST["facade"]=="1")? true : false;
-	    if($facade){
-	    	$cart[$_POST["productID"]]["facadeColor"]=$_POST['color'];
+	function AddСart($request, $response, array $args)  //Добавляет товар в корзину по id//
+	{
+		$productID = $request->getParsedBody()["productID"];
+	    if (!isset($productID)) {
+	      $out = ['code'=>400,'mes'=>'Указаны не все параметры, обратитесь к документации'];
 	    }
 	    else
 	    {
-	    	$cart[$_POST["productID"]]["corpusColor"]=$_POST['color'];
-	    }
-	    setcookie("cart", json_encode($cart),time()+60*60*24*7,'/');
-  }
-  
-      function AddСartMaterial()  //Добавляет товару материал
-		{
-		    $cart = json_decode($_COOKIE["cart"],true) ?? [];
-		    if (!isset($_POST["productID"]) || !isset($_POST['facade']) || !isset($_POST['materialID']) || !isset($cart[$_POST["productID"]])) {
-		      return;
+		    $cart = json_decode($request->getCookieParams()["cart"],true) ?? [];
+		    if (!array_key_exists($productID,$cart)) {
+		      $cart[$productID] = [];
+		      setcookie("cart", json_encode($cart),time()+60*60*24*7,'/');
 		    }
-		    $facade=($_POST["facade"]=="1")? true : false;
+		    $out = ['code'=>200,'mes'=>'Товар добавлен в корзину'];
+	    }
+	    return $this->view->renderingAPI($response,$out);
+	}
+  
+    function AddСartColor($request, $response, array $args)  //Добавляет товару цвет в корзине//
+	{
+	    $cart = json_decode($request->getCookieParams()["cart"],true) ?? [];
+	    $facadePost = $request->getParsedBody()['facade'];
+	    $productID = $request->getParsedBody()['productID'];
+	    $color = $request->getParsedBody()['color'];
+	    if (!isset($productID) || !isset($facadePost) || !isset($color) || !isset($cart[$productID])) {
+	      $out = ['code'=>400,'mes'=>'Указаны не все параметры, обратитесь к документации'];
+	    }
+	    else
+	    {
+		    $facade=($facadePost=="1")? true : false;
 		    if($facade){
-		    	$cart[$_POST["productID"]]["facadeMaterial"]=$_POST['materialID'];
+		    	$cart[$productID]["facadeColor"]=$color;
 		    }
 		    else
 		    {
-		    	$cart[$_POST["productID"]]["corpusMaterial"]=$_POST['materialID'];
+		    	$cart[$productID]["corpusColor"]=$color;
 		    }
 		    setcookie("cart", json_encode($cart),time()+60*60*24*7,'/');
-		}
+		    $out = ['code'=>200,'mes'=>'Цвет успешно добавлен'];
+	    }
+	    return $this->view->renderingAPI($response,$out);
+	}
+  
+     function AddСartMaterial($request, $response, array $args)  //Добавляет товару материал в корзине//
+	{
+	    $cart = json_decode($request->getCookieParams()["cart"],true) ?? [];
+	    $facadePost = $request->getParsedBody()['facade'];
+	    $productID = $request->getParsedBody()['productID'];
+	    $materialID = $request->getParsedBody()['materialID'];
+	    if (!isset($productID) || !isset($facadePost) || !isset($materialID) || !isset($cart[$productID])) {
+	      $out = ['code'=>400,'mes'=>'Указаны не все параметры, обратитесь к документации'];
+	    }
+	    else
+	    {
+		    $facade=($facadePost=="1")? true : false;
+		    if($facade){
+		    	$cart[$productID]["facadeMaterial"]=$materialID;
+		    }
+		    else
+		    {
+		    	$cart[$productID]["corpusMaterial"]=$materialID;
+		    }
+		    setcookie("cart", json_encode($cart),time()+60*60*24*7,'/');
+		    $out = ['code'=>200,'mes'=>'Материал успешно добавлен'];
+	    }
+	    return $this->view->renderingAPI($response,$out);
+	}
 	
-	function DelСart()  //Удаляет товар из корзины по id
-		{
-	    if (!isset($_POST["productID"])) {
-	      return;
+	function DelСart($request, $response, array $args)  //Удаляет товар из корзины по id//
+	{
+		$productID = $request->getParsedBody()["productID"];
+	    if (!isset($productID)) {
+	      $out = ['code'=>400,'mes'=>'Указаны не все параметры, обратитесь к документации'];
 	    }
-	    $cart = json_decode($_COOKIE["cart"],true) ?? [];
-	    if (isset($cart[$_POST["productID"]])) {
-	      unset($cart[$_POST["productID"]]);
-	      setcookie("cart", json_encode($cart),time()+60*60*24*7,'/');
+	    else{
+		    $cart = json_decode($request->getCookieParams()["cart"],true) ?? [];
+		    if (isset($cart[$productID])) {
+		      unset($cart[$productID]);
+		      setcookie("cart", json_encode($cart),time()+60*60*24*7,'/');
+		    }
+		    $out = ['code'=>200,'mes'=>'Товар был удален из корзины'];
 	    }
+	    return $this->view->renderingAPI($response,$out);
 	}
 
-  function CategoryGet()
-  {
-    $model = new \Model\ListGoods;
-    $AllCategory = $model->getAllCategory() ?? [];
-   
-    $out = [
-      "code"=>200,
-      "mes"=>"ok",
-      "data"=>$AllCategory
-    ];
-    echo json_encode($out,JSON_UNESCAPED_UNICODE);
-  }
+	function CategoryGet($request, $response, array $args) //Возвращает имена всех категорий//
+	{
+	    $model = new \Model\ListGoods;
+	    $AllCategory = $model->getAllCategory() ?? [];
+	    $out = [
+	      "code"=>200,
+	      "mes"=>"ok",
+	      "data"=>$AllCategory
+	    ];
+	    return $this->view->renderingAPI($response,$out);
+	}
 
-  function ProductGet()
-  {
-    $category = $_GET['category'];
-    if (!isset($category)) {
-      $out=['code'=>400,'mes'=>'Указаны не все параметры, обратитесь к документации',"items"=>[]];
-      echo json_encode($out,JSON_UNESCAPED_UNICODE);
-      return;
-    }
-    $model = new \Model\TimeTable;
-    $AllProduct = $model->getGoods($category,1,100) ?? []; //сколько товаров вернет из категории
-    if (!isset($AllProduct)) {
-      $out=['code'=>404,'mes'=>'Данная категория не найдена или пуста',"items"=>[]];
-      echo json_encode($out,JSON_UNESCAPED_UNICODE);
-      return;
-    }
-    $out = [
-      "code"=>200,
-      "mes"=>"ok",
-      "data"=>$AllProduct
-    ];
-    echo json_encode($out,JSON_UNESCAPED_UNICODE);
-  }
-
-  function ProductInfo()
-  {
-    $id= $_GET['id'];
-    if (!isset($id)) {
-      $out=['code'=>400,'mes'=>'Указаны не все параметры, обратитесь к документации',"items"=>[]];
-      echo json_encode($out,JSON_UNESCAPED_UNICODE);
-      return;
-    }
-    $model = new \Model\ListGoods;
-    $InfoProduct = $model->getInfoProductID($id); //сколько товаров вернет из категории
-    if (!isset($InfoProduct)) {
-      $out=['code'=>404,'mes'=>'Данный продукт не найден',"items"=>[]];
-      echo json_encode($out,JSON_UNESCAPED_UNICODE);
-      return;
-    }
-    $out = [
-      "code"=>200,
-      "mes"=>"ok",
-      "data"=>$InfoProduct
-    ];
-    echo json_encode($out,JSON_UNESCAPED_UNICODE);
-  }
+	function ProductInfo($request, $response, array $args) //Возвращает информацию о товаре по ID//
+	{
+	    $id= $request->getQueryParams()['id'];
+	    if (!isset($id)) {
+	      $out=['code'=>400,'mes'=>'Указаны не все параметры, обратитесь к документации',"items"=>[]];
+	      return $this->view->renderingAPI($response,$out);
+	    }
+	    $model = new \Model\ListGoods;
+	    $InfoProduct = $model->getInfoProductID($id); //сколько товаров вернет из категории
+	    if (!isset($InfoProduct)) {
+	      $out=['code'=>404,'mes'=>'Данный продукт не найден',"data"=>[]];
+	    }
+	    else{
+		    $out = [
+		      "code"=>200,
+		      "mes"=>"ok",
+		      "data"=>$InfoProduct
+		    ];
+	    }
+	    return $this->view->renderingAPI($response,$out);
+	}
   
-    function MaterialInfo()
-  {
-    $id= $_GET['id'];
-    if (!isset($id)) {
-      $out=['code'=>400,'mes'=>'Указаны не все параметры, обратитесь к документации',"items"=>[]];
-      echo json_encode($out,JSON_UNESCAPED_UNICODE);
-      return;
-    }
-    $model = new \Model\ListMaterials;
-    $InfoProduct = $model->getInfoMaterialID($id); //сколько товаров вернет из категории
-    if (!isset($InfoProduct)) {
-      $out=['code'=>404,'mes'=>'Данный продукт не найден',"items"=>[]];
-      echo json_encode($out,JSON_UNESCAPED_UNICODE);
-      return;
-    }
-    $out = [
-      "code"=>200,
-      "mes"=>"ok",
-      "data"=>$InfoProduct
-    ];
-    echo json_encode($out,JSON_UNESCAPED_UNICODE);
-  }
+  
+    function MaterialInfo($request, $response, array $args) //Возвращает информацию о материале по ID//
+	{
+	    $id= $request->getQueryParams()['id'];
+	    if (!isset($id)) {
+	      $out=['code'=>400,'mes'=>'Указаны не все параметры, обратитесь к документации',"data"=>[]];
+	      return $this->view->renderingAPI($response,$out);
+	    }
+	    $model = new \Model\ListMaterials;
+	    $InfoProduct = $model->getInfoMaterialID($id); //сколько товаров вернет из категории
+	    if (!isset($InfoProduct)) {
+	      $out=['code'=>404,'mes'=>'Данный продукт не найден',"data"=>[]];
+	    }
+	    else{
+	    	$out = [
+	      "code"=>200,
+	      "mes"=>"ok",
+	      "data"=>$InfoProduct
+	    ];
+	    }
+	    return $this->view->renderingAPI($response,$out);
+	}
 
-    function InfoGet()
-  {
-    $model = new \Model\InformationSite;
-    $InfoProduct = $model->get();
-    if (!isset($InfoProduct)) {
-      $out=['code'=>404,'mes'=>'Данный продукт не найден',"items"=>[]];
-      echo json_encode($out,JSON_UNESCAPED_UNICODE);
-      return;
-    }
-    $out = [
-      "code"=>200,
-      "mes"=>"ok",
-      "data"=>$InfoProduct
-    ];
-    echo json_encode($out,JSON_UNESCAPED_UNICODE);
-  }
+
+    function InfoGet($request, $response, array $args) //Возвращает основную информацию о сайте//
+	{
+	    $model = new \Model\InformationSite;
+	    $InfoProduct = $model->get();
+	    if (!isset($InfoProduct)) {
+	      $out=['code'=>404,'mes'=>'Данный продукт не найден',"data"=>[]];
+	    }
+	    else{
+	    	$out = [
+	      "code"=>200,
+	      "mes"=>"ok",
+	      "data"=>$InfoProduct
+	    ];
+	    }
+	    return $this->view->renderingAPI($response,$out);
+	}
 
 }
 

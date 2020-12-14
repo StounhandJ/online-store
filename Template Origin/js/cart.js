@@ -76,7 +76,7 @@ $(document).ready(function() {
 		id = $(this)[0].id;
 		$.get(`/api/product.info?id=${id}`).done(function(json){
 				try{
-				price = Number(JSON.parse(json)["data"]["price"].replace(' ','').replace(' ','').replace('р.',''));
+				price = Number(json["data"]["price"].replace(' ','').replace(' ','').replace('р.',''));
 				totalPrice = Number($('#totalPrice')[0].innerText.replace(' ','').replace(' р.',''));
 				itogPrice = number_format(totalPrice-price, 0, ',', ' ') + " р.";
 				$('#totalPrice')[0].innerText = itogPrice;
@@ -104,8 +104,6 @@ $(document).ready(function() {
 		email = $("#email").val();
 		adress = $("#address").val();
 		comment = $("#comment").val();
-		
-		console.log(window.yandex.autofill.getProfileData(field_list));
 		if(name==="" || phone==="" || email==="" || adress==="" || adress==="comment") return false;
 		formData.append('name',name);
 		formData.append('phone',phone);
