@@ -4,24 +4,19 @@ namespace Libraries;
 class View
 {
 
-	function __construct($response=null){
-	    $this->response=$response;
+	function __construct()
+	{
 		}
-
-    function rendering($name,$data = []) //Старый рендеринг страниц, надо заменить на версию 2
-    {
-    	require(__DIR__ . "/../Template/{$name}.php");
-    }
     
-    function rendering2($response,$name,$data = [],$HeaderFooter = true) //Вторая версия рендеринга с использованием шабонизатора и стандарта PSR-7
+    function rendering($response,$name,$data = [],$HeaderFooter = true) //Вторая версия рендеринга с использованием шабонизатора и стандарта PSR-7
     {
     	$response->getBody()->write(require(__DIR__ . "/TemplateEngine.php"));
     	return $this->codeHTML200($response);
     }
     
-      function codeHTML200($response) //Возврат кода 200 для html
+    function codeHTML200($response) //Возврат кода 200 для html
 	{
-  	return $response
+		return $response
           ->withHeader('Content-Type', 'text/html')
           ->withStatus(200);
 	}

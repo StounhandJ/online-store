@@ -12,7 +12,14 @@ class indexController extends AController  //Контроллер для осн�
     $this->materialsPage = 12; //Материалов на одной странице
   }
   
-  function index($request, $response, array $args) //Главаня страница
+  //function __call($name, $args)
+  //{
+  //	echo 1212;
+  //	var_dump($response);
+  //	$this->index($request, $response);
+  //}
+  
+  function index($request, $response) //Главаня страница
   {
     $model = new \Model\ListGoods;
     $info = new \Model\InformationSite;
@@ -33,12 +40,12 @@ class indexController extends AController  //Контроллер для осн�
     ];
     
     if (isset($data["goods"])) {
-        return $this->view->rendering2($response,"index",$data);
+        return $this->view->rendering($response,"index",$data);
     }
     return $this->view->error404($response);
   }
 
-  function materials($request, $response, array $args) //Матеириалы
+  function materials($request, $response) //Матеириалы
   {
     $model = new \Model\ListMaterials;
     $info = new \Model\InformationSite;
@@ -54,13 +61,13 @@ class indexController extends AController  //Контроллер для осн�
     	'pagination'=>$this->view->createPagination("/materials?",$page,$allPage),
     	];
     if (isset($data["materials"])) {
-        return $this->view->rendering2($response,"materials",$data);
+        return $this->view->rendering($response,"materials",$data);
     }
     return $this->view->error404($response);
   }
   
   
-    function montage($request, $response, array $args) //Монтаж
+    function montage($request, $response) //Монтаж
     {
     $info = new \Model\InformationSite;
     $infoData = $info->get();
@@ -69,10 +76,10 @@ class indexController extends AController  //Контроллер для осн�
     	"info"=>$infoData,
     	"name"=>"Монтаж",
     	];
-    return $this->view->rendering2($response,"montage",$data);
+    return $this->view->rendering($response,"montage",$data);
   }
 
-	function cart($request, $response, array $args) //Корзина
+	function cart($request, $response) //Корзина
 	{ 
 		$info = new \Model\InformationSite;
 		$model = new \Model\ListGoods;
@@ -99,7 +106,7 @@ class indexController extends AController  //Контроллер для осн�
 			"totalPrice"=>number_format($totalPrice, 0, ',', ' ') . " р.",
 			
 			];
-		return $this->view->rendering2($response,"cart",$data);
+		return $this->view->rendering($response,"cart",$data);
 	}
 
 }

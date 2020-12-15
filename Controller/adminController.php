@@ -32,17 +32,19 @@ function resize_photo($path,$filename,$filesize,$type,$tmp_name){
     else return false;     
 }
 
-  function checkAdmin()  //Проверка на админа, True если админ
+  function checkAdmin($request)  //Проверка на админа, True если админ
   {
-    if ($_SESSION['type']=="admin" && $_SESSION['HTTP_USER_AGENT']==$_SERVER["HTTP_USER_AGENT"]) {
+  	$COOKIE = $request->getCookieParams();
+  	$SERVER = $request->getServerParams();
+    if ($_SESSION['type']=="admin" && $_SESSION['HTTP_USER_AGENT']==$SERVER["HTTP_USER_AGENT"]) {
       return True;
     }
-    elseif ($_COOKIE["AuthAdmin"]==hash('ripemd320',$this->login."|".$_SERVER["HTTP_USER_AGENT"])) {
+    elseif ($COOKIE["AuthAdmin"]==hash('ripemd320',$this->login."|".$SERVER["HTTP_USER_AGENT"])) {
       $_SESSION['type']="admin";
-      $_SESSION['HTTP_USER_AGENT']=$_SERVER["HTTP_USER_AGENT"];
+      $_SESSION['HTTP_USER_AGENT']=$SERVER["HTTP_USER_AGENT"];
       return True;
     }
-    unset($_COOKIE['AuthAdmin']);
+    unset($COOKIE['AuthAdmin']);
     setcookie('AuthAdmin', null, -1, '/');
     unset($_SESSION['type']);
     unset($_SESSION['HTTP_USER_AGENT']);
@@ -50,45 +52,42 @@ function resize_photo($path,$filename,$filesize,$type,$tmp_name){
     return false;
   }
 
-  function index()
+  function index($request, $response)  //Главаня страница админки
   {
-    if (!$this->checkAdmin()) {
-      $this->view->rendering("404");
-      return;
+    if (!$this->checkAdmin($request)) {
+      return $this->view->error404($response);
     }
     $info = new \Model\InformationSite;
     $data["info"]=$info->get();
     $data["url"]=$this->local;
-    $this->view->rendering("Admin/main-mebel",$data);
+    return $this->view->rendering($response,"Admin/main-mebel",$data, $HeaderFooter = false);
   }
 
-  function Login()
+  function Login($request, $response)  //Страница для Авторизация в админку
   {
-    if ($this->checkAdmin()) {
+    if ($this->checkAdmin($request)) {
       $this->view->redirect($this->local);
       echo "string";
     }
     $data["url"]=$this->local;
-    $this->view->rendering("Admin/Login-mebel",$data);
+    return $this->view->rendering($response,"Admin/Login-mebel",$data, $HeaderFooter = false);
   }
 
-  function Add()
+  function Add($request, $response)  //Страница для Добавления данных в админку
   {
-    if (!$this->checkAdmin()) {
-      $this->view->rendering("404");
-      return;
+    if (!$this->checkAdmin($request)) {
+      return $this->view->error404($response);
     }
     $model = new \Model\ListGoods;
     $data["AllCategory"]=$model->getAllCategory();
     $data["url"]=$this->local;
-    $this->view->rendering("Admin/Add-mebel",$data);
+    return $this->view->rendering($response,"Admin/Add-mebel",$data, $HeaderFooter = false);
   }
 
-  function Change()
+  function Change($request, $response)  //Страница для Изменение данныв в админке
   {
-    if (!$this->checkAdmin()) {
-      $this->view->rendering("404");
-      return;
+    if (!$this->checkAdmin($request)) {
+      return $this->view->error404($response);
     }
     $model = new \Model\ListGoods;
     $model2 = new \Model\ListMaterials;
@@ -96,31 +95,30 @@ function resize_photo($path,$filename,$filesize,$type,$tmp_name){
     $data["AllProducts"]=$model->getAllGoods();
     $data["AllMaterials"]=$model2->getAllMaterial();
     $data["url"]=$this->local;
-    $this->view->rendering("Admin/Change-mebel",$data);
+    return $this->view->rendering($response,"Admin/Change-mebel",$data, $HeaderFooter = false);
   }
   
-   function Del()
+   function Del($request, $response)  // Страница для Удаление данных в админке
   {
-    if (!$this->checkAdmin()) {
-      $this->view->rendering("404");
-      return;
+    if (!$this->checkAdmin($request)) {
+      return $this->view->error404($response);
     }
     $model = new \Model\ListGoods;
     $model2 = new \Model\ListMaterials;
     $data["AllProducts"]=$model->getAllGoods();
     $data["AllMaterials"]=$model2->getAllMaterial();
     $data["url"]=$this->local;
-    $this->view->rendering("Admin/Delete-mebel",$data);
+    return $this->view->rendering($response,"Admin/Delete-mebel",$data, $HeaderFooter = false);
   }
 
  //--------API часть админки----------//
 
-  function loginAPI()  //Авторизация
+  function loginAPI($request, $response)  //Авторизация
   {
-    if ($_POST["login"]==$this->login && $_POST["password"]==$this->password) {
+    if ($request->getParsedBody()["login"]==$this->login && $request->getParsedBody()["password"]==$this->password) {
       $_SESSION['type']="admin";
-      $_SESSION['HTTP_USER_AGENT']=$_SERVER["HTTP_USER_AGENT"];
-      setcookie("AuthAdmin", hash('ripemd320',$this->login."|".$_SERVER["HTTP_USER_AGENT"]),time()+60*60*24*7);
+      $_SESSION['HTTP_USER_AGENT']=$request->getServerParams()["HTTP_USER_AGENT"];
+      setcookie("AuthAdmin", hash('ripemd320',$this->login."|".$request->getServerParams()["HTTP_USER_AGENT"]),time()+60*60*24*7);
       $this->view->redirect($this->local);
     }
     else {
@@ -129,135 +127,143 @@ function resize_photo($path,$filename,$filesize,$type,$tmp_name){
     echo "string";
   }
   
-  function InfoUpdate() //Обновить информацию на сайте
+  function InfoUpdate($request, $response) //Обновить информацию на сайте
   {
-      if (!$this->checkAdmin()) {
-        $this->view->rendering("404");
-        return;
-      }
+  	if (!$this->checkAdmin($request)) {
+      return $this->view->error404($response);
+    }
       $info = new \Model\InformationSite;
-      $info->set($_POST);
+      $info->set($request->getParsedBody());
   }
   
   //------API admin Product------//
 
-  function AddProductAPI() //Добавить продукт
+  function AddProductAPI($request, $response) //Добавить продукт
   {
-      if (!$this->checkAdmin()) {
-        $this->view->rendering("404");
-        return;
+      if (!$this->checkAdmin($request)) {
+    	return $this->view->error404($response);
       }
-      $facade=($_POST["facade"]=="1")? true : false;
-      $name = $_POST["name"];
-      $category = $_POST["category"];
-      $description = $_POST["description"];
-      $price = number_format($_POST["price"], 0, ',', ' ') . " р.";
+      $file = $request->getUploadedFiles()['pictures'];
+      $facade=($request->getParsedBody()["facade"]=="1")? true : false;
+      $name = $request->getParsedBody()["name"];
+      $category = $request->getParsedBody()["category"];
+      $description = $request->getParsedBody()["description"];
+      $price = number_format($request->getParsedBody()["price"], 0, ',', ' ') . " р.";
       $nameIMG = hash('ripemd128',$name.$description);
-      if(!$this->resize_photo($this->IMGproduct,"$nameIMG.jpg",$_FILES['pictures']['size'],$_FILES['pictures']['type'],$_FILES['pictures']['tmp_name']))
+      if(!$this->resize_photo($this->IMGproduct,"$nameIMG.jpg",$file->getSize(),$file->getClientMediaType(),$file->getFilePath()))
       {
-      	move_uploaded_file($_FILES["pictures"]["tmp_name"], "$this->IMGproduct/$nameIMG.jpg");
+      	$file->moveTo("$this->IMGproduct/$nameIMG.jpg");
       }
 	  $model = new \Model\ListGoods;
       $AllCategory = $model->createProduct($name,$price,$description,$category,$facade,$nameIMG);
+      return $this->view->renderingAPI($response, ['code'=>200,'mes'=>'Товар создан']);
   }
 
-  function UpdateProductAPI() //Редактировать продукт
+  function UpdateProductAPI($request, $response) //Редактировать продукт
   {
-      if (!$this->checkAdmin()) {
-        $this->view->rendering("404");
-        return;
+      if (!$this->checkAdmin($request)) {
+    	return $this->view->error404($response);
       }
       $nameIMG=null;
-      if(isset($_FILES["pictures"]))
+      if(isset($request->getUploadedFiles()['pictures']))
       {
-      	$id = $_POST['id'] ?? "123";
-      	$nameIMG = hash('ripemd128',$_FILES["pictures"]["tmp_name"].$id);
-    	if(!$this->resize_photo($this->IMGproduct,"$nameIMG.jpg",$_FILES['pictures']['size'],$_FILES['pictures']['type'],$_FILES['pictures']['tmp_name']))
+      	$file = $request->getUploadedFiles()['pictures'];
+      	$id = $request->getParsedBody()['id'] ?? "123";
+      	$nameIMG = hash('ripemd128',$file->getFilePath().$id);
+    	if(!$this->resize_photo($this->IMGproduct,"$nameIMG.jpg",$file->getSize(),$file->getClientMediaType(),$file->getFilePath()))
     	{
-      		move_uploaded_file($_FILES["pictures"]["tmp_name"], "$this->IMGproduct/$nameIMG.jpg");
+      		$file->moveTo("$this->IMGproduct/$nameIMG.jpg");
     	}
-    	$oldIMG = $_POST['OLDpictures'];
+    	$oldIMG = $request->getParsedBody()['OLDpictures'];
     	$f = "$this->IMGproduct/$oldIMG.jpg";
     	if(file_exists($f)){
 			unlink($f);
 		}
       }
       $model = new \Model\ListGoods;
-      $model->updateProduct($_POST['id'],$_POST['name'],number_format($_POST["price"], 0, ',', ' ') . " р.",$_POST['description'],$_POST['category'],$_POST['facade'],$nameIMG);
+      $id = $request->getParsedBody()['id'];
+      $price = (isset($request->getParsedBody()["price"]))?number_format($request->getParsedBody()["price"], 0, ',', ' ') . " р.":null;
+      $model->updateProduct($id,$request->getParsedBody()['name'],$price,$request->getParsedBody()['description'],$request->getParsedBody()['category'],$request->getParsedBody()['facade'],$nameIMG);
+      return $this->view->renderingAPI($response, ['code'=>200,'mes'=>"Товар обновлен {$id}"]);
   }
 
-  function DelProductAPI() //Удалить продукт
+  function DelProductAPI($request, $response) //Удалить продукт
   {
-      if (!$this->checkAdmin() || !isset($_POST['id'])) {
-        $this->view->rendering("404");
-        return;
+      if (!$this->checkAdmin($request)) {
+    	return $this->view->error404($response);
       }
       $model = new \Model\ListGoods;
-	  $oldIMG = $model->getInfoProductID($_POST['id'])["img"];
+	  $oldIMG = $model->getInfoProductID($request->getParsedBody()['id'])["img"];
 	  $f = "$this->IMGproduct/$oldIMG.jpg";
 	  if(file_exists($f)){
 		unlink($f);
 	  }
-	  $model->deleteProduct($_POST['id']);
+	  $id = $request->getParsedBody()['id'];
+	  $model->deleteProduct($id);
+	  return $this->view->renderingAPI($response, ['code'=>200,'mes'=>"Товар удален {$id}"]);
   }
   
   //------API admin Material------//
 
-	function AddMaterialAPI() //Добавить материал
-	  {
-	      if (!$this->checkAdmin()) {
-	        $this->view->rendering("404");
-	        return;
-	      }
-	      $name = $_POST["name"];
-	      $description = $_POST["description"];
-	      $nameIMG = hash('ripemd128',$name.$description);
-	      if(!$this->resize_photo($this->IMGmaterial,"$nameIMG.jpg",$_FILES['pictures']['size'],$_FILES['pictures']['type'],$_FILES['pictures']['tmp_name']))
-    	{
-      		move_uploaded_file($_FILES["pictures"]["tmp_name"], "$this->IMGmaterial/$nameIMG.jpg");
-    	}
-		  $model = new \Model\ListMaterials;
-	      $AllCategory = $model->createMaterial($name,$description,$nameIMG);
-	  }
-	  
-	  function UpdateMaterialAPI() //Редактировать материал
-		{
-	      if (!$this->checkAdmin()) {
-	        $this->view->rendering("404");
-	        return;
-	      }
-	      $nameIMG=null;
-	      if(isset($_FILES["pictures"]))
-	      {
-	      	$id = $_POST['id'] ?? "123";
-	      	$nameIMG = hash('ripemd128',$_FILES["pictures"]["tmp_name"].$id);
-	    	if(!$this->resize_photo($this->IMGmaterial,"$nameIMG.jpg",$_FILES['pictures']['size'],$_FILES['pictures']['type'],$_FILES['pictures']['tmp_name']))
-    		{
-      			move_uploaded_file($_FILES["pictures"]["tmp_name"], "$this->IMGmaterial/$nameIMG.jpg");
-    		}
-	    	$oldIMG = $_POST['OLDpictures'];
-	    	$f = "$this->IMGmaterial/$oldIMG.jpg";
-	    	if(file_exists($f)){
-				unlink($f);
-			}
-	      }
-	      $model = new \Model\ListMaterials;
-	      $model->updateMaterial($_POST['id'],$_POST['name'],$_POST['description'],$nameIMG);
-	  }
-	  
-	function DelMaterialAPI() //Удалить материал
+	function AddMaterialAPI($request, $response) //Добавить материал
 	{
-		if (!$this->checkAdmin() || !isset($_POST['id'])) {
-			$this->view->rendering("404");
-    		return;
+		if (!$this->checkAdmin($request)) {
+			return $this->view->error404($response);
+		}
+		$file = $request->getUploadedFiles()['pictures'];
+		$name = $request->getParsedBody()["name"];
+		$description = $request->getParsedBody()["description"];
+		$nameIMG = hash('ripemd128',$name.$description);
+		if(!$this->resize_photo($this->IMGproduct,"$nameIMG.jpg",$file->getSize(),$file->getClientMediaType(),$file->getFilePath()))
+		{
+	  		$file->moveTo("$this->IMGproduct/$nameIMG.jpg");
 		}
 		$model = new \Model\ListMaterials;
-		$oldIMG = $model->getInfoMaterialID($_POST['id'])["img"];
+		$AllCategory = $model->createMaterial($name,$description,$nameIMG);
+		return $this->view->renderingAPI($response, ['code'=>200,'mes'=>"Материал добавлен"]);
+	}
+	  
+	function UpdateMaterialAPI($request, $response) //Редактировать материал
+	{
+		if (!$this->checkAdmin($request)) {
+			return $this->view->error404($response);
+		}
+		$nameIMG=null;
+		if(isset($request->getUploadedFiles()['pictures']))
+		{
+			$file = $request->getUploadedFiles()['pictures'];
+			$id = $request->getParsedBody()['id'] ?? "123";
+			$nameIMG = hash('ripemd128',$file->getFilePath().$id);
+			if(!$this->resize_photo($this->IMGproduct,"$nameIMG.jpg",$file->getSize(),$file->getClientMediaType(),$file->getFilePath()))
+			{
+				$file->moveTo("$this->IMGproduct/$nameIMG.jpg");
+			}
+			$oldIMG = $request->getParsedBody()['OLDpictures'];
+			$f = "$this->IMGmaterial/$oldIMG.jpg";
+			if(file_exists($f))
+			{
+				unlink($f);
+			}
+		}
+		$model = new \Model\ListMaterials;
+		$id = $request->getParsedBody()['id'];
+		$model->updateMaterial($id,$request->getParsedBody()['name'],$request->getParsedBody()['description'],$nameIMG);
+		return $this->view->renderingAPI($response, ['code'=>200,'mes'=>"Материал обновлен {$id}"]);
+	}
+	  
+	function DelMaterialAPI($request, $response) //Удалить материал
+	{
+		if (!$this->checkAdmin($request)) {
+			return $this->view->error404($response);
+		}
+		$model = new \Model\ListMaterials;
+		$oldIMG = $model->getInfoMaterialID($request->getParsedBody()['id'])["img"];
 		$f = "$this->IMGmaterial/$oldIMG.jpg";
     	if(file_exists($f)){
 			unlink($f);
 		}
-		$model->deleteMaterial($_POST['id']);
+		$model->deleteMaterial($request->getParsedBody()['id']);
+		return $this->view->renderingAPI($response, ['code'=>200,'mes'=>"Материал {$id} удален"]);
 	}
 }
 

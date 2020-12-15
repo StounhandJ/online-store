@@ -13,10 +13,10 @@
 			<div class="admin">ADMIN</div>
 			<nav>
 				<ul>
-					<li><a href="/<?=$data['url']?>">Главная</a></li>
-					<li><a href="/<?=$data['url']?>/add">Добавить</a></li>
-					<li><a href="/<?=$data['url']?>/change">Изменить</a></li>
-					<li><a href="/<?=$data['url']?>/delete">Удалить →</a></li>
+					<li><a href="/{$url}">Главная</a></li>
+					<li><a href="/{$url}/add">Добавить</a></li>
+					<li><a href="/{$url}/change">Изменить</a></li>
+					<li><a href="/{$url}/delete">Удалить →</a></li>
 				</ul>
 			</nav>
 		</div>
@@ -29,9 +29,9 @@
 							<select name="list1" id="product">
  								<option>Выберите из списка</option>
  							
- 								<?php foreach ($data["AllProducts"] as $var): ?>
-									<option value="<?=$var['id']?>"><?=$var['name']?></option>
-								<?php endforeach; ?>
+ 								{foreach $AllProducts as $var}
+									<option value="{$var.id}">{$var.name}</option>
+								{/foreach}
 							
  							</select>
 					</div>
@@ -47,9 +47,9 @@
 						<select name="list1" id="material">
  							<option>Выберите из списка</option>
  							
- 							<?php foreach ($data["AllMaterials"] as $var): ?>
-									<option value="<?=$var['id']?>"><?=$var['name']?></option>
-								<?php endforeach; ?>
+ 							{foreach $AllMaterials as $var}
+									<option value="{$var.id}">{$var.name}</option>
+							{/foreach}
 								
  						</select>
 					</div>

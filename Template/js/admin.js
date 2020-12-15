@@ -11,7 +11,6 @@ $(document).ready(function() {
 				//-------Добавить потом отображение что файл добавлен-----//
 			$('.fileUP').change(function(){
 				$(this)[0].children[0].textContent = "файл выбран";
-				console.log($(this)[0].children[0]);
 			});
 
 	//----Изменить основную информацию-----//

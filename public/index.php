@@ -85,125 +85,36 @@ $app->group('/api', function (RouteCollectorProxy $group) {
 
 $app->group('/admin', function (RouteCollectorProxy $group) {
 
-  $group->get('', function ($request, $response, array $args) {
-      $Controller = new \Controller\AController;
-      $Controller->set("admin","index",$args);
-      $Controller->run();
-      return $response
-          ->withHeader('Content-Type', 'text/html')
-          ->withStatus(200);
-        });
+  $group->get('', "\Controller\adminController:index");  //Главаня страница админки
 
-  $group->get('/login', function ($request, $response, array $args) {
-      $Controller = new \Controller\AController;
-      $Controller->set("admin","Login",$args);
-      $Controller->run();
-      return $response
-          ->withHeader('Content-Type', 'text/html')
-          ->withStatus(200);
-        });
+  $group->get('/login', "\Controller\adminController:Login");  //Страница для Авторизация в админку
 
-    $group->get('/change', function ($request, $response, array $args) {
-        $Controller = new \Controller\AController;
-        $Controller->set("admin","Change",$args);
-        $Controller->run();
-        return $response
-            ->withHeader('Content-Type', 'text/html')
-            ->withStatus(200);
-          });
-    $group->get('/add', function ($request, $response, array $args) {
-        $Controller = new \Controller\AController;
-        $Controller->set("admin","Add",$args);
-        $Controller->run();
-        return $response
-            ->withHeader('Content-Type', 'text/html')
-            ->withStatus(200);
-          });
+    $group->get('/change', "\Controller\adminController:Change");  //Страница для Изменение данныв в админке
+    
+    $group->get('/add', "\Controller\adminController:Add");  //Страница для Добавления данных в админку
           
-    $group->get('/delete', function ($request, $response, array $args) {
-	    $Controller = new \Controller\AController;
-	    $Controller->set("admin","Del",$args);
-	    $Controller->run();
-	    return $response
-	        ->withHeader('Content-Type', 'text/html')
-	        ->withStatus(200);
-	      });
+    $group->get('/delete', "\Controller\adminController:Del");  // Страница для Удаление данных в админке
 	      
 			//------API admin------//
-    $group->post('/admin.login', function ($request, $response, array $args) {
-        $Controller = new \Controller\AController;
-        $Controller->set("admin","loginAPI",$args);
-        $Controller->run();
-        return $response
-            ->withHeader('Content-Type', 'text/html')
-            ->withStatus(200);
-          });
+    $group->post('/admin.login', "\Controller\adminController:loginAPI");  //Авторизация
           
-    $group->post('/info.update', function ($request, $response, array $args) {
-        $Controller = new \Controller\AController;
-        $Controller->set("admin","InfoUpdate",$args);
-        $Controller->run();
-        return $response
-            ->withHeader('Content-Type', 'text/html')
-            ->withStatus(200);
-          });
+    $group->post('/info.update', "\Controller\adminController:InfoUpdate");  //Обновить информацию на сайте
           
           //------API admin Product------//
           
-    $group->post('/product.add', function ($request, $response, array $args) {
-        $Controller = new \Controller\AController;
-        $Controller->set("admin","AddProductAPI",$args);
-        $Controller->run();
-        return $response
-            ->withHeader('Content-Type', 'text/html')
-            ->withStatus(200);
-          });
+    $group->post('/product.add', "\Controller\adminController:AddProductAPI");  //Добавить продукт
           
-    $group->post('/product.update', function ($request, $response, array $args) {
-        $Controller = new \Controller\AController;
-        $Controller->set("admin","UpdateProductAPI",$args);
-        $Controller->run();
-        return $response
-            ->withHeader('Content-Type', 'text/html')
-            ->withStatus(200);
-          });
+    $group->post('/product.update', "\Controller\adminController:UpdateProductAPI");  //Редактировать продукт
           
-    $group->post('/product.delete', function ($request, $response, array $args) {
-        $Controller = new \Controller\AController;
-        $Controller->set("admin","DelProductAPI",$args);
-        $Controller->run();
-        return $response
-            ->withHeader('Content-Type', 'text/html')
-            ->withStatus(200);
-          });
+    $group->post('/product.delete', "\Controller\adminController:DelProductAPI");  //Удалить продукт
           
           //------API admin Material------//
           
-    $group->post('/material.add', function ($request, $response, array $args) {
-        $Controller = new \Controller\AController;
-        $Controller->set("admin","AddMaterialAPI",$args);
-        $Controller->run();
-        return $response
-            ->withHeader('Content-Type', 'text/html')
-            ->withStatus(200);
-          });
-    $group->post('/material.update', function ($request, $response, array $args) {
-        $Controller = new \Controller\AController;
-        $Controller->set("admin","UpdateMaterialAPI",$args);
-        $Controller->run();
-        return $response
-            ->withHeader('Content-Type', 'text/html')
-            ->withStatus(200);
-          });
+    $group->post('/material.add', "\Controller\adminController:AddMaterialAPI");  //Добавить материал
+    
+    $group->post('/material.update', "\Controller\adminController:UpdateMaterialAPI");  //Редактировать материал
           
-    $group->post('/material.delete', function ($request, $response, array $args) {
-        $Controller = new \Controller\AController;
-        $Controller->set("admin","DelMaterialAPI",$args);
-        $Controller->run();
-        return $response
-            ->withHeader('Content-Type', 'text/html')
-            ->withStatus(200);
-          });          
+    $group->post('/material.delete', "\Controller\adminController:DelMaterialAPI");   //Удалить материал        
 });
             //-------------------------//
 $app->run();
