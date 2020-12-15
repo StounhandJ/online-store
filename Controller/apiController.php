@@ -1,8 +1,6 @@
 <?php
 namespace Controller;
 
-
-
 class apiController extends AController
 {
 
