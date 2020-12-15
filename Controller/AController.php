@@ -3,27 +3,46 @@ namespace Controller;
 
 class AController
 {
-  protected $controller;
-  protected $method;
+  protected $request;
+  protected $response;
+  public $view;
+  public $GET;
+  public $POST;
+  public $COOKIE;
 
   function __construct()
   {
 
   }
   
-
-  function set($controll,$method,$array=NULL) //Устанавливает нужный контроллер и метод для контроллера
+  function set_request($request)
   {
-    $path = '\Controller\\'.$controll . 'Controller'; //Название файла и класса
-    $this->controller = new $path($request,$response);
-    $this->method = $method;
-    $this->args = $array;
+	$this->GET = $request->getQueryParams();
+	$this->POST = $request->getParsedBody();
+	$this->COOKIE = $request->getCookieParams();
+  	$this->request = $request;
   }
   
-  function run() //Запускает класс с нужным методом
+  function set_response($response)
   {
-    $meth = $this->method;
-    return $this->controller->$meth();
+  	$this->response = $response;
+  }
+  
+  function get_request()
+  {
+  	return $this->request;
+  }
+  
+  function get_response()
+  {
+  	return $this->response;
+  }
+  
+  function before($request, $response)
+  {
+  	$this->set_request($request);
+  	$this->set_response($response);
+  	$this->view = new \Libraries\View($this->response);
   }
 
 }

@@ -7,53 +7,50 @@ class indexController extends AController  //Контроллер для осн�
 
   function __construct()
   {
-    $this->view = new \Libraries\View();
     $this->productsPage = 9; //Товаров на одной странице
     $this->materialsPage = 12; //Материалов на одной странице
   }
   
-  //function __call($name, $args)
-  //{
-  //	echo 1212;
-  //	var_dump($response);
-  //	$this->index($request, $response);
-  //}
+  function __call($name, $args)
+  {
+  	$this->before($args[0], $args[1]);
+  	return $this->{$name}();
+  }
   
-  function index($request, $response) //Главаня страница
+  protected function index() //Главаня страница
   {
     $model = new \Model\ListGoods;
     $info = new \Model\InformationSite;
     $infoData = $info->get();
     $AllCategory = $model->getAllCategory();
-    $category = $request->getQueryParams()["category"]??$AllCategory[0];
+    $category = $this->GET["category"]??$AllCategory[0];
     $allPage = ceil($model->getSumProduct($category)/$this->productsPage);
-    $page =  $request->getQueryParams()["page"]??1;
+    $page =  $this->GET["page"]??1;
     $data = [
     	'Allcategory'=>$AllCategory,
     	'category'=>$category,
-    	"description"=>(!isset($request->getQueryParams()['category']))?$infoData["descriptionMain"]:str_replace("{name}",$category,$infoData["descriptionProduct"]),
+    	"description"=>(!isset($this->GET['category']))?$infoData["descriptionMain"]:str_replace("{name}",$category,$infoData["descriptionProduct"]),
     	'goods'=>$model->getGoods($category,$page,$this->productsPage),
-    	'goods_cart'=>json_decode($request->getCookieParams()["cart"],true) ?? [],
+    	'goods_cart'=>json_decode($this->COOKIE["cart"],true) ?? [],
     	'info'=>$info->get(),
     	'name'=>"Товары",
     	'pagination'=>$this->view->createPagination("/?category=".$category."&",$page,$allPage),
     ];
-    
     if (isset($data["goods"])) {
-        return $this->view->rendering($response,"index",$data);
+        return $this->view->rendering("index",$data);
     }
-    return $this->view->error404($response);
+    return $this->view->error404();
   }
 
-  function materials($request, $response) //Матеириалы
+  protected function materials() //Матеириалы
   {
     $model = new \Model\ListMaterials;
     $info = new \Model\InformationSite;
     $infoData = $info->get();
     $allPage = ceil($model->getSumMaterial()/$this->materialsPage);
-    $page =  $request->getQueryParams()['page']??1;
+    $page =  $this->GET['page']??1;
     $data = [
-    	'BuyMaterials'=>isset( $request->getQueryParams()["productID"]),
+    	'BuyMaterials'=>isset($this->GET["productID"]),
     	"description"=>$infoData["descriptionMaterial"],
     	"info"=>$infoData,
     	"materials"=>$model->getMaterial($page,$this->materialsPage),
@@ -61,31 +58,31 @@ class indexController extends AController  //Контроллер для осн�
     	'pagination'=>$this->view->createPagination("/materials?",$page,$allPage),
     	];
     if (isset($data["materials"])) {
-        return $this->view->rendering($response,"materials",$data);
+        return $this->view->rendering("materials",$data);
     }
-    return $this->view->error404($response);
+    return $this->view->error404();
   }
   
   
-    function montage($request, $response) //Монтаж
-    {
-    $info = new \Model\InformationSite;
+   protected function montage() //Монтаж
+   {
+   	$info = new \Model\InformationSite;
     $infoData = $info->get();
     $data = [
     	"description"=>$infoData["descriptionMontage"],
     	"info"=>$infoData,
     	"name"=>"Монтаж",
     	];
-    return $this->view->rendering($response,"montage",$data);
-  }
+    return $this->view->rendering("montage",$data);
+   }
 
-	function cart($request, $response) //Корзина
+	protected function cart() //Корзина
 	{ 
 		$info = new \Model\InformationSite;
 		$model = new \Model\ListGoods;
 		$modelMat = new \Model\ListMaterials;
 		$allProduct = [];
-		$cart = json_decode($request->getCookieParams()["cart"],true) ?? [];
+		$cart = json_decode($this->COOKIE["cart"],true) ?? [];
 		$totalPrice = 0;
 		foreach ($cart as $key=>$val) 
 		{
@@ -106,7 +103,7 @@ class indexController extends AController  //Контроллер для осн�
 			"totalPrice"=>number_format($totalPrice, 0, ',', ' ') . " р.",
 			
 			];
-		return $this->view->rendering($response,"cart",$data);
+		return $this->view->rendering("cart",$data);
 	}
 
 }

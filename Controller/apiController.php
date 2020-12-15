@@ -8,22 +8,28 @@ class apiController extends AController
 
   function __construct()
   {
-  	$this->view = new \Libraries\View();
+  	
+  }
+  
+  function __call($name, $args)
+  {
+  	$this->before($args[0], $args[1]);
+  	return $this->{$name}();
   }
   
 
-	function СartPush($request, $response)  //Отправляет заказ на почту
+	protected function СartPush()  //Отправляет заказ на почту
 	{
-	    if (!isset($request->getCookieParams()["cart"])) 
+	    if (!isset($this->COOKIE["cart"])) 
 	    {
 	      $out = ['code'=>400,'mes'=>'Корзина пуста'];
-	      return $this->view->renderingAPI($response,$out);
+	      return $this->view->renderingAPI($out);
 	    }
 	    $goods = new \Model\ListGoods;
 	    $material = new \Model\ListMaterials;
 	    $text ="";
-	    $text.=$request->getParsedBody()["name"].";\n".$request->getParsedBody()["phone"].";\n".$request->getParsedBody()["email"]."\n\n";
-	    $cart = json_decode($request->getCookieParams()["cart"],true) ?? [];
+	    $text.=$this->POST["name"].";\n".$this->POST["phone"].";\n".$this->POST["email"]."\n\n";
+	    $cart = json_decode($this->COOKIE["cart"],true) ?? [];
 	    foreach($cart as $key=>$val)
 	    {
 	    	$product = $goods->getInfoProductID($key);
@@ -39,38 +45,39 @@ class apiController extends AController
 	    	}
 	    }
 	    $price = number_format($totalPrice, 0, ',', ' ') . " р.";
-	    $text.="Итоговая цена: $price \n\nАдресс: ".$request->getParsedBody()["address"].";\nКомментарий к заказу: ".$request->getParsedBody()["comment"];
+	    $text.="Итоговая цена: $price \n\nАдресс: ".$this->POST["address"].";\nКомментарий к заказу: ".$this->POST["comment"];
 	    mail("roman.m2003@yandex.ru","Заказ",$text);
-	    unset($request->getCookieParams()['cart']);
+	    unset($this->COOKIE['cart']);
     	setcookie('cart', null, -1, '/');
     	$out = ['code'=>200,'mes'=>'Заказ успешно отправлен'];
-    	return $this->view->renderingAPI($response,$out);
+    	return $this->view->renderingAPI($out);
 	}
 
-	function AddСart($request, $response)  //Добавляет товар в корзину по id//
+	protected function AddСart()  //Добавляет товар в корзину по id//
 	{
-		$productID = $request->getParsedBody()["productID"];
+		
+		$productID = $this->POST["productID"];
 	    if (!isset($productID)) {
 	      $out = ['code'=>400,'mes'=>'Указаны не все параметры, обратитесь к документации'];
 	    }
 	    else
 	    {
-		    $cart = json_decode($request->getCookieParams()["cart"],true) ?? [];
+		    $cart = json_decode($this->COOKIE["cart"],true) ?? [];
 		    if (!array_key_exists($productID,$cart)) {
 		      $cart[$productID] = [];
 		      setcookie("cart", json_encode($cart),time()+60*60*24*7,'/');
 		    }
 		    $out = ['code'=>200,'mes'=>'Товар добавлен в корзину'];
 	    }
-	    return $this->view->renderingAPI($response,$out);
+	    return $this->view->renderingAPI($out);
 	}
   
-    function AddСartColor($request, $response)  //Добавляет товару цвет в корзине//
+    protected function AddСartColor()  //Добавляет товару цвет в корзине//
 	{
-	    $cart = json_decode($request->getCookieParams()["cart"],true) ?? [];
-	    $facadePost = $request->getParsedBody()['facade'];
-	    $productID = $request->getParsedBody()['productID'];
-	    $color = $request->getParsedBody()['color'];
+	    $cart = json_decode($this->COOKIE["cart"],true) ?? [];
+	    $facadePost = $this->POST['facade'];
+	    $productID = $this->POST['productID'];
+	    $color = $this->POST['color'];
 	    if (!isset($productID) || !isset($facadePost) || !isset($color) || !isset($cart[$productID])) {
 	      $out = ['code'=>400,'mes'=>'Указаны не все параметры, обратитесь к документации'];
 	    }
@@ -87,15 +94,15 @@ class apiController extends AController
 		    setcookie("cart", json_encode($cart),time()+60*60*24*7,'/');
 		    $out = ['code'=>200,'mes'=>'Цвет успешно добавлен'];
 	    }
-	    return $this->view->renderingAPI($response,$out);
+	    return $this->view->renderingAPI($out);
 	}
   
-     function AddСartMaterial($request, $response)  //Добавляет товару материал в корзине//
+    protected function AddСartMaterial()  //Добавляет товару материал в корзине//
 	{
-	    $cart = json_decode($request->getCookieParams()["cart"],true) ?? [];
-	    $facadePost = $request->getParsedBody()['facade'];
-	    $productID = $request->getParsedBody()['productID'];
-	    $materialID = $request->getParsedBody()['materialID'];
+	    $cart = json_decode($this->COOKIE["cart"],true) ?? [];
+	    $facadePost = $this->POST['facade'];
+	    $productID = $this->POST['productID'];
+	    $materialID = $this->POST['materialID'];
 	    if (!isset($productID) || !isset($facadePost) || !isset($materialID) || !isset($cart[$productID])) {
 	      $out = ['code'=>400,'mes'=>'Указаны не все параметры, обратитесь к документации'];
 	    }
@@ -112,27 +119,27 @@ class apiController extends AController
 		    setcookie("cart", json_encode($cart),time()+60*60*24*7,'/');
 		    $out = ['code'=>200,'mes'=>'Материал успешно добавлен'];
 	    }
-	    return $this->view->renderingAPI($response,$out);
+	    return $this->view->renderingAPI($out);
 	}
 	
-	function DelСart($request, $response)  //Удаляет товар из корзины по id//
+	protected function DelСart()  //Удаляет товар из корзины по id//
 	{
-		$productID = $request->getParsedBody()["productID"];
+		$productID = $this->POST["productID"];
 	    if (!isset($productID)) {
 	      $out = ['code'=>400,'mes'=>'Указаны не все параметры, обратитесь к документации'];
 	    }
 	    else{
-		    $cart = json_decode($request->getCookieParams()["cart"],true) ?? [];
+		    $cart = json_decode($this->COOKIE["cart"],true) ?? [];
 		    if (isset($cart[$productID])) {
 		      unset($cart[$productID]);
 		      setcookie("cart", json_encode($cart),time()+60*60*24*7,'/');
 		    }
 		    $out = ['code'=>200,'mes'=>'Товар был удален из корзины'];
 	    }
-	    return $this->view->renderingAPI($response,$out);
+	    return $this->view->renderingAPI($out);
 	}
 
-	function CategoryGet($request, $response) //Возвращает имена всех категорий//
+	protected function CategoryGet() //Возвращает имена всех категорий//
 	{
 	    $model = new \Model\ListGoods;
 	    $AllCategory = $model->getAllCategory() ?? [];
@@ -141,15 +148,15 @@ class apiController extends AController
 	      "mes"=>"ok",
 	      "data"=>$AllCategory
 	    ];
-	    return $this->view->renderingAPI($response,$out);
+	    return $this->view->renderingAPI($out);
 	}
 
-	function ProductInfo($request, $response) //Возвращает информацию о товаре по ID//
+	protected function ProductInfo() //Возвращает информацию о товаре по ID//
 	{
-	    $id= $request->getQueryParams()['id'];
+	    $id= $this->GET['id'];
 	    if (!isset($id)) {
 	      $out=['code'=>400,'mes'=>'Указаны не все параметры, обратитесь к документации',"items"=>[]];
-	      return $this->view->renderingAPI($response,$out);
+	      return $this->view->renderingAPI($out);
 	    }
 	    $model = new \Model\ListGoods;
 	    $InfoProduct = $model->getInfoProductID($id); //сколько товаров вернет из категории
@@ -163,16 +170,16 @@ class apiController extends AController
 		      "data"=>$InfoProduct
 		    ];
 	    }
-	    return $this->view->renderingAPI($response,$out);
+	    return $this->view->renderingAPI($out);
 	}
   
   
-    function MaterialInfo($request, $response) //Возвращает информацию о материале по ID//
+    protected function MaterialInfo() //Возвращает информацию о материале по ID//
 	{
-	    $id= $request->getQueryParams()['id'];
+	    $id= $this->GET['id'];
 	    if (!isset($id)) {
 	      $out=['code'=>400,'mes'=>'Указаны не все параметры, обратитесь к документации',"data"=>[]];
-	      return $this->view->renderingAPI($response,$out);
+	      return $this->view->renderingAPI($out);
 	    }
 	    $model = new \Model\ListMaterials;
 	    $InfoProduct = $model->getInfoMaterialID($id); //сколько товаров вернет из категории
@@ -186,11 +193,11 @@ class apiController extends AController
 	      "data"=>$InfoProduct
 	    ];
 	    }
-	    return $this->view->renderingAPI($response,$out);
+	    return $this->view->renderingAPI($out);
 	}
 
 
-    function InfoGet($request, $response) //Возвращает основную информацию о сайте//
+    protected function InfoGet() //Возвращает основную информацию о сайте//
 	{
 	    $model = new \Model\InformationSite;
 	    $InfoProduct = $model->get();
@@ -204,7 +211,7 @@ class apiController extends AController
 	      "data"=>$InfoProduct
 	    ];
 	    }
-	    return $this->view->renderingAPI($response,$out);
+	    return $this->view->renderingAPI($out);
 	}
 
 }

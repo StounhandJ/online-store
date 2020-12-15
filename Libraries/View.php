@@ -3,44 +3,41 @@ namespace Libraries;
 
 class View
 {
+	protected $response;
 
-	function __construct()
+	function __construct($response)	
 	{
-		}
+		$this->response = $response;
+	}
     
-    function rendering($response,$name,$data = [],$HeaderFooter = true) //Вторая версия рендеринга с использованием шабонизатора и стандарта PSR-7
+    function rendering($name,$data = [],$HeaderFooter = true) //Вторая версия рендеринга с использованием шабонизатора и стандарта PSR-7
     {
-    	$response->getBody()->write(require(__DIR__ . "/TemplateEngine.php"));
-    	return $this->codeHTML200($response);
+    	$this->response->getBody()->write(require(__DIR__ . "/TemplateEngine.php"));
+    	return $this->codeHTML200();
     }
     
-    function codeHTML200($response) //Возврат кода 200 для html
+    function codeHTML200() //Возврат кода 200 для html
 	{
-		return $response
+		return $this->response
           ->withHeader('Content-Type', 'text/html')
           ->withStatus(200);
 	}
 	
-	function error404($response) //Рендеринг страницы 404
+	function error404() //Рендеринг страницы 404
 	{
-		$this->rendering2($response,"404",[],false);
-		return $this->codeHTML200($response);
-	}
-
-	function redirect($url) //редирект
-	{
-		header('Location: /'.$url);
+		$this->rendering("404",[],false);
+		return $this->codeHTML200();
 	}
 	
-	function redirect2($response,$url) //редирект с стандартом PSR-7
+	function redirect($url) //редирект с стандартом PSR-7
 	{
-		return $response->withRedirect("/".$url);
+		return $this->response->withRedirect("/".$url);
 	}
 	
-	function renderingAPI($response,$text) //Вторая версия рендеринга с использованием шабонизатора и стандарта PSR-7
+	function renderingAPI($text) //Вторая версия рендеринга с использованием шабонизатора и стандарта PSR-7
     {
-    	$response->getBody()->write(json_encode($text,JSON_UNESCAPED_UNICODE));
-    	return $response
+    	$this->response->getBody()->write(json_encode($text,JSON_UNESCAPED_UNICODE));
+    	return $this->response
           ->withHeader('Content-Type', 'application/json')
           ->withStatus(200);
     }

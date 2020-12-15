@@ -30,8 +30,8 @@ $app->addRoutingMiddleware();
 $errorMiddleware= $app->addErrorMiddleware(true, true, true);
 $errorMiddleware->setDefaultErrorHandler(function () use ($app) {
         $response = $app->getResponseFactory()->createResponse();
-        $view = new \Libraries\View();
-        return$view->error404($response);
+        $view = new \Libraries\View($response);
+        return$view->error404();
 });
         //-------------------------------//
 
@@ -59,7 +59,7 @@ $app->group('/api', function (RouteCollectorProxy $group) {
 					//------API информации о товарах------//
 	$group->get('/info.get', "\Controller\apiController:InfoGet");  //Возвращает основную информацию о сайте
 
-  $group->get('/category.get',"\Controller\apiController:CategoryGet");  //Возвращает имена всех категорий
+	$group->get('/category.get',"\Controller\apiController:CategoryGet");  //Возвращает имена всех категорий
 
     $group->get('/product.info', "\Controller\apiController:ProductInfo");  //Возвращает информацию о товаре по ID параметры (id)
     
