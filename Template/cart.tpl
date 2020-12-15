@@ -108,7 +108,7 @@
 						<li>Адрес: 
 							<span>
 								<div class="input" style="width: 80%;">
-									<input type="text"id="address" value="" tabindex="1" style="border:0; border-radius:10px;text-align:center;outline:none;width: 100%;"/>
+									<input type="text" id="address" value="" tabindex="1" style="border:0; border-radius:10px;text-align:center;outline:none;width: 100%;"/>
 								</div>
 							</span>
 						</li>

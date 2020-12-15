@@ -1,6 +1,8 @@
 <?php
 namespace Controller;
 
+
+
 class apiController extends AController
 {
 
@@ -17,7 +19,6 @@ class apiController extends AController
 	      $out = ['code'=>400,'mes'=>'Корзина пуста'];
 	      return $this->view->renderingAPI($response,$out);
 	    }
-	    
 	    $goods = new \Model\ListGoods;
 	    $material = new \Model\ListMaterials;
 	    $text ="";
@@ -38,7 +39,7 @@ class apiController extends AController
 	    	}
 	    }
 	    $price = number_format($totalPrice, 0, ',', ' ') . " р.";
-	    $text.="Итоговая цена:".$price."\n\n".$request->getParsedBody()["address"].";\n".$request->getParsedBody()["comment"];
+	    $text.="Итоговая цена: $price \n\nАдресс: ".$request->getParsedBody()["address"].";\nКомментарий к заказу: ".$request->getParsedBody()["comment"];
 	    mail("roman.m2003@yandex.ru","Заказ",$text);
 	    unset($request->getCookieParams()['cart']);
     	setcookie('cart', null, -1, '/');

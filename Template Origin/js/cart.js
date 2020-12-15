@@ -104,11 +104,11 @@ $(document).ready(function() {
 		email = $("#email").val();
 		adress = $("#address").val();
 		comment = $("#comment").val();
-		if(name==="" || phone==="" || email==="" || adress==="" || adress==="comment") return false;
+		if(name==="" || phone==="" || email==="" || adress==="") return false;
 		formData.append('name',name);
 		formData.append('phone',phone);
 		formData.append('email',email);
-		formData.append('address',address);
+		formData.append('address',adress);
 		formData.append('comment',comment);
 		$.ajax({
 			type:'POST',

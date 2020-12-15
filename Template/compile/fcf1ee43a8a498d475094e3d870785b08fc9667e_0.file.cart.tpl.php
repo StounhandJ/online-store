@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.36, created on 2020-12-13 23:48:31
+/* Smarty version 3.1.36, created on 2020-12-15 19:27:30
   from '/home/c/cn61693/public_html/Template/cart.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.36',
-  'unifunc' => 'content_5fd67e1f056871_41266873',
+  'unifunc' => 'content_5fd8e3f27e7ae9_62100588',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'fcf1ee43a8a498d475094e3d870785b08fc9667e' => 
     array (
       0 => '/home/c/cn61693/public_html/Template/cart.tpl',
-      1 => 1607892471,
+      1 => 1608049474,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5fd67e1f056871_41266873 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5fd8e3f27e7ae9_62100588 (Smarty_Internal_Template $_smarty_tpl) {
 ?><section id="cart_items">
 	<div class="container">
 		<h2 style="width:100%;text-align:center;margin-bottom:30px;">КОРЗИНА</h2>
@@ -153,7 +153,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
 						<li>Адрес: 
 							<span>
 								<div class="input" style="width: 80%;">
-									<input type="text"id="address" value="" tabindex="1" style="border:0; border-radius:10px;text-align:center;outline:none;width: 100%;"/>
+									<input type="text" id="address" value="" tabindex="1" style="border:0; border-radius:10px;text-align:center;outline:none;width: 100%;"/>
 								</div>
 							</span>
 						</li>

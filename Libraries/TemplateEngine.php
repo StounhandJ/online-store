@@ -7,7 +7,7 @@ foreach($data as $key=>$value){
 	$smarty->assign($key, $value);
 }
 $out = "";
-$out .= $smarty->fetch('header.tpl');
+$out .= ($HeaderFooter)?$smarty->fetch('header.tpl'):"";
 $out .= $smarty->fetch($name.'.tpl');
-$out .= $smarty->fetch('footer.tpl');
+$out .= ($HeaderFooter)?$smarty->fetch('footer.tpl'):"";
 return $out;

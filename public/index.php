@@ -31,10 +31,7 @@ $errorMiddleware= $app->addErrorMiddleware(true, true, true);
 $errorMiddleware->setDefaultErrorHandler(function () use ($app) {
         $response = $app->getResponseFactory()->createResponse();
         $view = new \Libraries\View();
-        $view->rendering("404");
-        return $response
-            ->withStatus(404)
-            ->withHeader('Content-Type', 'text/html');
+        return$view->error404($response);
 });
         //-------------------------------//
 

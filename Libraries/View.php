@@ -13,7 +13,7 @@ class View
     	require(__DIR__ . "/../Template/{$name}.php");
     }
     
-    function rendering2($response,$name,$data = []) //Вторая версия рендеринга с использованием шабонизатора и стандарта PSR-7
+    function rendering2($response,$name,$data = [],$HeaderFooter = true) //Вторая версия рендеринга с использованием шабонизатора и стандарта PSR-7
     {
     	$response->getBody()->write(require(__DIR__ . "/TemplateEngine.php"));
     	return $this->codeHTML200($response);
@@ -28,7 +28,7 @@ class View
 	
 	function error404($response) //Рендеринг страницы 404
 	{
-		$this->rendering("404");
+		$this->rendering2($response,"404",[],false);
 		return $this->codeHTML200($response);
 	}
 
