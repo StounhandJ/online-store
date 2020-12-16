@@ -25,17 +25,15 @@ class apiController extends AController
 	      $out = ['code'=>400,'mes'=>'Корзина пуста'];
 	      return $this->view->renderingAPI($out);
 	    }
-	    $goods = new \Model\ListGoods;
-	    $material = new \Model\ListMaterials;
 	    $text ="";
 	    $text.=$this->POST["name"].";\n".$this->POST["phone"].";\n".$this->POST["email"]."\n\n";
 	    $cart = json_decode($this->COOKIE["cart"],true) ?? [];
 	    foreach($cart as $key=>$val)
 	    {
-	    	$product = $goods->getInfoProductID($key);
+	    	$product = $this->GoodsM->getInfoProductID($key);
 	    	$name = $product["name"];
-	    	$corpusMaterial = $material->getInfoMaterialID($val["corpusMaterial"])["name"]??"Не указано";
-	    	$facadeMaterial = $material->getInfoMaterialID($val["facadeMaterial"])["name"]??"Не указано";
+	    	$corpusMaterial = $this->MaterialsM->getInfoMaterialID($val["corpusMaterial"])["name"]??"Не указано";
+	    	$facadeMaterial = $this->MaterialsM->getInfoMaterialID($val["facadeMaterial"])["name"]??"Не указано";
 	    	$corpusColor = $val["corpusColor"]??"Не указано";
 	    	$facadeColor = $val["facadeColor"]??"Не указано";
 	    	if($product!=NULL)
@@ -141,8 +139,7 @@ class apiController extends AController
 
 	protected function CategoryGet() //Возвращает имена всех категорий//
 	{
-	    $model = new \Model\ListGoods;
-	    $AllCategory = $model->getAllCategory() ?? [];
+	    $AllCategory = $this->GoodsM->getAllCategory() ?? [];
 	    $out = [
 	      "code"=>200,
 	      "mes"=>"ok",
@@ -158,8 +155,7 @@ class apiController extends AController
 	      $out=['code'=>400,'mes'=>'Указаны не все параметры, обратитесь к документации',"items"=>[]];
 	      return $this->view->renderingAPI($out);
 	    }
-	    $model = new \Model\ListGoods;
-	    $InfoProduct = $model->getInfoProductID($id); //сколько товаров вернет из категории
+	    $InfoProduct = $this->GoodsM->getInfoProductID($id); //сколько товаров вернет из категории
 	    if (!isset($InfoProduct)) {
 	      $out=['code'=>404,'mes'=>'Данный продукт не найден',"data"=>[]];
 	    }
@@ -181,8 +177,7 @@ class apiController extends AController
 	      $out=['code'=>400,'mes'=>'Указаны не все параметры, обратитесь к документации',"data"=>[]];
 	      return $this->view->renderingAPI($out);
 	    }
-	    $model = new \Model\ListMaterials;
-	    $InfoProduct = $model->getInfoMaterialID($id); //сколько товаров вернет из категории
+	    $InfoProduct = $this->MaterialsM->getInfoMaterialID($id); //сколько товаров вернет из категории
 	    if (!isset($InfoProduct)) {
 	      $out=['code'=>404,'mes'=>'Данный продукт не найден',"data"=>[]];
 	    }
@@ -199,8 +194,7 @@ class apiController extends AController
 
     protected function InfoGet() //Возвращает основную информацию о сайте//
 	{
-	    $model = new \Model\InformationSite;
-	    $InfoProduct = $model->get();
+	    $InfoProduct = $this->InformationM->get();
 	    if (!isset($InfoProduct)) {
 	      $out=['code'=>404,'mes'=>'Данный продукт не найден',"data"=>[]];
 	    }

@@ -29,11 +29,6 @@ class View
 		return $this->codeHTML200();
 	}
 	
-	function redirect($url) //редирект с стандартом PSR-7
-	{
-		return $this->response->withRedirect("/".$url);
-	}
-	
 	function renderingAPI($text) //Вторая версия рендеринга с использованием шабонизатора и стандарта PSR-7
     {
     	$this->response->getBody()->write(json_encode($text,JSON_UNESCAPED_UNICODE));

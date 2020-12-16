@@ -19,20 +19,18 @@ class indexController extends AController  //Контроллер для осн�
   
   protected function index() //Главаня страница
   {
-    $model = new \Model\ListGoods;
-    $info = new \Model\InformationSite;
-    $infoData = $info->get();
-    $AllCategory = $model->getAllCategory();
+    $infoData = $this->InformationM->get();
+    $AllCategory = $this->GoodsM->getAllCategory();
     $category = $this->GET["category"]??$AllCategory[0];
-    $allPage = ceil($model->getSumProduct($category)/$this->productsPage);
+    $allPage = ceil($this->GoodsM->getSumProduct($category)/$this->productsPage);
     $page =  $this->GET["page"]??1;
     $data = [
     	'Allcategory'=>$AllCategory,
     	'category'=>$category,
     	"description"=>(!isset($this->GET['category']))?$infoData["descriptionMain"]:str_replace("{name}",$category,$infoData["descriptionProduct"]),
-    	'goods'=>$model->getGoods($category,$page,$this->productsPage),
+    	'goods'=>$this->GoodsM->getGoods($category,$page,$this->productsPage),
     	'goods_cart'=>json_decode($this->COOKIE["cart"],true) ?? [],
-    	'info'=>$info->get(),
+    	'info'=>$infoData,
     	'name'=>"Товары",
     	'pagination'=>$this->view->createPagination("/?category=".$category."&",$page,$allPage),
     ];
@@ -44,16 +42,14 @@ class indexController extends AController  //Контроллер для осн�
 
   protected function materials() //Матеириалы
   {
-    $model = new \Model\ListMaterials;
-    $info = new \Model\InformationSite;
-    $infoData = $info->get();
-    $allPage = ceil($model->getSumMaterial()/$this->materialsPage);
+    $infoData = $this->InformationM->get();
+    $allPage = ceil($this->MaterialsM->getSumMaterial()/$this->materialsPage);
     $page =  $this->GET['page']??1;
     $data = [
     	'BuyMaterials'=>isset($this->GET["productID"]),
     	"description"=>$infoData["descriptionMaterial"],
     	"info"=>$infoData,
-    	"materials"=>$model->getMaterial($page,$this->materialsPage),
+    	"materials"=>$this->MaterialsM->getMaterial($page,$this->materialsPage),
     	"name"=>"Материалы",
     	'pagination'=>$this->view->createPagination("/materials?",$page,$allPage),
     	];
@@ -66,30 +62,25 @@ class indexController extends AController  //Контроллер для осн�
   
    protected function montage() //Монтаж
    {
-   	$info = new \Model\InformationSite;
-    $infoData = $info->get();
     $data = [
     	"description"=>$infoData["descriptionMontage"],
-    	"info"=>$infoData,
+    	"info"=>$this->InformationM->get(),
     	"name"=>"Монтаж",
     	];
     return $this->view->rendering("montage",$data);
    }
 
 	protected function cart() //Корзина
-	{ 
-		$info = new \Model\InformationSite;
-		$model = new \Model\ListGoods;
-		$modelMat = new \Model\ListMaterials;
+	{
 		$allProduct = [];
 		$cart = json_decode($this->COOKIE["cart"],true) ?? [];
 		$totalPrice = 0;
 		foreach ($cart as $key=>$val) 
 		{
-			$product = $model->getInfoProductID($key);
+			$product = $this->GoodsM->getInfoProductID($key);
 			if(isset($product)){
-				if($cart[$key]["corpusMaterial"]){$product["corpusMaterial"] = $modelMat->getInfoMaterialID($cart[$key]["corpusMaterial"])["name"];};
-				if($cart[$key]["facadeMaterial"]){$product["facadeMaterial"] = $modelMat->getInfoMaterialID($cart[$key]["facadeMaterial"])["name"];};
+				if($cart[$key]["corpusMaterial"]){$product["corpusMaterial"] = $this->MaterialsM->getInfoMaterialID($cart[$key]["corpusMaterial"])["name"];};
+				if($cart[$key]["facadeMaterial"]){$product["facadeMaterial"] = $this->MaterialsM->getInfoMaterialID($cart[$key]["facadeMaterial"])["name"];};
 				$totalPrice += (int)str_replace([" ","р."],"",$product["price"]);
 				$product["corpusColor"] = $cart[$key]["corpusColor"];
 				$product["facadeColor"] = $cart[$key]["facadeColor"];
@@ -98,7 +89,7 @@ class indexController extends AController  //Контроллер для осн�
 		}
 		$data = [
 			"allProduct"=>$allProduct,
-			"info"=>$info->get(),
+			"info"=>$this->InformationM->get(),
 			"name"=>"Корзина",
 			"totalPrice"=>number_format($totalPrice, 0, ',', ' ') . " р.",
 			

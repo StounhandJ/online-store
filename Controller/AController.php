@@ -8,11 +8,16 @@ class AController
   public $view;
   public $GET;
   public $POST;
+  public $FILE;
   public $COOKIE;
+  public $SERVER;
+  public $InformationM;
+  public $GoodsM;
+  public $MaterialsM;
 
   function __construct()
   {
-
+  	
   }
   
   function set_request($request)
@@ -20,6 +25,8 @@ class AController
 	$this->GET = $request->getQueryParams();
 	$this->POST = $request->getParsedBody();
 	$this->COOKIE = $request->getCookieParams();
+	$this->SERVER = $request->getServerParams();
+	$this->FILE = $request->getUploadedFiles();
   	$this->request = $request;
   }
   
@@ -43,6 +50,9 @@ class AController
   	$this->set_request($request);
   	$this->set_response($response);
   	$this->view = new \Libraries\View($this->response);
+  	$this->InformationM = new \Model\InformationSite;
+  	$this->GoodsM = new \Model\ListGoods;
+  	$this->MaterialsM = new \Model\ListMaterials;
   }
 
 }
