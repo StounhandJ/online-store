@@ -46,7 +46,7 @@ class View
 		$mas = ($allPage<=2) ? $page-1:$mas;
 		$vrem = $page-$mas;
 		$last = $page-1;
-		if($page!=1){echo "<li><a href='$url$last'>«</a></li>";}
+		if($page!=1){$pagination = "<li><a href='$url$last'>«</a></li>";}
 		while($col<$mas+1){
 			if($vrem>0){
 				if($page==$vrem){$pagination.= "<li class='active'><a href='$url$vrem'>$vrem</a></li>";}
